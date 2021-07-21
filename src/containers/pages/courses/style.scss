@@ -1,0 +1,10 @@
+@import '../../../styleRoot/color.scss';
+
+.courses-page{
+    &__body{
+        
+    background-color: $--background;
+    padding: 5rem 0rem;
+    box-sizing: border-box;
+    }
+}

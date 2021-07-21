@@ -1,0 +1,169 @@
+@import "../../../../styleRoot/color.scss";
+
+.new-courses {
+  display: flex;
+  justify-content: space-between;
+  &__image {
+    flex-grow: 1;
+    overflow: hidden;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  .new-courses-body {
+    width: 50%;
+    padding: 2rem;
+
+    &__title {
+      margin-bottom: .5rem;
+      margin-top: 0rem;
+      text-align: left;
+      font-size: 2rem;
+      font-weight: bold;
+
+      color: $--text-color-bold;
+    }
+
+    .body-content {
+      display: flex;
+      flex-direction: column;
+
+      &__swiper {
+        width: 100%;
+        height: 30rem;
+        .swiper-pagination {
+          right: 0;
+        }
+      }
+    }
+
+    .body-item {
+      display: flex;
+      flex-direction: column;
+      margin-top: 4rem;
+      &:first-child {
+        margin-top: 1rem;
+      }
+      &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      &__date {
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+        color: $--gray;
+        font-weight: bold;
+
+        .high-light-circle {
+          width: 2.5rem;
+          height: 2.5rem;
+          margin: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 0.35rem;
+
+          background-color: rgba($color: $--pink, $alpha: 0.5);
+
+          border-radius: 50%;
+        }
+      }
+
+      &__content {
+        margin-top: .5rem;
+        text-align: left;
+        padding-bottom: 1rem;
+
+        .course-info {
+          &__name {
+            &:hover {
+              color: $--green-main;
+              cursor: pointer;
+            }
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+
+            color: $--text-color-bold;
+          }
+
+          &__mentor {
+            font-size: 0.7rem;
+
+            color: rgba($color: $--gray, $alpha: 0.7);
+          }
+        }
+      }
+      &__price {
+        .cover-before {
+          height: 39.19px;
+          width: 40px;
+
+          color: $--gray;
+
+          clip-path: polygon(100% 0, 40% 50%, 100% 100%);
+
+          background-color: $--danger;
+        }
+
+        .cover-after {
+          height: 39.19px;
+          width: 40px;
+
+          clip-path: polygon(60% 0, 20% 50%, 60% 100%, 0 100%, 0 0);
+
+          background-color: $--danger;
+
+          border-left: 2px solid rgba($color: $--pink, $alpha: 0.7);
+          box-sizing: border-box;
+        }
+
+        float: right;
+
+        display: flex;
+        align-items: center;
+
+        color: $--white;
+
+        p {
+          padding: 0.6rem 1rem;
+          margin: 0;
+
+          font-weight: bold;
+
+          background-color: $--danger;
+        }
+      }
+
+      &__bar {
+        &::after {
+          width: 50%;
+          height: 100%;
+
+          position: absolute;
+          content: "";
+
+          top: 0%;
+          left: 0%;
+
+          border-radius: 3px;
+
+          background-color: $--green-main;
+        }
+
+        position: relative;
+
+        width: 100%;
+        height: 5px;
+
+        border-radius: 3px;
+
+        background-color: rgba($color: $--green-main, $alpha: 0.3);
+      }
+    }
+  }
+}

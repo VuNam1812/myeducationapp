@@ -1,0 +1,33 @@
+@import "../../../styleRoot/color.scss";
+
+.header-top {
+  padding: 1rem 0rem;
+  background-color: $--background;
+  &.header--zoom-80 {
+    .header-top__item {
+      zoom: 80%;
+    }
+    .btn-log {
+      zoom: 80%;
+    }
+  }
+  &__item {
+    &-title {
+      display: inline;
+      font-weight: bold;
+      color: $--text-color-bold;
+    }
+
+    &-info {
+      margin-left: 0.5rem;
+      display: inline;
+      color: $--gray;
+    }
+  }
+
+  .btn-log {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

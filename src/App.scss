@@ -1,0 +1,20 @@
+@import "./styleRoot/grid.scss";
+@import "./styleRoot/config.scss";
+@import "swiper/swiper.min.css";
+@import "swiper/components/pagination/pagination.min.css";
+@import "swiper/components/navigation/navigation.min.css";
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-react-calendars/styles/material.css";
+.App {
+  text-align: center;
+  position: relative;
+}
+*{
+  box-sizing: border-box;
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}

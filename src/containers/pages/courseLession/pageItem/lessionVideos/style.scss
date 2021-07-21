@@ -1,0 +1,59 @@
+@import "../../../../../styleRoot/color.scss";
+
+.lession-videos {
+  position: sticky;
+
+  top: 5.5rem;
+  width: 100%;
+
+  .lecture-video {
+    &:first-child {
+      border-top: none;
+      padding-top: 0rem;
+    }
+    border-top: 1px solid rgba($color: $--gray, $alpha: 0.1);
+    padding-bottom: 0.5rem;
+    font-size: 0.8rem;
+
+    justify-content: space-between;
+    align-items: flex-start;
+    &.active {
+      .lecture-video__name {
+        color: $--green-main;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+    &__name {
+      font-weight: bold;
+      margin-bottom: 0;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    &__flex {
+      display: flex;
+      justify-content: space-between;
+      align-self: center;
+    }
+
+    .icon-status {
+      display: flex;
+      align-items: center;
+      color: $--green-main;
+    }
+
+    &__duration {
+      text-align: left;
+      margin: 0;
+      margin-top: 0.25rem;
+      .icon {
+        margin-right: 0.5rem;
+        opacity: 0.7;
+      }
+    }
+  }
+}

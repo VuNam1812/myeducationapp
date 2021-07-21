@@ -1,0 +1,122 @@
+@import "../../../../../../../styleRoot/color.scss";
+
+.modal-chapter {
+  background-color: $--white;
+  width: 35rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  &__header {
+    padding: 1rem 0rem;
+    border-bottom: 1px solid rgba($color: $--gray, $alpha: 0.2);
+    .header__title-chapter {
+      border-left: 4px solid $--text-color-bold;
+      border-right: 4px solid $--text-color-bold;
+      padding: 0.5rem;
+      margin: 0rem;
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: $--text-color-bold;
+    }
+  }
+
+  &__body {
+    padding: 2rem 1rem 0rem 1rem;
+  }
+
+  &__footer {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    .footer__btn-chapter {
+      width: 50%;
+      &-body {
+        padding: 0.75rem !important;
+      }
+    }
+  }
+}
+
+.modal-lecture {
+  background-color: $--white;
+  width: 35rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  &__header {
+    padding: 1rem 0rem;
+    border-bottom: 1px solid rgba($color: $--gray, $alpha: 0.2);
+    .header__title-lecture {
+      border-left: 4px solid $--text-color-bold;
+      border-right: 4px solid $--text-color-bold;
+      padding: 0.5rem;
+      margin: 0rem;
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: $--text-color-bold;
+    }
+  }
+
+  &__body {
+    padding: 1rem 1rem 0rem 1rem;
+    margin-bottom: 1rem;
+    .field-text {
+      margin-bottom: 0.5rem;
+    }
+
+    .lecture-body {
+      &__video-lession {
+        margin-bottom: 1.5rem;
+        .video-lession {
+          &__clip {
+            &.active {
+              display: block;
+            }
+            display: none;
+            width: 100% !important;
+            height: 18rem !important;
+            margin-bottom: 0.5rem;
+            background-color: black;
+          }
+
+          &__btn-upload {
+            width: 100%;
+            transform: none;
+          }
+        }
+      }
+      &__radio-input {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 1rem 0rem;
+        background-color: #f7f8f9;
+        border-radius: 0.5rem;
+        border: 2px solid white;
+        box-shadow: 0px 1px 2px rgba($color: $--gray, $alpha: 0.2);
+        .radio-input {
+          &__label {
+            width: 35%;
+            font-weight: bold;
+            color: $--green-main;
+          }
+
+          &__input {
+            justify-content: flex-end;
+            padding-right: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  &__footer {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    .footer__btn-lecture {
+      width: 50%;
+      &-body {
+        padding: 0.75rem !important;
+      }
+    }
+  }
+}

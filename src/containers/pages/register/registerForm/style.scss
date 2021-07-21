@@ -1,0 +1,142 @@
+@import "../../../../styleRoot/color.scss";
+
+.register-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-width: 60rem;
+  padding: 2rem;
+  box-sizing: border-box;
+
+  margin-right: 5rem;
+  transition: all 1s;
+  &.active {
+    transform: translateX(0%);
+  }
+  &.hidden {
+    transform: translateX(-110%);
+  }
+
+  &__title {
+    font-family: "Montserrat";
+    color: $--text-color-bold;
+    font-weight: 900;
+    font-size: 2.5rem;
+    margin-bottom: 0rem;
+  }
+
+  &__desc {
+    font-weight: 400;
+    margin-top: 0.5rem;
+
+    font-size: 1rem;
+    span {
+      color: $--green-main;
+    }
+  }
+  &__body-main {
+    margin: 1rem 0rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    .form-multi-input {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      .input-with-label + .input-with-label {
+        margin-left: 2rem;
+      }
+    }
+
+    .date-time {
+      margin-left: 2rem;
+      width: 100%;
+      margin-bottom: 1rem;
+      &__label {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        text-align: left;
+        font-weight: bold;
+        color: $--gray;
+      }
+
+      &__input {
+        margin-top: 0.5rem;
+        box-shadow: 0px 0px 5px rgba($color: $--gray, $alpha: 0.5);
+        padding: 0.75rem;
+        font-family: Quicksand;
+        border: none;
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+      .e-date-wrapper {
+        position: relative;
+        .e-date-icon {
+          position: absolute;
+          top: calc(50% - 0.5rem);
+          right: 0rem;
+        }
+      }
+    }
+
+    .gender {
+      margin-bottom: 0.75rem;
+      .radio-button__item {
+        transform: scale(1.2);
+      }
+    }
+
+    .confirm-condition {
+      margin-bottom: 1rem;
+      transform: scale(1.2) translateX(1.8rem);
+
+      display: flex;
+      align-items: center;
+      &__input {
+        margin-right: 0.3rem;
+      }
+      &__text {
+        margin: 0rem;
+        cursor: pointer;
+        span {
+          color: $--green-main;
+        }
+      }
+    }
+  }
+
+  &__register {
+    a {
+      cursor: pointer;
+      font-weight: bold;
+      color: $--green-main;
+      text-decoration: none;
+    }
+  }
+}
+
+@keyframes activeBlock {
+  0% {
+    transform: translateX(110%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes hiddenBlock {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-110%);
+  }
+}

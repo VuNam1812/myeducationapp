@@ -1,0 +1,215 @@
+@import "../../../styleRoot/color.scss";
+
+.course-card {
+  box-sizing: border-box;
+  border-radius: 0.75rem;
+
+  &.card--zoom-80 {
+    .cover-image {
+      zoom: 80%;
+    }
+
+    .item__body {
+      zoom: 80%;
+    }
+  }
+
+  &.item--fill-max {
+    .item {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      &__body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
+  }
+
+  .item {
+    border-radius: 0.75rem;
+    width: 100%;
+    &:hover {
+      .item__image {
+        transform: rotateZ(3deg) scale(1.05);
+      }
+    }
+
+    min-height: 10rem;
+
+    background-color: $--white;
+
+    box-shadow: 0px 0px 25px rgba($color: $--gray, $alpha: 0.2);
+    .cover-image {
+      height: 15rem;
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.75rem 0.75rem 0rem 0rem;
+    }
+
+    &__image {
+      position: absolute;
+
+      transition: all 0.3s ease-out;
+
+      top: -10%;
+      left: -10%;
+
+      height: 120%;
+      width: 120%;
+
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    &__body {
+      border-top: 1px solid rgba($color: $--gray, $alpha: 0.3);
+      padding: 1rem;
+    }
+
+    &__title {
+      text-align: left;
+
+      &-main {
+        font-size: 2rem;
+        font-weight: bold;
+        color: $--text-color-bold;
+      }
+
+      .title-main {
+        justify-content: space-between;
+        &__course-name {
+          line-height: 1.3rem;
+          margin: 0rem;
+          font-weight: 900;
+          font-family: "Montserrat";
+          opacity: 0.8;
+          font-size: 1rem;
+          text-decoration: none;
+          color: $--text-color-bold;
+          transition: all 0.3s;
+          &:hover {
+            color: $--green-main;
+          }
+        }
+        &__title-cate {
+          margin: 0;
+          font-size: 0.85rem;
+          opacity: 0.7;
+          font-weight: bold;
+          margin-top: 0.5rem;
+        }
+        &__title-teacher {
+          font-weight: 500;
+          overflow: hidden;
+          margin: 0.5rem 0;
+          color: $--blue-main;
+          text-decoration: none;
+          font-weight: bold;
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+          transition: all 0.3s;
+          &:hover {
+            color: $--danger;
+          }
+        }
+      }
+
+      &-course-price {
+        margin-top: 0.25rem;
+        color: $--green-main;
+        margin-bottom: 0rem;
+      }
+    }
+
+    &__btn-all {
+      margin-top: 3rem;
+    }
+
+    &__enroll-btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      .lecture-count {
+        font-weight: normal;
+        color: $--gray;
+        margin-bottom: 0rem;
+      }
+    }
+  }
+}
+.cover-popover {
+  zoom: 80%;
+  background-color: rgba($color: $--green-main, $alpha: 0.1);
+  font-family: "Quicksand";
+  font-size: 1rem;
+  color: $--text-color-bold;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 5px rgba($color: $--gray, $alpha: 0.3);
+  .popover-course {
+    border-radius: 0.5rem;
+    &__image {
+      width: 100%;
+      height: 15rem;
+      background-size: cover;
+      background-position: center;
+    }
+    .text--main-color {
+      color: $--green-main;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    .text--large {
+      font-size: 1.5rem;
+      color: $--warning;
+    }
+    &__name {
+      line-height: 1.3rem;
+      color: $--green-main;
+      font-weight: 900;
+      font-size: 1.2rem;
+      font-family: "Montserrat";
+    }
+
+    &__desc {
+      text-align: justify;
+      letter-spacing: 0.5px;
+      word-break: break-word;
+      font-weight: bold;
+      opacity: 0.7;
+    }
+
+    .info-course {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-group {
+      .button {
+        width: 100%;
+        margin-top: 1rem;
+        flex: 1 1 0;
+        font-size: 0.7rem;
+      }
+
+      &__favorite {
+        &.added {
+          .button__clip-path-background {
+            background-color: $--blue-main;
+          }
+        }
+      }
+    }
+  }
+}

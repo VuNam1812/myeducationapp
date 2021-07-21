@@ -1,0 +1,26 @@
+@import '../../../styleRoot/color.scss';
+
+.course-lession{
+    .lession-content{
+        position: relative;
+        display: flex;
+        .right-content{
+            display: flex;
+            flex-direction: column;
+            
+            
+            width: 70vw;
+            &__video{
+                width: 100%;
+                height: 75vh;
+                
+            }
+        }
+
+        .left-content{
+            box-sizing: border-box;
+            padding: 0rem 1rem;
+            width: 30vw;
+        }
+    }
+}

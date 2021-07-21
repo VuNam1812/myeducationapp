@@ -1,0 +1,164 @@
+@import "../../../styleRoot/color.scss";
+
+.cover-footer {
+  min-height: 40vh;
+
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-position: 50% 80%;
+  background-attachment: fixed;
+  background-size: cover;
+
+  padding: 5rem 0rem;
+
+  position: relative;
+  .logo {
+    transform: scale(2);
+  }
+
+  .leaves {
+    &.leaves--2 {
+      filter: blur(2px);
+      transform: rotateY(180deg);
+      .leaves__item {
+        img {
+          transform: scale(0.3);
+        }
+      }
+    }
+    &.leaves--3 {
+      filter: blur(4px);
+      transform: rotateX(180deg);
+      .leaves__item {
+        img {
+          transform: scale(0.4);
+        }
+      }
+    }
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    left: 0;
+
+    pointer-events: none;
+
+    &__item {
+      &:nth-child(1) {
+        will-change: transform;
+        left: 20%;
+        animation: dropLeaf;
+        animation-duration: 15s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-delay: -7s;
+      }
+      &:nth-child(2) {
+        will-change: transform;
+        left: 50%;
+        animation: dropLeaf;
+        animation-duration: 20s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-delay: -5s;
+      }
+      &:nth-child(3) {
+        will-change: transform;
+        left: 70%;
+        animation: dropLeaf;
+        animation-duration: 20s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-delay: 0s;
+      }
+      &:nth-child(4) {
+        will-change: transform;
+        left: 0%;
+        animation: dropLeaf;
+        animation-duration: 15s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-delay: -5s;
+      }
+      &:nth-child(5) {
+        will-change: transform;
+        left: 85%;
+        animation: dropLeaf;
+        animation-duration: 18s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-delay: -10s;
+      }
+      &:nth-child(6) {
+        will-change: transform;
+        left: 0%;
+        animation: dropLeaf;
+        animation-duration: 12s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+      &:nth-child(7) {
+        will-change: transform;
+        left: 15%;
+        animation: dropLeaf;
+        animation-duration: 14s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+      &:nth-child(8) {
+        will-change: transform;
+        left: 60%;
+        animation: dropLeaf;
+        animation-duration: 15s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+      img {
+        transform: scale(0.2);
+      }
+      position: absolute;
+      width: fit-content;
+      height: auto;
+    }
+  }
+}
+
+@keyframes dropLeaf {
+  0% {
+    opacity: 0;
+    top: -30%;
+    transform: translateX(20px) rotate(0deg);
+  }
+  10% {
+    opacity: 1;
+  }
+
+  20% {
+    transform: translateX(-20px) rotate(45deg);
+  }
+
+  40% {
+    transform: translateX(-20px) rotate(90deg);
+  }
+
+  60% {
+    transform: translateX(20px) rotate(180deg);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(-20px) rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    top: 110%;
+    transform: translateX(-20px) rotate(225);
+  }
+}

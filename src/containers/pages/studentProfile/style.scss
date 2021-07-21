@@ -1,0 +1,36 @@
+@import "../../../styleRoot/color.scss";
+
+.student-profile {
+  min-height: 50vh;
+
+  background-color: $--light;
+
+  padding-bottom: 2rem;
+  .wrap {
+    align-items: flex-start;
+  }
+  &__cover {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  &__course-info {
+    &.active-tabs-edit {
+      transform: translateX(calc(-100% - 4rem));
+    }
+    transition: all 1s;
+    margin-left: 2rem;
+    flex-grow: 1;
+    margin-top: 2rem;
+    display: flex;
+  }
+
+  &__tabs {
+    flex: 0 0 100%;
+    margin-right: 4rem;
+  }
+
+  &__edit {
+    flex: 0 0 100%;
+  }
+}

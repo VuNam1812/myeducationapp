@@ -1,0 +1,114 @@
+@import "../../../../../styleRoot/color.scss";
+
+.student-info {
+  margin-bottom: 5rem;
+  padding: 2rem 0rem;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background-color: $--white;
+  max-width: 20rem;
+  min-width: 20rem;
+  min-height: 40rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 0px 1px 2px rgba($color: $--dark, $alpha: 0.2);
+  .avatar {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 13rem;
+    height: 13rem;
+    border-radius: 50%;
+    margin-bottom: 8rem;
+    box-shadow: 0px 5px 10px rgba($color: $--gray, $alpha: 0.5);
+    img {
+      background-color: aliceblue;
+      box-shadow: 0px 0px 0px 5px $--white;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+    }
+
+    .btn-change-image {
+      cursor: pointer;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      position: absolute;
+      background-color: $--dark;
+      color: $--white;
+
+      bottom: 0%;
+      right: 10%;
+      transition: all 0.3s;
+      &:hover {
+        background-color: $--gray;
+      }
+    }
+  }
+
+  .info {
+    margin-top: 8rem;
+
+    &__name {
+      font-size: 1.5rem;
+      font-weight: 900;
+      font-family: "Montserrat";
+      margin: 0;
+      color: $--green-main;
+
+      text-shadow: 0px 3px 5px rgba($color: $--gray, $alpha: 0.5);
+    }
+
+    &__email {
+      margin: 0;
+      margin-top: 0.25rem;
+    }
+
+    &__role {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      opacity: 0.7;
+      .icon {
+        margin-right: 0.25rem;
+      }
+    }
+  }
+
+  .student-contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    width: 9rem;
+    transition: all 0.3s linear;
+
+    .icon {
+      opacity: 0.7;
+      &:hover {
+        opacity: 1;
+        color: $--green-main;
+      }
+    }
+  }
+
+  .btn-edit-profile {
+    margin-top: 1rem;
+  }
+
+  .cover--bottom {
+    height: 0.7rem;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: $--blue-main;
+  }
+}

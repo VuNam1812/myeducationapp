@@ -1,0 +1,19 @@
+@import "../../../styleRoot/color.scss";
+.admin-profile {
+  min-height: 100vh;
+  background-color: aliceblue;
+  &__bg {
+    z-index: 1;
+  }
+  &__body {
+    position: absolute;
+    background-color: aliceblue;
+    width: 100%;
+    top: 4rem;
+    .wrap {
+      z-index: 2;
+      position: relative;
+      max-width: 60rem;
+    }
+  }
+}

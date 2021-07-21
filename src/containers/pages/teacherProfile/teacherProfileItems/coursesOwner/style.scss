@@ -1,0 +1,313 @@
+@import "../../../../../styleRoot/color.scss";
+
+.courses-owner {
+  background-color: $--white;
+  border-radius: 1rem;
+  &__cover {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+
+    transition: all 1.2s;
+
+    &.active-view-courses {
+      transform: translateX(0%);
+    }
+
+    &.active-edit-course {
+      transform: translateX(calc(-100% - 2rem));
+    }
+  }
+  &__view-courses {
+    height: 100%;
+    overflow: hidden;
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .left-block-owner {
+      flex-grow: 1;
+      height: auto;
+      position: relative;
+      &::before {
+        width: 1px;
+        height: calc(100% - 2rem);
+        content: "";
+        background-color: rgba($color: $--gray, $alpha: 0.2);
+        position: absolute;
+        right: 0;
+        top: 1rem;
+      }
+      &__fix {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+      }
+      .filter-header {
+        font-weight: bold;
+        color: $--green-main;
+        min-height: 4rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        &::before {
+          content: "";
+          background-color: $--green-main;
+
+          width: calc(100% - 2rem);
+          height: 3px;
+
+          border-radius: 1.5px;
+          position: absolute;
+          left: 1rem;
+          bottom: 0;
+        }
+      }
+      .filter-content {
+        display: flex;
+        align-content: center;
+        flex-wrap: wrap;
+        flex-grow: 1;
+        width: 100%;
+        padding: 0rem 1rem;
+        &__item {
+          height: calc(12.5% - 1rem);
+          border-radius: 0.3rem;
+          flex-basis: calc(25% - 0.5rem);
+          margin: 0.25rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          transition: all 0.2s;
+          border: 1px solid rgba($color: $--gray, $alpha: 0);
+          opacity: 0.5;
+          &:hover {
+            border: 1px solid rgba($color: $--gray, $alpha: 0.5);
+            opacity: 1;
+            background-color: rgba($color: $--gray, $alpha: 0.1);
+            font-weight: bold;
+          }
+          &.active {
+            border: 2px solid rgba($color: $--green-main, $alpha: 0.5);
+            background-color: aliceblue;
+            font-weight: bold;
+            color: $--green-main;
+            opacity: 1;
+          }
+        }
+      }
+    }
+    .right-block-owner {
+      flex-grow: 3;
+      position: relative;
+      &__fix {
+        padding: 1rem;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      &__search {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        position: relative;
+        &-icon {
+          min-width: 3rem;
+          font-size: 1.2rem;
+          position: absolute;
+        }
+
+        &-input {
+          font-size: 1rem;
+          flex-grow: 1;
+          box-shadow: 0px 0px 5px rgba($color: $--green-main, $alpha: 0);
+          padding: 0.75rem 1rem 0.75rem 3rem;
+          border: 1px solid rgba($color: $--gray, $alpha: 0.5);
+          border-radius: 1.5rem;
+          outline: none;
+
+          transition: all 0.3s;
+          &:focus {
+            box-shadow: 0px 0px 5px rgba($color: $--green-main, $alpha: 0.5);
+            border: 1px solid rgba($color: $--green-main, $alpha: 1);
+          }
+        }
+      }
+
+      &__list-course {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-grow: 1;
+        .list-course {
+          &__headers {
+            padding: 1rem 0rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            &__title {
+              margin-bottom: 0.5rem;
+              position: relative;
+
+              font-weight: 500;
+              color: $--green-main;
+              &::before {
+                position: absolute;
+                width: 50%;
+                height: 3px;
+
+                content: "";
+                background-color: $--green-main;
+                left: 0;
+                bottom: -0.5rem;
+                border-radius: 1.5px;
+              }
+            }
+
+            &__btn-add {
+              .button__clip-path-color {
+                border-radius: 0.3rem;
+              }
+              .body-button {
+                padding: 0.5rem 1.5rem;
+                color: $--white;
+              }
+            }
+          }
+
+          &__content {
+            flex-grow: 1;
+            .empty-course {
+              width: 100%;
+              height: 100%;
+
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              border-radius: 0.5rem;
+              font-size: 0.85rem;
+              background-color: $--light;
+
+              font-style: italic;
+              opacity: 0.7;
+            }
+            .swiper-container {
+              padding: 2.5px;
+            }
+            &-block-courses {
+              height: 100%;
+
+              .slide-item {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 0.25rem;
+                background-color: $--white;
+                height: 99%;
+                border-radius: 0.5rem;
+                box-shadow: 0px 0px 5px rgba($color: $--dark, $alpha: 0.2);
+                .text-main {
+                  font-weight: bold;
+                  color: $--green-main;
+                }
+                p {
+                  margin: 0;
+                }
+                .text-danger {
+                  font-weight: bold;
+                  color: $--danger;
+                }
+                .text-warning {
+                  font-weight: bold;
+                  color: $--warning;
+                }
+
+                &__image {
+                  min-height: 40%;
+                  background-size: cover;
+                  background-position: 50% 100%;
+                  background-repeat: no-repeat;
+                  border-radius: 0.25rem 0.25rem 0rem 0rem;
+                }
+
+                &__flex {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+                  flex-grow: 1;
+                  padding-bottom: 0.5rem;
+                }
+
+                &__body {
+                  display: flex;
+                  flex-direction: column;
+                  flex-grow: 1;
+                  justify-content: space-between;
+                  padding: 0.75rem;
+                  &-title {
+                    &:hover {
+                      color: $--blue-main;
+                    }
+                    text-decoration: none;
+                    cursor: pointer;
+                    transition: all 0.3s;
+                    -webkit-text-size-adjust: auto;
+                    margin: 0;
+                    text-align: left;
+                    font-size: 1vw;
+                    font-weight: 900;
+                    font-family: "Montserrat";
+                    color: $--green-main;
+                  }
+
+                  &-time {
+                    font-size: 0.8vw;
+                    text-align: left;
+                    margin: 0.5rem 0rem;
+                  }
+
+                  &-info-course {
+                    font-size: 0.9vw;
+                    .block-flex-horizontal {
+                      display: flex;
+                      justify-content: space-between;
+                    }
+                  }
+
+                  &-btn {
+                    width: 100%;
+                    .button__clip-path-color {
+                      border-radius: 0.3rem;
+                    }
+                  }
+
+                  &-content-btn {
+                    padding: 0.5rem;
+                    color: $--white;
+                    p {
+                      font-size: 0.75rem;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

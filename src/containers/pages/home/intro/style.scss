@@ -1,0 +1,9 @@
+@import '../../../../styleRoot/color.scss';
+
+.intro{
+    position: relative;
+    background-color: $--blue-main;
+    .wrap{
+        flex-direction: column;
+    }
+}

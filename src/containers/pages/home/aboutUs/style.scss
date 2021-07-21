@@ -1,0 +1,45 @@
+@import '../../../../styleRoot/color.scss';
+
+.about-us{
+    padding: 8rem 0rem;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    &__background{
+        position: absolute;
+
+        top: 39%;
+        height: 61%;
+        width: 100%;
+        z-index: -1;
+
+        flex: 1 1 0;
+        background-color: $--background;
+    }
+
+    &__content{
+        text-align: left;
+
+        padding-left: 5rem;
+
+        &-title{
+            font-size: 2.5rem;
+            font-weight: bolder;
+            margin-bottom: 0rem;
+
+
+        }
+
+        &-btn{
+            margin-top: 3rem;
+            
+            width: fit-content;
+        }
+
+        &-icon{
+            margin-left: 0.5rem;
+        }
+    }
+}

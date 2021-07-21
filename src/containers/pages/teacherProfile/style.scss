@@ -1,0 +1,114 @@
+@import "../../../styleRoot/color.scss";
+
+.teacher-profile {
+  display: flex;
+
+  &__left-content {
+    min-width: 15rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem 1rem;
+
+    .left-content__menu {
+      margin-top: 5rem;
+      width: 100%;
+      text-align: left;
+      &-item {
+        &.active {
+          font-weight: bold;
+          color: $--green-main;
+          opacity: 1;
+          background-color: aliceblue;
+          border-radius: 1rem 0rem 0rem 1rem;
+          border-right: 3px solid;
+        }
+        cursor: pointer;
+        padding: 1rem 0rem 1rem 1rem;
+        display: flex;
+        align-items: center;
+
+        transition: all 0.2s ease;
+        opacity: 0.5;
+        margin-bottom: 1rem;
+        .icon {
+          font-size: 1.5rem;
+          width: 3rem;
+        }
+      }
+    }
+  }
+
+  &__right-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    .header-profile {
+      max-height: 3rem;
+      min-height: 3rem;
+      width: 100%;
+      &__btn-logout {
+        width: fit-content;
+        float: right;
+        margin-right: 1rem;
+        margin-top: 1rem;
+        cursor: pointer;
+        .icon {
+          transition: all 0.3s;
+        }
+        &:hover {
+          .icon {
+            color: $--green-main;
+          }
+        }
+      }
+    }
+
+    .body-profile {
+      flex-grow: 1;
+      position: relative;
+      padding: 1rem;
+      &__background {
+        box-shadow: inset 0px 0px 25px #ffffff;
+        border-radius: 1rem;
+        backdrop-filter: blur(2px);
+        width: 100%;
+        height: 100%;
+        background-color: rgba($color: $--dark, $alpha: 0.1);
+        padding: 2rem;
+
+        .cover-flex {
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          height: 100%;
+        }
+      }
+
+      &__content-info {
+        &.hidden {
+          transform: translateY(100%);
+        }
+        &.active {
+          transform: translateY(0%);
+          transition-delay: 0.6s;
+        }
+        transition: transform 0.5s ease-out;
+        flex: 1 0 100%;
+      }
+
+      &__content-courses {
+        &.hidden {
+          transform: translateY(0%);
+        }
+        &.active {
+          transform: translateY(-100%);
+          transition-delay: 0.6s;
+        }
+        transition: transform 0.5s ease-out;
+        flex: 1 0 100%;
+      }
+    }
+  }
+}

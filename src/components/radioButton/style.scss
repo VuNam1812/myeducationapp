@@ -1,0 +1,20 @@
+@import "../../styleRoot/color.scss";
+
+.radio-button {
+  display: flex;
+  width: 100%;
+
+  &__item + &__item {
+    margin-left: 1.5rem;
+  }
+
+  &__item {
+      
+      display: flex;
+      align-items: center;
+      &-text {
+        cursor: pointer;
+      margin-left: 0.25rem;
+    }
+  }
+}

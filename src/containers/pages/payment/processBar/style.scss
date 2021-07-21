@@ -1,0 +1,44 @@
+@import "../../../../styleRoot/color.scss";
+
+.process-bar {
+  display: flex;
+  width: 100%;
+
+  justify-content: space-between;
+  align-items: center;
+  &__item {
+    &.active {
+      font-weight: bold;
+      color: $--green-main;
+      .item__name {
+        opacity: 1;
+      }
+    }
+
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    .item {
+      &__image {
+        zoom: 20%;
+      }
+
+      &__name {
+        opacity: 0.5;
+        margin: 0;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  &__bar {
+    height: 2px;
+    border-radius: 1px;
+    background-color: rgba($color: $--gray, $alpha: 0.2);
+    margin: 0rem 1rem;
+    flex-grow: 1;
+    &.active {
+      background-color: $--green-main;
+    }
+  }
+}

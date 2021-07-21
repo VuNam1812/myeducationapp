@@ -1,0 +1,55 @@
+@import "../../../../styleRoot/color.scss";
+
+.complete-payment {
+  flex: 0 0 100%;
+  font-size: 0.85rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .text--main {
+    font-weight: bold;
+    color: $--green-main;
+  }
+  &__icon-confirm {
+    width: 3rem;
+    height: 3rem;
+    background-color: aliceblue;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: $--green-main;
+  }
+
+  &__title {
+    margin-bottom: 0rem;
+    font-size: 1.2rem;
+    opacity: 0.8;
+    font-weight: 500;
+  }
+
+  &__desc {
+    &.desc--bold {
+        margin-top: 2rem;
+      opacity: 0.9;
+      font-weight: bold;
+    }
+    margin-top: 0rem;
+    width: 75%;
+    opacity: 0.5;
+    .icon {
+      margin: 0rem 0.5rem;
+      color: $--green-main;
+    }
+  }
+
+  &__btn-group {
+    display: flex;
+    margin-top: 0.5rem;
+    .button + .button {
+      margin-left: 2rem;
+    }
+  }
+}

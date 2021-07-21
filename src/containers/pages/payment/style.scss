@@ -1,0 +1,23 @@
+@import "../../../styleRoot/color.scss";
+
+.payment {
+  &-body {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+
+    transition: all 1s;
+    &.active--1{
+      transform: translateX(0%);
+    }
+
+    &.active--2{
+      transform: translateX(-100%);
+    }
+    .wrap {
+      overflow: hidden;
+      flex-direction: column;
+      width: 70%;
+    }
+  }
+}

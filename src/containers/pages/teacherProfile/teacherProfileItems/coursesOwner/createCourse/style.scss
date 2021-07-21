@@ -1,0 +1,44 @@
+@import "../../../../../../styleRoot/color.scss";
+
+.create-course {
+  background-color: $--white;
+  width: 40rem;
+  zoom: 80%;
+  border-radius: 0.5rem;
+  text-align: center;
+  &__header {
+    padding: 1rem 0rem;
+    border-bottom: 1px solid rgba($color: $--gray, $alpha: 0.5);
+    &-title {
+      margin: 0;
+      border-right: 4px solid $--blue-main;
+      border-left: 4px solid $--blue-main;
+      padding: 0.5rem;
+      font-weight: bold;
+      font-size: 1.25rem;
+
+      color: $--text-color-bold;
+    }
+  }
+  &__body {
+    padding: 1rem 1rem 0rem 1rem;
+    .body{
+        &__input-field{
+            margin-bottom: .5rem;
+        }
+    }
+  }
+
+  &__footer {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    display: flex;
+    justify-content: center;
+    &-btn {
+      width: 40%;
+      &-body {
+        padding: 0.75rem !important;
+      }
+    }
+  }
+}

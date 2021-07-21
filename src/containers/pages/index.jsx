@@ -1,0 +1,11 @@
+export { Home } from "./home/home";
+export { Login } from "./login/login";
+export { Register } from "./register/register";
+export { Courses } from "./courses/courses";
+export { CourseDetail } from "./courseDetail/courseDetail";
+export { CourseLession } from "./courseLession/courseLession";
+export { InstructorDetail } from "./instructorDetail/instructorDetail";
+export { StudentProfile } from "./studentProfile/studentProfile";
+export { TeacherProfile } from "./teacherProfile/teacherProfile";
+export { AdminProfile } from "./adminProfile/adminProfile";
+export { Payment } from './payment/payment';

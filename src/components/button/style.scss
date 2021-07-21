@@ -1,0 +1,307 @@
+@import "../../styleRoot/color.scss";
+
+$--start: 100%;
+$--end: 0%;
+
+.button {
+  display: flex;
+
+  width: fit-content;
+  position: relative;
+  transition: all 0.5s ease;
+  &__clip-path-background {
+    position: absolute;
+    background-color: $--green-main;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 2rem;
+
+    transition: all 0.3s;
+  }
+
+  &__clip-path-color {
+    position: absolute;
+    background-color: transparent;
+
+    width: 100%;
+    height: 100%;
+
+    clip-path: inset(50% 0 50% 0);
+
+    border-radius: 2rem;
+
+    transition: all 0.5s ease;
+  }
+
+  .btn-body {
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    cursor: pointer;
+
+    font-weight: bold;
+    color: $--white;
+
+    padding: 1rem 3rem;
+    border-radius: 2rem;
+
+    box-shadow: 0px 3px 3px rgba($color: $--gray, $alpha: 0.5);
+
+    background-color: transparent;
+
+    transition: all 0.3s;
+    &__content {
+      margin: 0;
+      font-size: 1rem;
+    }
+  }
+
+  //---------------Style---------------\\
+  &.btn-smaller {
+    .btn-body {
+      padding: 0.5rem 2rem;
+      &__content {
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  &.btn--none {
+    .button__clip-path-background {
+      background-color: transparent;
+    }
+    .btn-body {
+      font-weight: bold;
+      color: $--text-color-bold;
+      cursor: pointer;
+      margin-right: 2rem;
+
+      border-radius: 0;
+      background-color: transparent;
+      box-shadow: none;
+      padding: 1rem 0rem;
+      &:hover {
+        color: $--green-main;
+        background-color: transparent;
+
+        .button__clip-path-background {
+          background-color: transparent !important;
+        }
+      }
+    }
+  }
+
+  &.btn--color-white {
+    &.active {
+      .button__clip-path-background {
+        background-color: $--green-main;
+      }
+      .btn-body {
+        color: $--white;
+      }
+    }
+    &:hover {
+      .button__clip-path-background {
+        background-color: $--green-main;
+      }
+      .btn-body {
+        color: $--white;
+      }
+    }
+    .button__clip-path-background {
+      background-color: $--white;
+    }
+    .btn-body {
+      color: $--green-main;
+    }
+  }
+
+  &.btn--hover-change-color:hover {
+    .button__clip-path-background {
+      background-color: $--blue-main;
+    }
+    .btn-body {
+      color: $--white;
+    }
+  }
+
+  &.btn--hover-vertical-change-color:hover {
+    transform: scale(1.2) translateY(-0.3rem);
+    .button__clip-path-background {
+      background-color: $--green-main;
+    }
+
+    .button__clip-path-color {
+      background-color: $--white;
+      clip-path: inset(-1% 0 -1% 0);
+    }
+    .btn-body {
+      color: $--green-main;
+    }
+  }
+
+  &.btn--hover-vertical-change-color-reverse:hover {
+    transform: scale(1.2) translateY(-0.3rem);
+    .button__clip-path-background {
+      background-color: $--white;
+    }
+
+    .button__clip-path-color {
+      background-color: $--green-main;
+      clip-path: inset(-1% 0 -1% 0);
+    }
+    .btn-body {
+      color: $--white;
+    }
+  }
+
+  &.btn--hover-horizontal-change-color {
+    &:hover {
+      .button__clip-path-color {
+        animation: horizontal_clippath;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: initial;
+      }
+    }
+    .button__clip-path-color {
+      background-color: $--blue-main;
+      animation: horizontal_clippath-reverse;
+      animation-duration: 0.5s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: initial;
+    }
+  }
+
+  &.btn-afer-rounded {
+    .btn-body {
+      padding: 2rem 2rem;
+      border-radius: 50%;
+      color: $--green-main;
+    }
+    .button__clip-path-color {
+      position: absolute;
+      background-color: $--white;
+
+      width: 100%;
+      height: 100%;
+
+      clip-path: inset(0 0 0 0);
+
+      border-radius: 50%;
+    }
+
+    .button__clip-path-background {
+      background-color: $--white;
+
+      top: 0;
+      left: 0;
+
+      border-radius: 50%;
+
+      animation: fade_out_circle;
+      animation-iteration-count: infinite;
+      animation-fill-mode: forwards;
+      animation-duration: 5s;
+      animation-timing-function: ease-out;
+    }
+
+    &::after {
+      position: absolute;
+      content: "";
+
+      border-radius: 50%;
+
+      width: 100%;
+      height: 100%;
+
+      background-color: $--white;
+
+      animation: fade_out_circle;
+      animation-iteration-count: infinite;
+      animation-fill-mode: forwards;
+      animation-delay: 0.9s;
+      animation-duration: 5s;
+      animation-timing-function: ease-out;
+    }
+    &::before {
+      position: absolute;
+      content: "";
+
+      top: 0;
+      left: 0;
+
+      border-radius: 50%;
+
+      width: 100%;
+      height: 100%;
+
+      background-color: $--white;
+
+      animation: fade_out_circle;
+      animation-iteration-count: infinite;
+      animation-fill-mode: forwards;
+      animation-delay: 0.6s;
+      animation-duration: 5s;
+      animation-timing-function: ease-out;
+    }
+  }
+
+  &.btn--square {
+    .button__clip-path-background {
+      border-radius: 0.3rem;
+    }
+
+    .button__clip-path-color {
+      border-radius: 0.3rem;
+    }
+    .btn-body {
+      padding: 1rem;
+      border-radius: 0.3rem;
+      color: $--text-color-bold;
+    }
+  }
+}
+
+@keyframes horizontal_clippath {
+  0% {
+    clip-path: inset(0% 100% 0% 0%);
+  }
+
+  100% {
+    clip-path: inset(0% 0% 0% 0%);
+  }
+}
+
+@keyframes horizontal_clippath-reverse {
+  0% {
+    clip-path: inset(0% 0% 0% 0%);
+  }
+
+  100% {
+    clip-path: inset(0% 0% 0% 100%);
+  }
+}
+
+@keyframes fade_out_circle {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+
+  35% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}

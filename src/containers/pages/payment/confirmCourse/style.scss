@@ -1,0 +1,128 @@
+@import "../../../../styleRoot/color.scss";
+
+.confirm-course {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  .info-payment {
+    flex-grow: 1;
+    text-align: left;
+    padding-right: 2rem;
+    &__title {
+      font-size: 1.2rem;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    &__course-pay {
+      display: flex;
+      justify-content: space-between;
+      margin: 1rem 0rem;
+      .course-pay {
+        &__image {
+          min-width: 15rem;
+          max-width: 15rem;
+          min-height: 10rem;
+          max-height: 10rem;
+          background-size: cover;
+          background-position: 50% 100%;
+          background-repeat: no-repeat;
+          border-radius: 0.5rem;
+          box-shadow: 0px 3px 5px black;
+        }
+
+        &__body-content {
+          font-size: 0.85rem;
+          flex-grow: 1;
+          padding-left: 1rem;
+          .body-content {
+            &__title-course {
+              display: block;
+              text-decoration: none;
+              font-weight: bold;
+              margin: 0;
+              color: $--blue-main;
+              font-size: 1rem;
+              transition: all 0.3s;
+              cursor: pointer;
+              &:hover {
+                color: $--green-main;
+              }
+            }
+
+            &__teacher-name {
+              display: block;
+              text-decoration: none;
+              margin: 0;
+              color: $--dark;
+              span {
+                font-weight: bold;
+                color: $--green-main;
+                transition: all 0.3s;
+                cursor: pointer;
+                &:hover {
+                  color: $--warning;
+                }
+              }
+            }
+
+            &__price-course {
+              span {
+                font-weight: bold;
+                margin: 0;
+                margin-top: 0.5rem;
+                color: $--danger;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &__noticed {
+      font-size: 0.8rem;
+      font-weight: bold;
+      font-style: italic;
+      color: $--green-main;
+      margin: 0;
+    }
+  }
+
+  .user-payment {
+    width: 30%;
+    background-color: white;
+    border-radius: 0.3rem;
+    box-shadow: 0px 2px 4px rgba($color: $--dark, $alpha: 0.2);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.5rem;
+
+    font-size: 0.85rem;
+    &__title {
+      margin: 0.25rem;
+      font-weight: bold;
+      opacity: 0.7;
+    }
+
+    &__info {
+      flex-grow: 1;
+      text-align: left;
+      padding-left: 1rem;
+      .info__item {
+        margin: 0.5rem 0rem;
+        .icon {
+          margin-right: 0.5rem;
+          color: $--green-main;
+        }
+      }
+    }
+
+    &__btn-pay {
+      width: 100%;
+    }
+  }
+}

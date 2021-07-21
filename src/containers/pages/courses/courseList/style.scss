@@ -1,0 +1,383 @@
+@import "../../../../styleRoot/color.scss";
+
+.course-list {
+  width: 100%;
+  min-height: 100vh;
+  &__header {
+    font-size: 2rem;
+    font-weight: 900;
+    color: $--text-color-bold;
+    text-align: left;
+    font-family: "Montserrat";
+
+    position: relative;
+
+    &::after {
+      content: "";
+
+      position: absolute;
+
+      top: 120%;
+      left: 0%;
+
+      width: 50%;
+      height: 5px;
+
+      border-radius: 2.5px;
+      background-color: $--green-main;
+    }
+  }
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    .body-list {
+      flex-grow: 1;
+
+      margin-right: 2rem;
+      &__filter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 1rem;
+
+        &-select {
+          width: 30rem;
+        }
+
+        .btn-filter-list {
+          .button + .button {
+            margin-left: 1rem;
+          }
+
+          &__btn {
+            &.active {
+              background: $--green-main;
+              color: $--white;
+              border-radius: 0.5rem;
+            }
+            transition: all 0.3s;
+          }
+
+          display: flex;
+        }
+      }
+
+      &__content {
+        .courses {
+          display: flex;
+          flex-wrap: wrap;
+          &-item {
+            &.item--verticle {
+              &:nth-child(1) {
+                margin-left: 0rem;
+              }
+              &:nth-child(4) {
+                margin-left: 0rem;
+              }
+              &:nth-child(7) {
+                margin-left: 0rem;
+              }
+              &:nth-child(3) {
+                margin-right: 0rem;
+              }
+              &:nth-child(6) {
+                margin-right: 0rem;
+              }
+              &:nth-child(9) {
+                margin-right: 0rem;
+              }
+
+              width: calc(calc(100% / 3) - 0.67rem);
+              flex-direction: column;
+
+              &:hover {
+                .courses-item__image {
+                  transform: rotateZ(3deg) scale(1.05);
+                }
+              }
+
+              .cover-image {
+                border-radius: 0.5rem 0.5rem 0rem 0rem;
+              }
+
+              .courses-item {
+                &__body {
+                  border-top: 1px solid rgba($color: $--gray, $alpha: 0.2);
+                }
+              }
+            }
+
+            &.item--horizontal {
+              width: 100%;
+              padding: 0.5rem;
+              margin: 0rem;
+              margin-bottom: 1rem;
+              &:hover {
+                .courses-item__image {
+                  transform: scale(1.1);
+                }
+              }
+
+              .text--warning {
+                color: $--warning;
+              }
+
+              .text--info {
+                color: $--blue-main;
+              }
+
+              .cover-image {
+                min-width: 20rem;
+                max-width: 20rem;
+                height: auto;
+                border-radius: 0.5rem;
+                box-shadow: 0px 0px 7px rgb(128 128 128 / 50%);
+              }
+
+              .courses-item {
+                &__body {
+                  padding: 0;
+                  padding-left: 1rem;
+                }
+                &__title {
+                  flex-grow: 1;
+                  .title-main {
+                    height: 100%;
+                    &__course-nam {
+                      font-size: 1.2rem;
+                    }
+
+                    &__cat-name {
+                      margin: 0;
+                      margin-top: 0.5rem;
+                    }
+
+                    &__sub-info {
+                      display: flex;
+                      width: 25%;
+                      justify-content: space-between;
+                      font-weight: bold;
+                      p {
+                        margin: 0;
+                      }
+                    }
+                  }
+                }
+
+                &__enroll-btn {
+                  .lecture-count {
+                    margin: 0;
+                  }
+                }
+              }
+            }
+
+            border-radius: 0.5rem;
+            display: flex;
+
+            justify-content: space-between;
+
+            box-sizing: border-box;
+            flex-grow: 1 1 0;
+
+            margin: 0rem 0.5rem;
+            margin-bottom: 1rem;
+
+            min-height: 10rem;
+
+            background-color: $--white;
+
+            box-shadow: 0px 0px 25px rgba($color: $--gray, $alpha: 0.2);
+            .cover-image {
+              height: 15rem;
+              position: relative;
+              overflow: hidden;
+            }
+            &__image {
+              position: absolute;
+
+              transition: all 0.3s ease-out;
+
+              top: -10%;
+              left: -10%;
+
+              height: 120%;
+              width: 120%;
+
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+
+            &__body {
+              padding: 1rem;
+              flex-grow: 1;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+            }
+
+            &__title {
+              text-align: left;
+              flex-grow: 1;
+              &-main {
+                font-size: 2rem;
+                font-weight: bold;
+
+                color: $--text-color-bold;
+              }
+
+              .title-main {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                &__course-name {
+                  font-weight: bold;
+                  font-size: 1.2rem;
+                  text-decoration: none;
+                  color: $--dark;
+                  margin: 0rem;
+                  cursor: pointer;
+                  transition: all 0.3s;
+                  &:hover {
+                    color: $--green-main;
+                  }
+                }
+                &__course-price {
+                  color: $--green-main;
+                  margin: 0rem;
+                  margin-top: 0.25rem;
+                }
+
+                &__cat-name {
+                  margin: 0;
+                  margin-top: 0.5rem;
+                }
+
+                &__teacher-name {
+                  margin-bottom: 0;
+                  margin-top: 0.5rem;
+                  a {
+                    text-decoration: none;
+                    font-weight: bold;
+                    color: $--green-main;
+                    cursor: pointer;
+                    transition: all 0.3s;
+                    &:hover {
+                      color: $--blue-main;
+                    }
+                  }
+                }
+
+                &__sub-info {
+                  &.hidden {
+                    display: none;
+                  }
+                }
+              }
+            }
+
+            &__btn-all {
+              margin-top: 3rem;
+            }
+
+            &__enroll-btn {
+              display: flex;
+              justify-content: space-between;
+              align-items: flex-end;
+
+              .lecture-count {
+                font-weight: normal;
+                color: $--gray;
+                margin-bottom: 0rem;
+              }
+            }
+          }
+        }
+
+        .pagination {
+          height: 3rem;
+          display: flex;
+
+          text-align: center;
+
+          &__item {
+            &--active {
+              background-color: $--green-main;
+              color: $--white;
+
+              width: 5rem;
+
+              box-shadow: 0px 3px 3px rgba($color: $--gray, $alpha: 0.5);
+            }
+            transition: 0.3s;
+
+            width: 3rem;
+
+            border-radius: 1.5rem;
+            color: $--gray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 1.2rem;
+            font-weight: bold;
+
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .filter-by {
+      height: fit-content;
+
+      padding: 2rem;
+      box-sizing: border-box;
+
+      background-color: $--white;
+
+      text-align: left;
+
+      box-shadow: 0px 3px 10px rgba($color: $--gray, $alpha: 0.5);
+
+      &__header {
+        margin-top: 0rem;
+        font-size: 2rem;
+        font-weight: 900;
+        font-family: "Montserrat";
+        color: $--text-color-bold;
+      }
+
+      &__content {
+        .content-items {
+          &__title {
+            font-weight: bold;
+
+            color: rgba($color: $--gray, $alpha: 0.7);
+          }
+          &__body {
+            margin-left: 2rem;
+            display: flex;
+            flex-direction: column;
+            &-item {
+              margin-top: 0.5rem;
+              display: flex;
+              align-items: center;
+              span {
+                margin-left: 0.5rem;
+                font-weight: bold;
+                color: rgba($color: $--gray, $alpha: 0.5);
+              }
+              .checkbox {
+                margin-right: 0.5rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

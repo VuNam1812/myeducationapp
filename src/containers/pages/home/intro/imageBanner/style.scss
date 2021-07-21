@@ -1,0 +1,9 @@
+.image-banner{
+
+    margin-top: 5rem;
+    transition: all 0.5s cubic-bezier(0.01, 0.98, 0.52, 0.99) 0s;
+    &:hover{
+        transform: scale3d(1,1,1);
+    }
+
+}

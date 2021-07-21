@@ -1,0 +1,157 @@
+@import "../../../styleRoot/color.scss";
+
+.instructor-detail {
+  .body-page {
+    &__header {
+      .wrap {
+        height: 28vh;
+      }
+      color: $--white;
+      min-height: 35vh;
+      background: linear-gradient(
+        0deg,
+        $--dark 5%,
+        $--blue-main 40%,
+        $--dark 95%
+      );
+      .instructor__summary {
+        height: 100%;
+        display: flex;
+
+        align-items: flex-end;
+        &-image {
+          min-width: 8rem;
+          min-height: 8rem;
+          background-color: aliceblue;
+          border-radius: 50%;
+          background-size: cover;
+          background-position: center;
+          box-sizing: border-box;
+          box-shadow: 0 0 0 4px $--white;
+          margin-right: 2rem;
+        }
+
+        .summary-text {
+          text-align: left;
+          &__name {
+            font-weight: bold;
+            font-size: 2rem;
+
+            margin: 0rem;
+            margin-bottom: 0.5rem;
+          }
+
+          &__major {
+            margin: 0rem;
+          }
+        }
+      }
+      .instructor__intro-achieve {
+        height: 100%;
+        display: flex;
+
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 35%;
+        p {
+          margin: 0;
+        }
+        .achieve-item {
+          display: flex;
+
+          flex-direction: column;
+
+          align-items: center;
+
+          font-weight: 900;
+          font-size: 0.8rem;
+          font-family: "Montserrat";
+
+          &__count {
+            font-size: 2rem;
+            .text--smaller {
+              font-size: 1rem;
+
+              .icon {
+                color: $--green-main;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &__content {
+      min-height: 50vh;
+      background-color: $--background;
+
+      .wrap {
+        flex-direction: column;
+        padding: 2rem 2rem;
+      }
+      .section-title {
+        font-weight: bold;
+
+        color: $--text-color-bold;
+        font-size: 1.3rem;
+
+        text-align: left;
+      }
+      .block-courses {
+        display: flex;
+        width: 100%;
+        .card-course + .card-course {
+          margin-left: 2rem;
+        }
+        .swiper-pagination {
+          bottom: 0%;
+        }
+
+        .swiper-wrapper {
+          align-items: stretch;
+        }
+        .slide-item {
+          height: auto;
+          &__card {
+            height: 100%;
+            width: 100%;
+            display: block;
+            font-size: 70%;
+          }
+        }
+      }
+
+      .text-html {
+        text-align: left;
+        width: 60%;
+        margin-left: 2rem;
+        line-height: 1.3rem;
+        p span {
+          font-family: "Quicksand" !important;
+        }
+
+        ul {
+          padding-left: 1rem;
+        }
+      }
+
+      .block-empty {
+        font-style: italic;
+        opacity: 0.8;
+        text-align: left;
+        margin-left: 2rem;
+      }
+      .instructor__intro {
+        width: 100%;
+      }
+
+      .instructor__technique {
+        width: 100%;
+      }
+
+      .instructor__courses {
+        width: 100%;
+      }
+    }
+  }
+}

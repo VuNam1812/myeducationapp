@@ -1,0 +1,217 @@
+@import "../../../../styleRoot/color.scss";
+
+.skeleton-courses {
+  display: flex;
+  justify-content: space-between;
+
+  &.vertical {
+    flex-wrap: wrap;
+    .skeleton-courses__item {
+      min-height: 28rem;
+      flex: 0 1 32%;
+
+      .item {
+        &__image {
+          min-height: 15rem;
+          border-radius: 0.5rem 0.5rem 0rem 0rem;
+          &::before {
+            width: 500px;
+            height: 580px;
+            left: -2rem;
+            top: -12rem;
+          }
+        }
+
+        &__content {
+          padding: 1rem;
+        }
+
+        &__title::before {
+          left: 0;
+          top: -5rem;
+          height: 250px;
+          width: 100%;
+        }
+
+        &__cat::before {
+          left: 0;
+          top: -5rem;
+          height: 250px;
+          width: 100%;
+        }
+
+        &__btn {
+          margin-top: 4.5rem;
+          min-height: 1.5rem;
+          width: 40%;
+        }
+      }
+    }
+  }
+
+  &.horizontal {
+    flex-direction: column;
+
+    .skeleton-courses__item {
+      max-height: 11rem;
+      flex-grow: 1;
+      display: flex;
+      padding: 0.5rem;
+      .item {
+        &__image {
+          border-radius: 0.5rem;
+          width: 20rem;
+          &::before {
+            width: 500px;
+            height: 580px;
+            left: -2rem;
+            top: -12rem;
+          }
+        }
+
+        &__content {
+          flex-grow: 1;
+          padding-left: 1rem;
+        }
+
+        &__title::before {
+          height: 500px;
+          left: -0rem;
+          top: -15rem;
+          width: 100%;
+        }
+
+        &__cat::before {
+          height: 500px;
+          left: -0rem;
+          top: -15rem;
+          width: 100%;
+        }
+
+        &__btn {
+          margin-top: 2.5rem;
+          min-height: 2rem;
+          width: 20%;
+        }
+      }
+    }
+  }
+
+  &__item {
+    border-radius: 0.5rem;
+    background-color: $--white;
+    margin-bottom: 1rem;
+    box-shadow: 0px 2px 4px rgba($color: $--gray, $alpha: 0.5);
+    .item {
+      &__image {
+        background-color: #e2e3e5;
+        position: relative;
+        overflow: hidden;
+        &::before {
+          position: absolute;
+          transform: rotateZ(45deg);
+          content: "";
+
+          background: linear-gradient(
+            90deg,
+            #e2e3e5 0%,
+            $--light 20%,
+            #e2e3e5 40%,
+            #e2e3e5 100%
+          );
+          border-radius: 0.5rem 0.5rem 0rem 0rem;
+          background-repeat: no-repeat;
+          animation: shrimmer 1s linear infinite;
+        }
+      }
+
+      &__title {
+        min-height: 3rem;
+        border-radius: 1rem;
+        background-color: #e2e3e5;
+        position: relative;
+        overflow: hidden;
+        &::before {
+          position: absolute;
+          transform: rotateZ(45deg);
+          content: "";
+          background: linear-gradient(
+            90deg,
+            #e2e3e5 0%,
+            $--light 30%,
+            #e2e3e5 60%,
+            #e2e3e5 100%
+          );
+          border-radius: 0.5rem 0.5rem 0rem 0rem;
+          background-repeat: no-repeat;
+          animation: shrimmer 1s 0.2s linear infinite;
+        }
+      }
+
+      &__cat {
+        margin-top: 0.5rem;
+        min-height: 1.5rem;
+        border-radius: 1rem;
+        background-color: #e2e3e5;
+        position: relative;
+        overflow: hidden;
+        &::before {
+          position: absolute;
+          transform: rotateZ(45deg);
+          content: "";
+          width: 200%;
+          height: 251px;
+          background: linear-gradient(
+            90deg,
+            #e2e3e5 0%,
+            $--light 30%,
+            #e2e3e5 60%,
+            #e2e3e5 100%
+          );
+          border-radius: 0.5rem 0.5rem 0rem 0rem;
+          background-repeat: no-repeat;
+          animation: shrimmer 1s 0.3s linear infinite;
+          left: -8rem;
+          top: -5rem;
+        }
+      }
+
+      &__btn {
+        border-radius: 1rem;
+        float: right;
+        background-color: #e2e3e5;
+        position: relative;
+        overflow: hidden;
+        &::before {
+          position: absolute;
+          transform: rotateZ(45deg);
+          content: "";
+          width: 200%;
+          height: 100px;
+          background: linear-gradient(
+            90deg,
+            #e2e3e5 0%,
+            $--light 30%,
+            #e2e3e5 60%,
+            #e2e3e5 100%
+          );
+          border-radius: 0.5rem 0.5rem 0rem 0rem;
+          background-repeat: no-repeat;
+          animation: shrimmer 1s 0.3s linear infinite;
+          left: -2.5rem;
+          top: -2rem;
+        }
+      }
+    }
+  }
+}
+
+@keyframes shrimmer {
+  0% {
+    background-position: -450px 0px;
+  }
+
+  100% {
+    background-position: 450px 0px;
+  }
+}

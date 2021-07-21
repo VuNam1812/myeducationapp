@@ -1,0 +1,19 @@
+@import '../../../../../styleRoot/color.scss';
+
+.cover{
+    position: absolute;
+
+    top: 100%;
+    width: 100%;
+    z-index: -1;
+    
+    background-color: $--blue-main;
+
+    display: flex;
+    &__clip-path{
+        clip-path: ellipse(105% 130% at 0% 130%);
+        background-color: $--background;
+        min-height: 20rem;
+        width: 100%;
+    }
+}

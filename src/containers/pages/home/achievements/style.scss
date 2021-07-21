@@ -1,0 +1,109 @@
+@import "../../../../styleRoot/color.scss";
+
+.achievements {
+  .wrap {
+    flex-direction: column;
+  }
+
+  background-color: $--background;
+  padding: 2rem 0rem 5rem 0rem;
+
+  &__header {
+    max-width: 40rem;
+
+    &-title {
+      font-weight: 700;
+      font-size: 2.5rem;
+
+      color: $--text-color-bold;
+
+      margin-bottom: 0;
+    }
+
+    &-desc {
+      color: $--text-color-bold;
+    }
+  }
+
+  &__body {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 2rem;
+
+    width: 100%;
+    .body-item {
+      & + .body-item {
+        margin-left: 2rem;
+      }
+
+      flex-grow: 1;
+
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+
+      padding: 2rem;
+
+      background-color: $--white;
+
+      border-radius: 0.5rem;
+
+      box-shadow: 0px 0px 15px rgba($color: $--gray, $alpha: 0.3);
+
+      &.item-image-blue {
+        .body-item {
+          &__image {
+            background-color: rgba($color: $--blue, $alpha: 0.5);
+          }
+        }
+      }
+
+      &.item-image-organge {
+        .body-item {
+          &__image {
+            background-color: rgba($color: $--orange, $alpha: 0.5);
+          }
+        }
+      }
+
+      &__image {
+
+        margin-bottom: 1.5rem;
+
+        border-radius: 50%;
+
+        background-color: rgba($color: $--pink, $alpha: 0.5);
+
+        width: 8rem;
+        height: 8rem;
+        padding: 1.5rem;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      &__title {
+        font-size: 1.5rem;
+        font-weight: bold;
+
+        color: $--text-color-bold;
+
+        margin: 0rem;
+      }
+
+      &__count {
+        font-size: 3rem;
+        font-weight: bold;
+
+        color: $--text-color-bold;
+
+        margin: 0rem;
+      }
+    }
+  }
+}

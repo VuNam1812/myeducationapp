@@ -1,0 +1,51 @@
+@import "../../../../styleRoot/color.scss";
+
+.background-login {
+  position: absolute;
+  pointer-events: none;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  zoom: 80%;
+  overflow: hidden;
+  &__logo {
+    width: fit-content;
+    float: right;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  &__clip-path {
+    height: 68rem;
+    width: 68rem;
+    border-radius: 50%;
+    background-color: rgba($color: $--green-main, $alpha: 0.7);
+    position: absolute;
+    left: -24rem;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0px 0px 0px 3rem rgba($color: $--green-main, $alpha: 0.4),
+      0px 0px 0px 6rem rgba($color: $--green-main, $alpha: 0.1);
+  }
+  &__image {
+    top: 45%;
+    position: absolute;
+    transform: translateY(-50%);
+    img {
+      zoom: 120%;
+    }
+
+    .image__text-title {
+      font-weight: bold;
+      color: $--white;
+      font-size: 1.5rem;
+      position: absolute;
+      width: 35rem;
+      margin-left: 4rem;
+      bottom: -3rem;
+    }
+  }
+}

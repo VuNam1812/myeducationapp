@@ -1,0 +1,162 @@
+@import "../../../../../styleRoot/color.scss";
+
+.introduce {
+  text-align: left;
+  padding: 2rem;
+  p {
+    margin: 0;
+  }
+
+  &__category {
+    font-weight: bold;
+
+    color: $--green-main;
+  }
+
+  &__name {
+    color: $--text-color-bold;
+    font-weight: 900;
+
+    font-size: 2rem;
+    margin: 1rem 0rem;
+    font-family: "Montserrat";
+  }
+
+  &__mini-desc {
+    font-weight: bold;
+
+    color: rgba($color: $--gray, $alpha: 0.5);
+  }
+
+  .course__statistics {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 1.1rem;
+    font-weight: bold;
+
+    color: rgba($color: $--dark, $alpha: 0.9);
+    .rating {
+      margin: 1rem 0rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &__stars {
+        color: $--green-main;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .stars {
+          margin: 0rem 0.35rem;
+        }
+      }
+    }
+  }
+
+  &__last-update {
+    font-weight: 500;
+    .icon {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .title--highlight {
+    font-weight: bold;
+
+    color: $--text-color-bold;
+
+    font-size: 1.3rem;
+
+    margin: 1rem 0rem;
+  }
+
+  .content-title {
+    &.content-teacher {
+      display: flex;
+      padding-left: 0rem;
+    }
+    padding-left: 1rem;
+    &__empty {
+      font-style: italic;
+    }
+
+    &__fullDes {
+      p,
+      span {
+        font-family: "Quicksand" !important;
+      }
+    }
+
+    .mini-teacher-card {
+      width: fit-content;
+      margin-right: 1.5rem;
+      text-align: center;
+      &:last-child {
+        margin-right: 0rem;
+      }
+      &__image {
+        border-radius: 0.5rem;
+
+        padding: 2rem;
+
+        box-shadow: 0px 3px 10px rgba($color: $--gray, $alpha: 0.5);
+
+        img {
+          background-color: aliceblue;
+          width: 100%;
+          height: auto;
+
+          border-radius: 0.5rem;
+        }
+      }
+
+      &__info {
+        margin: 1rem 0rem;
+        &-name {
+          font-family: "Montserrat";
+          font-size: 1.5rem;
+
+          font-weight: 900;
+          color: $--text-color-bold;
+          text-decoration: none;
+          cursor: pointer;
+          transition: all 0.3s;
+          &:hover {
+            color: $--green-main;
+          }
+        }
+
+        &-major {
+          font-weight: bold;
+
+          opacity: 0.7;
+        }
+      }
+
+      &__contact {
+        margin-bottom: 1rem;
+        .icon {
+          opacity: 0.5;
+        }
+        .icon:hover {
+          opacity: 1;
+          cursor: pointer;
+          color: $--green-main;
+        }
+        .icon + .icon {
+          margin-left: 0.75rem;
+        }
+      }
+
+      &__link {
+        font-weight: bold;
+        color: $--green-main;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+  }
+}

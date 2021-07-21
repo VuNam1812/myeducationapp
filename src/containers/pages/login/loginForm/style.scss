@@ -1,0 +1,72 @@
+@import "../../../../styleRoot/color.scss";
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__title {
+    font-family: "Montserrat";
+    color: $--text-color-bold;
+    font-weight: 900;
+    font-size: 2.5rem;
+    margin-bottom: 0rem;
+  }
+
+  &__desc {
+    font-weight: 400;
+    margin-top: 0.5rem;
+
+    font-size: 1rem;
+    span {
+      color: $--green-main;
+    }
+  }
+  &__body-main {
+    margin: 1rem 0rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .option-login {
+      margin-bottom: 1rem;
+
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &__remember {
+        display: flex;
+        align-items: center;
+        &-input {
+          margin-right: 0.3rem;
+        }
+
+        &-text {
+          margin: 0rem;
+        }
+      }
+
+      &__forget-password {
+        &:hover {
+          color: $--green-main;
+        }
+        margin: 0rem;
+        text-decoration: underline;
+        cursor: pointer;
+
+        font-weight: bold;
+      }
+    }
+  }
+
+  &__register {
+    a {
+      cursor: pointer;
+      font-weight: bold;
+      color: $--green-main;
+      text-decoration: none;
+    }
+  }
+}
