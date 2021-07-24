@@ -1,0 +1,29 @@
+@import "../../../styleRoot/color.scss";
+
+.orther-login {
+  &__title {
+    margin-bottom: 0.75rem;
+  }
+  &__btn-groups {
+    display: flex;
+    justify-content: center;
+    .btn-groups__item + .btn-groups__item {
+      margin-left: 1rem;
+    }
+    .btn-groups {
+      &__item {
+        width: 3.5rem;
+        border-radius: 50%;
+        height: 3.5rem;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        transition: all 0.3s;
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+}
