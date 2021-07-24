@@ -1,6 +1,7 @@
 // @flow
 import React, { useRef } from "react";
 import "./style.scss";
+import { OrtherLogin } from "../../../itemsPage";
 import { Checkbox, InputWithLabel, Button } from "../../../../components";
 import { handleValidate } from "../middlewares/handleValidateLogin";
 import { handleAction } from "../middlewares/handleActionLogin";
@@ -63,7 +64,7 @@ export const LoginForm = (props) => {
           }}
         ></Button>
       </form>
-
+      <OrtherLogin></OrtherLogin>
       <p className="login-form__register">
         Người dùng mới? <Link to="/register">Đăng ký</Link>
       </p>
