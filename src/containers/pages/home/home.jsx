@@ -29,32 +29,54 @@ export const Home = (props) => {
   const [store, dispatch] = useReducer(reducer, initData);
 
   useEffect(() => {
-    courseApi.getAll({ filter: "topRate" }).then((courses) => {
-      
-      dispatch({
-        type: HOME_ACTION.UPDATE_TOP_RATE,
-        payload: courses.data.topRate,
+    courseApi
+      .getAll({
+        order: "rate",
+        sort: "desc",
+        limit: 5,
+        page: 1,
+        getInfo: ["teacherName", "duration", "lectureCount"],
+      })
+      .then((courses) => {
+        dispatch({
+          type: HOME_ACTION.UPDATE_TOP_RATE,
+          payload: courses.data.courses,
+        });
       });
-    });
-    courseApi.getAll({ filter: "topView" }).then((courses) => {
-      dispatch({
-        type: HOME_ACTION.UPDATE_TOP_VIEW,
-        payload: courses.data.topView,
+    courseApi
+      .getAll({
+        order: "viewCount",
+        sort: "desc",
+        limit: 10,
+        page: 1,
+        getInfo: ["catName"],
+      })
+      .then((courses) => {
+        dispatch({
+          type: HOME_ACTION.UPDATE_TOP_VIEW,
+          payload: courses.data.courses,
+        });
       });
-    });
-    courseApi.getAll({ filter: "topNew" }).then((courses) => {
-      dispatch({
-        type: HOME_ACTION.UPDATE_TOP_NEW,
-        payload: courses.data.topNew,
+    courseApi
+      .getAll({
+        order: "createAt",
+        sort: "desc",
+        limit: 10,
+        page: 1,
+        getInfo: ["teacherName", 'catName'],
+      })
+      .then((courses) => {
+        dispatch({
+          type: HOME_ACTION.UPDATE_TOP_NEW,
+          payload: courses.data.courses,
+        });
       });
-    });
 
     categoryApi
       .getAll({
         filter: "topJoin",
       })
       .then((cats) => {
-        console.log(cats);
         dispatch({
           type: HOME_ACTION.UPDATE_TOP_CAT,
           payload: cats.data,

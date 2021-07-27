@@ -186,7 +186,6 @@ export const LessionsCourse = ({ course, lessions, editCourseDispatch }) => {
   };
 
   const handleLoadLectureVideo = async (e) => {
-    console.log(e.target.files);
     if (e.target.files.length === 0) return;
     if (store.urlVideo.length) {
       const result = await Swal.fire({

@@ -79,7 +79,6 @@ export const handleAdminAccount = {
 
   validateAll: (data, dispatch) => {
     const newData = { ...data };
-    delete newData.dob;
     const valid = Object.keys(newData).map((item) => {
       return data[item].length === 0;
     });

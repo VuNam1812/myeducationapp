@@ -11,7 +11,6 @@ export const BackgroundLogin = (props) => {
       <Logo
         className="logo--shadow background-login__logo"
         onClick={() => {
-          console.log("run");
           history.push("/");
         }}
       ></Logo>

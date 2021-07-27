@@ -28,6 +28,7 @@ export const handleInstructorPage = {
   loadCourses: async (data, dispatch) => {
     const courses = (
       await teacherApi.getCourses(data.teacherId, {
+        isDelete: 0,
         getInfo: ["catName", "duration", "lectureCount"],
       })
     ).data;

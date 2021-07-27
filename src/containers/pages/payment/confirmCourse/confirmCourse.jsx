@@ -58,8 +58,8 @@ export const ConfirmCourse = ({ course, account, dispatch }) => {
         <div className="user-payment__info">
           <p className="info__item">
             <i className="icon fa fa-user-circle-o" aria-hidden="true"></i>
-            {`${account.firstName} ${account.lastName}`}
-          </p>
+            {account.name}
+          </p>  
           <p className="info__item">
             <i className="icon fa fa-envelope" aria-hidden="true"></i>
             {account.email}

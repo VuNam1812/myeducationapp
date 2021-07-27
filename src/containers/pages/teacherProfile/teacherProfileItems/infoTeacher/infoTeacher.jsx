@@ -1,5 +1,5 @@
 // @flow
-import React, { useReducer, useEffect, useRef } from "react";
+import React, { useReducer, useEffect, useRef, useContext } from "react";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, ContentState, convertToRaw } from "draft-js";
@@ -13,9 +13,10 @@ import "./style.scss";
 import { useForm } from "react-hook-form";
 
 import { reducer, INFO_TEACHER_ACTION } from "./reducer";
-
+import { authContext } from "../../../../../contexts/auth/authContext";
 import accountApi from "../../../../../api/accountAPI";
 import teacherApi from "../../../../../api/teacherAPI";
+import { AUTH_ACTION } from "../../../../../contexts/auth/reducer";
 const initData = {
   introEditor: EditorState.createEmpty(),
   techniqueEditor: EditorState.createEmpty(),
@@ -23,11 +24,12 @@ const initData = {
 };
 
 export const InfoTeacher = ({ teacher, className, dispatch }) => {
+  const { dispatch_auth } = useContext(authContext);
   const [info_store, dispatch_info] = useReducer(reducer, initData);
   const { register, setValue, handleSubmit } = useForm();
   const submit = useRef();
   useEffect(() => {
-    ["firstName", "lastName", "major", "phone", "email"].map((item) => {
+    ["name", "major", "phone", "email"].map((item) => {
       setValue(item, teacher[item]);
       return {};
     });
@@ -111,6 +113,10 @@ export const InfoTeacher = ({ teacher, className, dispatch }) => {
 
             const res = await accountApi.updateInfo(teacher.id, patchInfo);
             if (res.data.updated && res_infoMore.data.updated) {
+              dispatch_auth({
+                type: AUTH_ACTION.UPDATE_NAME_ACCOUNT,
+                payload: patchInfo.name,
+              });
               Swal.fire({
                 icon: "success",
                 text: "Cập nhật thành công!!",
@@ -181,22 +187,13 @@ export const InfoTeacher = ({ teacher, className, dispatch }) => {
                 className="left-block__form-group"
               >
                 <div className="form-item">
-                  <div className="form-item__flex">
-                    <label className="form-item__label">
-                      Họ:{" "}
-                      <input
-                        className="form-item__input"
-                        {...register("firstName")}
-                      ></input>
-                    </label>
-                    <label className="form-item__label">
-                      Tên:{" "}
-                      <input
-                        className="form-item__input"
-                        {...register("lastName")}
-                      ></input>
-                    </label>
-                  </div>
+                  <label className="form-item__label">
+                    Họ & Tên:{" "}
+                    <input
+                      className="form-item__input"
+                      {...register("name")}
+                    ></input>
+                  </label>
                   <label className="form-item__label">
                     Chuyên môn:{" "}
                     <input
@@ -209,6 +206,7 @@ export const InfoTeacher = ({ teacher, className, dispatch }) => {
                   <label className="form-item__label">
                     Hộp thư:{" "}
                     <input
+                      readOnly="true"
                       className="form-item__input"
                       {...register("email")}
                     ></input>

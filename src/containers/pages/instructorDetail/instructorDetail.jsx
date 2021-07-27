@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 
-import { HeaderUpper } from "../../header/HeaderUpper/headerUpper";
+import { Header } from "../../header/header";
 import { Footer } from "../../footer/footer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Mousewheel, Pagination } from "swiper/core";
@@ -14,7 +14,7 @@ import { useReducer, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import numeral from "numeral";
 
-import $ from 'jquery'
+import $ from "jquery";
 
 const initData = {
   teacherInfo: {},
@@ -36,7 +36,7 @@ export const InstructorDetail = (props) => {
 
   return (
     <div className="instructor-detail">
-      <HeaderUpper className="header--zoom-80"></HeaderUpper>
+      <Header className="header--zoom-80"></Header>
       {Object.keys(store_page.teacherInfo).length && (
         <div className="body-page">
           <div className="body-page__header">
@@ -49,7 +49,9 @@ export const InstructorDetail = (props) => {
                   }}
                 ></div>
                 <div className="summary-text">
-                  <p className="summary-text__name">{`${store_page.teacherInfo.firstName} ${store_page.teacherInfo.lastName}`}</p>
+                  <p className="summary-text__name">
+                    {store_page.teacherInfo.name}
+                  </p>
                   <p className="summary-text__major">
                     {store_page.teacherInfo.major
                       ? store_page.teacherInfo.major
@@ -153,19 +155,20 @@ export const InstructorDetail = (props) => {
                           clickable: true,
                         }}
                         slidesPerView={4}
-                        loop={true}
                         spaceBetween={16}
                         className="mySwiper block-courses"
                       >
                         {store_page.courses.map((course) => {
-                          return (
-                            <SwiperSlide className="slide-item">
-                              <CourseCard
-                                className="slide-item__card item--fill-max"
-                                course={course}
-                              ></CourseCard>
-                            </SwiperSlide>
-                          );
+                          if (!course.isDelete) {
+                            return (
+                              <SwiperSlide className="slide-item">
+                                <CourseCard
+                                  className="slide-item__card item--fill-max"
+                                  course={course}
+                                ></CourseCard>
+                              </SwiperSlide>
+                            );
+                          }
                         })}
                       </Swiper>
                     );
@@ -180,41 +183,3 @@ export const InstructorDetail = (props) => {
     </div>
   );
 };
-
-const dataSet = [
-  {
-    id: 1,
-    courseName: "Our top courses",
-    teacherName: "Vũ Thành Nam",
-    coursePrice: 140,
-    lectureCount: 12,
-  },
-  {
-    id: 2,
-    courseName: "Our top courses",
-    teacherName: "Vũ Thành Nam",
-    coursePrice: 140,
-    lectureCount: 12,
-  },
-  {
-    id: 3,
-    courseName: "Our top courses",
-    teacherName: "Vũ Thành Nam",
-    coursePrice: 140,
-    lectureCount: 12,
-  },
-  {
-    id: 4,
-    courseName: "Our top courses",
-    teacherName: "Vũ Thành Nam",
-    coursePrice: 140,
-    lectureCount: 12,
-  },
-  {
-    id: 5,
-    courseName: "Our top courses",
-    teacherName: "Vũ Thành Nam",
-    coursePrice: 140,
-    lectureCount: 12,
-  },
-];

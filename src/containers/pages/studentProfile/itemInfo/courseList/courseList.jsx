@@ -7,7 +7,7 @@ import numeral from "numeral";
 import { useHistory, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import courseApi from "../../../../../api/courseAPI";
-import boxEmpty from '../../../../../public/image/icon/box.png';
+import boxEmpty from "../../../../../public/image/icon/box.png";
 import Rating from "@material-ui/lab/Rating";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -105,7 +105,7 @@ export const CourseList = ({ studentProfileDispatch, courses, type }) => {
     dispatch({
       type: ACTION.UPDATE_LISTRENDER,
       payload: {
-        courses,
+        courses: courses,
         page: 1,
       },
     });
@@ -236,7 +236,7 @@ export const CourseList = ({ studentProfileDispatch, courses, type }) => {
 
   return courses.length === 0 ? (
     <div className="course-list__loading">
-      <div className='list__empty'>
+      <div className="list__empty">
         <img src={boxEmpty}></img>
         <p>(Hiện chưa có khóa học)</p>
       </div>
@@ -288,12 +288,14 @@ export const CourseList = ({ studentProfileDispatch, courses, type }) => {
             return (
               <div className="course-item">
                 {course.srcImage && (
-                  <div
-                    className="course-item__image"
-                    style={{
-                      backgroundImage: `url("${course.srcImage}")`,
-                    }}
-                  ></div>
+                  <div className='course-item__cover-image'>
+                    <div
+                      className="course-item__image"
+                      style={{
+                        backgroundImage: `url("${course.srcImage}")`,
+                      }}
+                    ></div>
+                  </div>
                 )}
 
                 <div className="block-bottom">

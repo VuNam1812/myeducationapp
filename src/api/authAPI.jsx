@@ -13,8 +13,19 @@ const authApi = {
     const url = "auth/login";
     return axiosClient.post(url, { ...data });
   },
+
+  facebookLogin: (data) => {
+    const url = "auth/facebookLogin";
+    return axiosClient.post(url, { ...data });
+  },
+
+  googleLogin: (data) => {
+    const url = "auth/googleLogin";
+    return axiosClient.post(url, { ...data });
+  },
+
   logout: () => {
-    const url = 'auth/logout';
+    const url = "auth/logout";
     return axiosClient.post(url);
   },
 

@@ -3,11 +3,11 @@ import React, { useEffect, useReducer } from "react";
 import { useHistory } from "react-router-dom";
 import authApi from "../../../api/authAPI";
 import accountApi from "../../../api/accountAPI";
-import { BackgroundLogin } from '../login/backgroundLogin/backgroundLogin';
+import { BackgroundLogin } from "../login/backgroundLogin/backgroundLogin";
 import { RegisterForm } from "./registerForm/registerform";
 import { Confirm } from "./confirm/confirm";
 import { reducer, ACTION } from "./reducer/reducer";
-import $ from 'jquery';
+import $ from "jquery";
 import "./style.scss";
 import Swal from "sweetalert2";
 const initData = {
@@ -32,7 +32,7 @@ export const Register = (props) => {
 
   const sendConfirmCode = async () => {
     Swal.fire({
-      title: "Sending...",
+      title: "Đang gửi...",
       didOpen: async () => {
         Swal.showLoading();
         const res = await authApi.checkAvailable({
@@ -60,7 +60,7 @@ export const Register = (props) => {
 
   const confirmCode = (code) => {
     Swal.fire({
-      title: "Sending...",
+      title: "Đang gửi...",
       didOpen: async () => {
         Swal.showLoading();
         const res = await authApi.confirmCode(code);
@@ -88,7 +88,6 @@ export const Register = (props) => {
                   confirmButtonColor: "#00ab15",
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    console.log("run");
                     history.push("/login");
                   }
                 })

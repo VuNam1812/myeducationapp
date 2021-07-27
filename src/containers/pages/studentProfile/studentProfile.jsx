@@ -27,8 +27,7 @@ const initData = {
   courseFavorites: [],
   courseJoin: [],
   error: {
-    firstName: { isShow: false, message: "* Thông tin không được để trống!!" },
-    lastName: { isShow: false, message: "* Thông tin không được để trống!!" },
+    name: { isShow: false, message: "* Thông tin không được để trống!!" },
     email: { isShow: false, message: "* Thông tin không được để trống!!" },
     oldPassword: {
       isShow: false,
@@ -51,9 +50,9 @@ export const StudentProfile = (props) => {
   const params = useParams();
   useEffect(() => {
     (async () => {
-      await handleStudentProfile.loadProfile(params, dispatch);
-      await handleStudentProfile.loadCourseJoin(params, dispatch);
-      await handleStudentProfile.loadCourseFavorite(params, dispatch);
+      handleStudentProfile.loadProfile(params, dispatch);
+      handleStudentProfile.loadCourseJoin(params, dispatch);
+      handleStudentProfile.loadCourseFavorite(params, dispatch);
     })();
     $("html,body").animate({ scrollTop: 0 }, 500);
   }, []);

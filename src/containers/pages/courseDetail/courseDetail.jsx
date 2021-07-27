@@ -37,30 +37,37 @@ export const CourseDetail = (props) => {
   const location = useLocation();
   useEffect(() => {
     (async () => {
+      await handleCourseDetail.loadCourse(params, dispatch, history);
       dispatch({
         type: COURSE_DETAIL_ACTION.UPDATE_LOADING,
         payload: true,
       });
-      await handleCourseDetail.loadCourse(params, dispatch);
-      await handleCourseDetail.checkPaid(params, dispatch);
-      await handleCourseDetail.checkFavoriteList(
-        params,
-        store_auth.account,
-        dispatch
+      const promises = [];
+      promises.push(handleCourseDetail.checkPaid(params, dispatch));
+      promises.push(
+        handleCourseDetail.checkFavoriteList(
+          params,
+          store_auth.account,
+          dispatch
+        )
       );
-      setTimeout(() => {
-        dispatch({
-          type: COURSE_DETAIL_ACTION.UPDATE_LOADING,
-          payload: false,
-        });
-      }, 1000);
+      Promise.all(promises).then(() => {
+        setTimeout(() => {
+          dispatch({
+            type: COURSE_DETAIL_ACTION.UPDATE_LOADING,
+            payload: false,
+          });
+        }, 1000);
+      });
     })();
     $("html,body").animate({ scrollTop: 0 }, 500);
   }, [location]);
 
   useEffect(() => {
     (async () => {
-      await handleCourseDetail.loadCourseCat(store.course, dispatch);
+      if (store.course?.id) {
+        await handleCourseDetail.loadCourseCat(store.course, dispatch);
+      }
     })();
   }, [store.course]);
 

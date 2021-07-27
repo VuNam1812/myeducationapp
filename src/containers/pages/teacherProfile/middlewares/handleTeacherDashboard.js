@@ -20,6 +20,7 @@ export const handleTeacheDashboard = {
     const { accountId } = data;
 
     const { data: courses } = await teacherApi.getCourses(accountId, {
+      isDelete : -1,
       getInfo: ["lectureCount", "duration"],
     });
 

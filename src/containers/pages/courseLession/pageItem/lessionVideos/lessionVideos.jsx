@@ -56,7 +56,7 @@ export const LessionVideos = ({ lessions, active, dispatch }) => {
                           </p>
                           <i
                             className={`icon-status fa ${
-                              lecture.isComplete
+                              +lecture.isCompleted === 1
                                 ? "fa-check-square"
                                 : "fa-square-o"
                             } fa-lg`}

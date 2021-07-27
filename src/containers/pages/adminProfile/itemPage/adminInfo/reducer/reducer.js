@@ -12,13 +12,9 @@ export const reducer = (state, action) => {
         ...state,
         error: {
           ...state.error,
-          firstName: {
-            ...state.error.firstName,
-            isShow: payload.firstName.isShow,
-          },
-          lastName: {
-            ...state.error.lastName,
-            isShow: payload.lastName.isShow,
+          name: {
+            ...state.error.name,
+            isShow: payload.name.isShow,
           },
           emailName: {
             ...state.error.email,

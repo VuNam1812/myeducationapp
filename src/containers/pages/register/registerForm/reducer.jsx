@@ -5,12 +5,10 @@ export const reducer = (state, action) => {
     case ACTION.UPDATE_ALL:
       return {
         ...state,
-        firstName: { ...state.firstName, show: payload[0] },
-        lastName: { ...state.lastName, show: payload[1] },
-        email: { ...state.email, show: payload[2] },
-        dob: { ...state.dob, show: payload[3] },
-        password: { ...state.password, show: payload[4] },
-        confirmPassword: { ...state.confirmPassword, show: payload[5] },
+        name: { ...state.name, show: payload[0] },
+        email: { ...state.email, show: payload[1] },
+        password: { ...state.password, show: payload[2] },
+        confirmPassword: { ...state.confirmPassword, show: payload[3] },
       };
     case ACTION.UPDATE_ERROR_CONFIRMPASSWORD:
       return {

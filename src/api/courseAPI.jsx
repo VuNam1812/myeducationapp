@@ -13,9 +13,14 @@ const courseApi = {
     const url = `courses/${id}/lessions`;
     return axiosClient.get(url);
   },
-  getFeedbacks: (id) => {
-    const url = `courses/${id}/feedbacks`;
+
+  getUserLessions: (id) => {
+    const url = `courses/${id}/userlessions`;
     return axiosClient.get(url);
+  },
+  getFeedbacks: (id, data) => {
+    const url = `courses/${id}/feedbacks`;
+    return axiosClient.get(url, { params: { ...data } });
   },
 
   getLinkUpload: (data = {}) => {

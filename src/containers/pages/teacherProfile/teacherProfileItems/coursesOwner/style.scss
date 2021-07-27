@@ -220,6 +220,36 @@
                 height: 99%;
                 border-radius: 0.5rem;
                 box-shadow: 0px 0px 5px rgba($color: $--dark, $alpha: 0.2);
+                &.disabled {
+                  position: relative;
+                  overflow: hidden;
+                  &::before {
+                    width: 97%;
+                    height: 98%;
+
+                    position: absolute;
+                    content: "";
+
+                    background-color: rgba($color: $--gray, $alpha: 0.5);
+                  }
+                  &::after {
+                    position: absolute;
+
+                    content: "Đã khóa";
+
+                    position: absolute;
+                    content: "Đã khóa";
+                    top: 50%;
+                    left: 50%;
+                    transform: translateX(-50%) rotateZ(35deg);
+                    background-color: $--danger;
+                    width: 200%;
+                    padding: 0.25rem;
+                    font-weight: bold;
+                    color: $--white;
+                  }
+                }
+
                 .text-main {
                   font-weight: bold;
                   color: $--green-main;

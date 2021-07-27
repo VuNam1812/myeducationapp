@@ -18,21 +18,18 @@ export const reducer = (state, action) => {
         ...state,
         error: {
           ...state.error,
-          firstName: {
-            ...state.error.firstName,
+
+          name: {
+            ...state.error.name,
             isShow: payload[0],
-          },
-          lastName: {
-            ...state.error.lastName,
-            isShow: payload[1],
           },
           email: {
             ...state.error.email,
-            isShow: payload[2],
+            isShow: payload[1],
           },
           password: {
             ...state.error.password,
-            isShow: payload[3],
+            isShow: payload[2],
           },
         },
       };

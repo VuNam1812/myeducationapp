@@ -74,7 +74,7 @@ export const reducer = (state, action) => {
 
       return {
         ...state,
-        courses: [...state.courses.fill(payload, indexCourse, indexCourse + 1)],
+        courses: state.courses.fill(payload, indexCourse, indexCourse + 1),
       };
 
     case ADMIN_PROFILE_ACTION.UPDATE_USERS:

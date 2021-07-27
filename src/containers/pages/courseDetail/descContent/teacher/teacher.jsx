@@ -16,11 +16,7 @@ export const Teacher = ({ teacher }) => {
           </div>
           <div className="item__content">
             <div className="item__image-teacher">
-              {teacher.srcImage && (
-                <img
-                  src={`${teacher.srcImage}`}
-                ></img>
-              )}
+              {teacher.srcImage && <img src={`${teacher.srcImage}`}></img>}
             </div>
             <div className="teacher-info">
               <div className="teacher-info__contact">
@@ -43,7 +39,9 @@ export const Teacher = ({ teacher }) => {
                 <Link
                   to={`/teachers/${teacher.id}`}
                   className="teacher-info__intro-name"
-                >{`${teacher.firstName} ${teacher.lastName}`}</Link>
+                >
+                  {teacher.name}
+                </Link>
                 <p className="teacher-info__intro-major">
                   {teacher.major || "( Hiện chưa cập nhật chuyên môn )"}
                 </p>

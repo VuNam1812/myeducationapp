@@ -28,7 +28,7 @@ export const reducer = (state, action) => {
         account: {
           ...state.accounts,
           id: payload.id,
-          username: payload.username,
+          name: payload.name,
           role: role,
           permission: payload.role,
           srcImage: payload.srcImage,
@@ -46,8 +46,15 @@ export const reducer = (state, action) => {
         ...state,
         account: {
           ...state.account,
-          srcImage: payload
+          srcImage: payload,
         },
+      };
+
+    case AUTH_ACTION.UPDATE_NAME_ACCOUNT:
+      state.account.name = payload;
+      return {
+        ...state,
+        account: state.account,
       };
 
     default:
@@ -60,4 +67,5 @@ export const AUTH_ACTION = {
   UPDATE_ACCOUNT: 2,
   DELETE_ACCOUNT: 3,
   UPDATE_AVATAR_ACCOUNT: 4,
+  UPDATE_NAME_ACCOUNT: 5,
 };

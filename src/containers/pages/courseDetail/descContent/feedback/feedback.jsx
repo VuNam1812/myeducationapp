@@ -33,9 +33,10 @@ export const Feedback = ({ rate, feedbacks, paid, course, dispatch }) => {
   const [modalState, setModalState] = useState("hidden");
   const [textFeedback, setTextFeedback] = useState("");
   const [rateFeedback, setRateFeedback] = useState(0);
-  useEffect(() => {
-    console.log("run update");
-  }, [feedbacks]);
+  const [loadingFeedBack, setLoadingFeedback] = useState({
+    status: false,
+    page: 1,
+  });
 
   const handleOpenModalFeedback = () => {
     setModalState("visible");
@@ -60,32 +61,34 @@ export const Feedback = ({ rate, feedbacks, paid, course, dispatch }) => {
         result = ret.data.created;
 
         if (ret.data?.created) {
-          const feedbacks = await courseApi.getFeedbacks(course.id);
-          const courseTarget = await courseApi.getSingle(course.id);
-          const teacherTarget = await accountApi.getSingle(course.id_owner, {
-            getInfo: ["rate"],
+          courseApi.getFeedbacks(course.id).then((feedbacks) => {
+            dispatch({
+              type: COURSE_DETAIL_ACTION.ADD_FEEDBACK,
+              payload: {
+                newFeedback: feedbacks.data.feedbacks.filter(
+                  (fb) => +fb.id === +ret.data.id_feedback
+                )[0],
+                rate: feedbacks.data.rate,
+              },
+            });
           });
-
-          dispatch({
-            type: COURSE_DETAIL_ACTION.ADD_FEEDBACK,
-            payload: {
-              newFeedback: feedbacks.data.feedbacks.filter(
-                (fb) => +fb.id === +ret.data.id_feedback
-              )[0],
-              rate: feedbacks.data.rate,
-            },
+          courseApi.getSingle(course.id).then((courseTarget) => {
+            dispatch({
+              type: COURSE_DETAIL_ACTION.UPDATE_RATE_COURSE,
+              payload: {
+                rate: courseTarget.data.rate,
+                feedbackCount: courseTarget.data.feedbackCount,
+              },
+            });
           });
-          dispatch({
-            type: COURSE_DETAIL_ACTION.UPDATE_RATE_COURSE,
-            payload: {
-              rate: courseTarget.data.rate,
-              feedbackCount: courseTarget.data.feedbackCount,
-            },
-          });
-          dispatch({
-            type: COURSE_DETAIL_ACTION.UPDATE_RATE_TEACHER,
-            payload: teacherTarget.data.rate,
-          });
+          accountApi
+            .getSingle(course.id_owner, { getInfo: ["rate"] })
+            .then((teacherTarget) => {
+              dispatch({
+                type: COURSE_DETAIL_ACTION.UPDATE_RATE_TEACHER,
+                payload: teacherTarget.data.rate,
+              });
+            });
         }
 
         Swal.close();
@@ -119,6 +122,31 @@ export const Feedback = ({ rate, feedbacks, paid, course, dispatch }) => {
     }
   };
 
+  const handleLoadMoreFeedBack = async () => {
+    setLoadingFeedback({
+      status: true,
+      page: loadingFeedBack.page + 1,
+    });
+
+    courseApi
+      .getFeedbacks(course.id, {
+        page: loadingFeedBack.page + 1,
+        limit: 3,
+      })
+      .then((res) => {
+        setTimeout(() => {
+          setLoadingFeedback({
+            ...loadingFeedBack,
+            status: false,
+          });
+          dispatch({
+            type: COURSE_DETAIL_ACTION.LOADMORE_FEEDBACK,
+            payload: res.data.feedbacks,
+          });
+        }, 1000);
+      });
+  };
+
   return (
     <div className="feedback">
       <div className="feedback__header">
@@ -129,9 +157,7 @@ export const Feedback = ({ rate, feedbacks, paid, course, dispatch }) => {
           </p>
           <p className="feedback__header-summary-feedback">
             {feedbacks.feedbacks &&
-              `( ${numeral(feedbacks.feedbacks.length).format(
-                "0,0"
-              )} bình chọn )`}
+              `( ${numeral(feedbacks.length).format("0,0")} bình chọn )`}
           </p>
         </div>
         <div className="feedback__header-detail">
@@ -231,7 +257,7 @@ export const Feedback = ({ rate, feedbacks, paid, course, dispatch }) => {
                       <div className="item-user__image">
                         <img src={feedback.user.srcImage}></img>
                       </div>
-                      <p className="item-user__name">{`${feedback.user.firstName} ${feedback.user.lastName}`}</p>
+                      <p className="item-user__name">{feedback.user.name}</p>
                     </div>
 
                     <div className="item-feedback-info">
@@ -271,12 +297,20 @@ export const Feedback = ({ rate, feedbacks, paid, course, dispatch }) => {
               })
             ))}
         </div>
-        {feedbacks.feedbacks && feedbacks.feedbacks.length !== 0 && (
-          <Button
-            className="feedback__body-loadmore-btn btn--none"
-            content="----- Tải thêm -----"
-          ></Button>
-        )}
+        {feedbacks.feedbacks &&
+          feedbacks.feedbacks.length !== 0 &&
+          feedbacks.feedbacks.length < feedbacks.length &&
+          (loadingFeedBack.status ? (
+            <div className="feedback__body-loading-btn">
+              <i className="fa fa-spinner fa-pulse fa-lg fa-fw"></i>
+            </div>
+          ) : (
+            <Button
+              onClick={handleLoadMoreFeedBack}
+              className="feedback__body-loadmore-btn btn--none"
+              content="----- Tải thêm -----"
+            ></Button>
+          ))}
       </div>
     </div>
   );

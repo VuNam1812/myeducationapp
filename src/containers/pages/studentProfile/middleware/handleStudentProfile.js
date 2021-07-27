@@ -4,55 +4,60 @@ import Swal from "sweetalert2";
 import { STUDENT_PROFILE_ACTION } from "../reducer/reducer";
 import { AUTH_ACTION } from "../../../../contexts/auth/reducer";
 export const handleStudentProfile = {
-  loadProfile: async (data, dispatch) => {
+  loadProfile: (data, dispatch) => {
     const { accountId } = data;
 
-    const account = (await accountApi.getSingle(accountId)).data;
+    accountApi.getSingle(accountId).then((account) => {
+      const info = account.data;
+      info.role = "Học viên";
 
-    account.role = "Học viên";
-
-    dispatch({
-      type: STUDENT_PROFILE_ACTION.INIT_DATA,
-      payload: {
-        ...account,
-      },
+      dispatch({
+        type: STUDENT_PROFILE_ACTION.INIT_DATA,
+        payload: {
+          ...info,
+        },
+      });
     });
   },
 
-  loadCourseJoin: async (data, dispatch) => {
+  loadCourseJoin: (data, dispatch) => {
     const { accountId } = data;
 
-    const courses = await accountApi.getCourseJoin(accountId, {
-      getInfo: ["lectureCount", "teacherName", "firstLecture"],
-    });
-
-    dispatch({
-      type: STUDENT_PROFILE_ACTION.UPDATE_COURSE_JOIN,
-      payload: [...courses.data],
-    });
+    accountApi
+      .getCourseJoin(accountId, {
+        getInfo: ["lectureCount", "teacherName", "firstLecture"],
+      })
+      .then((courses) => {
+        dispatch({
+          type: STUDENT_PROFILE_ACTION.UPDATE_COURSE_JOIN,
+          payload: [...courses.data],
+        });
+      });
   },
 
-  loadCourseFavorite: async (data, dispatch) => {
+  loadCourseFavorite: (data, dispatch) => {
     const { accountId } = data;
 
-    const courses = await accountApi.getCourseFavorite(accountId, {
-      getInfo: ["lectureCount", "teacherName", "firstLecture"],
-    });
+    accountApi
+      .getCourseFavorite(accountId, {
+        getInfo: ["lectureCount", "teacherName", "firstLecture"],
+      })
+      .then(async (courses) => {
+        if (courses.data?.length) {
+          for (const course of courses.data) {
+            course.paid = (
+              await courseApi.checkPaid({
+                courId: course.id,
+              })
+            ).data?.paid;
+          }
+        }
 
-    if (courses.data?.length) {
-      for (const course of courses.data) {
-        course.paid = (
-          await courseApi.checkPaid({
-            courId: course.id,
-          })
-        ).data?.paid;
-      }
-    }
-
-    dispatch({
-      type: STUDENT_PROFILE_ACTION.UPDATE_COURSE_FAVORITE,
-      payload: [...courses.data],
-    });
+        dispatch({
+          type: STUDENT_PROFILE_ACTION.UPDATE_COURSE_FAVORITE,
+          payload: [...courses.data],
+        });
+      });
   },
 
   changeAvatar: async (file, info, dispatch, dispatchAuth) => {

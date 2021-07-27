@@ -20,8 +20,19 @@ export const EditProfile = ({
   const submit = useRef();
   const form = useRef();
   const onSubmitLogin = async (data, e) => {
-    if (handleEditProfile.checkAllField(data, dispatch)) return;
-    if ((await handleEditProfile.checkEmailExist(data, dispatch))) return;
+    if (
+      handleEditProfile.checkAllField(
+        data,
+        info.email.length ? true : false,
+        dispatch
+      )
+    )
+      return;
+    if (
+      info.email.length &&
+      (await handleEditProfile.checkEmailExist(data, dispatch))
+    )
+      return;
     await handleEditProfile.updateAccount(info, data, dispatch, authDispatch);
 
     dispatch({
@@ -52,7 +63,7 @@ export const EditProfile = ({
   };
 
   useEffect(() => {
-    ["firstName", "lastName", "phone", "email", "gender"].map((item) => {
+    ["name", "phone", "email", "gender"].map((item) => {
       setValue(`${item}`, info[item] ? info[item] : "");
     });
 
@@ -67,31 +78,13 @@ export const EditProfile = ({
         onSubmit={handleSubmit(onSubmitLogin)}
         className="edit-profile__form-group"
       >
-        <div className="block-flex">
-          <FieldText
-            placeHolder="Họ & tên đệm"
-            label="Họ & tên đệm"
-            name="firstName"
-            type="text"
-            defaultValue={info.firstName}
-            error={error.firstName}
-            register={register}
-          ></FieldText>
-          <FieldText
-            placeHolder="Tên"
-            label="Tên"
-            name="lastName"
-            error={error.lastName}
-            defaultValue={info.lastName}
-            register={register}
-          ></FieldText>
-        </div>
         <FieldText
-          placeHolder="Hộp thư"
-          label="Hộp thư"
-          name="email"
-          error={error.email}
-          defaultValue={info.email}
+          placeHolder="Họ & tên đệm"
+          label="Họ & tên"
+          name="name"
+          type="text"
+          defaultValue={info.name}
+          error={error.name}
           register={register}
         ></FieldText>
         <FieldText
@@ -101,25 +94,44 @@ export const EditProfile = ({
           defaultValue={info.phone}
           register={register}
         ></FieldText>
-        <div className="change-password">
+        {info.email?.length ? (
           <FieldText
-            placeHolder="Mật khẩu"
-            label="Mật khẩu"
-            type="password"
-            defaultValue="******************"
+            placeHolder="Hộp thư"
+            label="Hộp thư"
+            name="email"
+            error={error.email}
+            defaultValue={info.email}
             readOnly={true}
+            register={register}
           ></FieldText>
-          <div
-            className="change-password__link"
-            onClick={() => {
-              dispatch({
-                type: STUDENT_PROFILE_ACTION.MODAL_OPEN,
-              });
-            }}
-          >
-            Đổi mật khẩu
-          </div>
-        </div>
+        ) : (
+          <></>
+        )}
+        {info.facebookId?.length + info.googleId?.length === 0 ? (
+          <>
+            <div className="change-password">
+              <FieldText
+                placeHolder="Mật khẩu"
+                label="Mật khẩu"
+                type="password"
+                defaultValue="******************"
+                readOnly={true}
+              ></FieldText>
+              <div
+                className="change-password__link"
+                onClick={() => {
+                  dispatch({
+                    type: STUDENT_PROFILE_ACTION.MODAL_OPEN,
+                  });
+                }}
+              >
+                Đổi mật khẩu
+              </div>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
         <input
           type="number"
           defaultValue={info.gender}

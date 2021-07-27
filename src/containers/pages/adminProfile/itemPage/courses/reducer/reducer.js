@@ -60,6 +60,27 @@ export const reducer = (state, action) => {
         ...state,
         currentCourses: [...payload],
       };
+
+    case COURSES_ADMIN_ACTION.UPDATE_SINGLE_COURSE:
+      let indexCourse = state.currentCourses.findIndex(
+        (course) => course.id === payload.id
+      );
+      let indexListRenderCourse = state.listRender.findIndex(
+        (course) => course.id === payload.id
+      );
+      return {
+        ...state,
+        currentCourses: state.currentCourses.fill(
+          payload,
+          indexCourse,
+          indexCourse + 1
+        ),
+        listRender: state.listRender.fill(
+          payload,
+          indexListRenderCourse,
+          indexListRenderCourse + 1
+        ),
+      };
     case COURSES_ADMIN_ACTION.UPDATE_LOADING:
       return {
         ...state,
@@ -80,6 +101,7 @@ export const COURSES_ADMIN_ACTION = {
   RESET_FILTER: 7,
   UPDATE_CURRENT_COURSES: 8,
   UPDATE_LOADING: 9,
+  UPDATE_SINGLE_COURSE: 10,
 };
 
 export const enumState = {

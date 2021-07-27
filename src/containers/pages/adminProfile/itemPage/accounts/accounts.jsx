@@ -10,11 +10,7 @@ const initData = {
   modalState: enumState.HIDDEN,
   loading: true,
   error: {
-    firstName: {
-      isShow: false,
-      message: "*Hiện đang chưa có dữ liệu",
-    },
-    lastName: {
+    name: {
       isShow: false,
       message: "*Hiện đang chưa có dữ liệu",
     },
@@ -104,24 +100,14 @@ export const Accounts = ({ teachers, users, adminProfileDispatch }) => {
                         ref={form}
                         className="content-create-account__form"
                       >
-                        <div className="block-flex">
-                          <FieldText
-                            placeHolder="Họ"
-                            label="Họ"
-                            name="firstName"
-                            register={register}
-                            className="field--none-rounded"
-                            error={store.error.firstName}
-                          ></FieldText>
-                          <FieldText
-                            placeHolder="Tên"
-                            label="Tên"
-                            name="lastName"
-                            register={register}
-                            className="field--none-rounded"
-                            error={store.error.lastName}
-                          ></FieldText>
-                        </div>
+                        <FieldText
+                          placeHolder="Tên"
+                          label="Tên"
+                          name="name"
+                          register={register}
+                          className="field--none-rounded"
+                          error={store.error.name}
+                        ></FieldText>
                         <FieldText
                           placeHolder="Email"
                           label="Email"
@@ -129,15 +115,6 @@ export const Accounts = ({ teachers, users, adminProfileDispatch }) => {
                           register={register}
                           className="field--none-rounded"
                           error={store.error.email}
-                        ></FieldText>
-                        <FieldText
-                          placeHolder="Ngày sinh"
-                          label="Ngày sinh"
-                          name="dob"
-                          type="date"
-                          register={register}
-                          className="field--none-rounded"
-                          defaultValue={new Date()}
                         ></FieldText>
                         <FieldText
                           placeHolder="Vai trò"
@@ -195,7 +172,7 @@ export const Accounts = ({ teachers, users, adminProfileDispatch }) => {
                         ></div>
                       )}
                       <div className="item__info">
-                        <p className="item__info-name">{`${teacher.firstName} ${teacher.lastName}`}</p>
+                        <p className="item__info-name">{teacher.name}</p>
                         <p className="item__info-courses">
                           <span>{teacher.courseCount}</span> khóa học
                         </p>
@@ -242,7 +219,7 @@ export const Accounts = ({ teachers, users, adminProfileDispatch }) => {
                         ></div>
                       )}
                       <div className="item__info">
-                        <p className="item__info-name">{`${user.firstName} ${user.lastName}`}</p>
+                        <p className="item__info-name">{user.name}</p>
                         <p className="item__info-courses">
                           <span>{user.paidCourseCount}</span> khóa học
                         </p>

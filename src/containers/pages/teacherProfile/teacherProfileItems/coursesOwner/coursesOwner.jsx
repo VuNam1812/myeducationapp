@@ -179,7 +179,11 @@ export const CoursesOwner = ({ account, courses, className, dispatch }) => {
                       {store.renderList.map((course) => {
                         return (
                           <SwiperSlide>
-                            <div className="slide-item">
+                            <div
+                              className={`slide-item ${
+                                course.isDelete ? "disabled" : ""
+                              }`}
+                            >
                               {course.srcImage && (
                                 <div
                                   className="slide-item__image"
@@ -269,13 +273,17 @@ export const CoursesOwner = ({ account, courses, className, dispatch }) => {
                                     </div>
                                   </div>
                                 </div>
-                                <Button
-                                  dataId={course.id}
-                                  bodyClassName="slide-item__body-content-btn"
-                                  className="btn--square slide-item__body-btn btn--hover-horizontal-change-color"
-                                  content="Chỉnh sửa"
-                                  onClick={loadCourseEdit}
-                                ></Button>
+                                {!course.isDelete ? (
+                                  <Button
+                                    dataId={course.id}
+                                    bodyClassName="slide-item__body-content-btn"
+                                    className="btn--square slide-item__body-btn btn--hover-horizontal-change-color"
+                                    content="Chỉnh sửa"
+                                    onClick={loadCourseEdit}
+                                  ></Button>
+                                ) : (
+                                  <></>
+                                )}
                               </div>
                             </div>
                           </SwiperSlide>

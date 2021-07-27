@@ -394,7 +394,7 @@ export const handleLessionCourse = {
       if (!result) {
         Swal.fire({
           icon: "error",
-          text: "Xóa chủ đề lỗi!! Vui lòng thử lại.",
+          text: "Xóa bài giảng lỗi!! Vui lòng thử lại.",
           showConfirmButton: false,
           didOpen: () => {
             setTimeout(() => {
@@ -408,7 +408,7 @@ export const handleLessionCourse = {
 
       Swal.fire({
         icon: "success",
-        text: "Xóa chủ đề thành công.",
+        text: "Xóa bài giảng thành công.",
         showConfirmButton: false,
         didOpen: async () => {
           setTimeout(() => {

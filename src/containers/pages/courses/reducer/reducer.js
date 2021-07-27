@@ -49,6 +49,16 @@ export const reducer = (state, action) => {
         ...state,
         loading: payload,
       };
+    case COURSES_ACTION.UPDATE_TYPE_PAGE:
+      return {
+        ...state,
+        typePage: payload,
+      };
+    case COURSES_ACTION.UPDATE_LENGTH:
+      return {
+        ...state,
+        length: payload,
+      };
     default:
       return state;
   }
@@ -63,4 +73,6 @@ export const COURSES_ACTION = {
   UPDATE_VIEW_ITEM: 5,
   UPDATE_FILTER: 6,
   UPDATE_LOADING: 7,
+  UPDATE_TYPE_PAGE: 8,
+  UPDATE_LENGTH: 9,
 };

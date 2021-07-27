@@ -9,22 +9,30 @@ export const handleAction = {
       payload: data,
     });
   },
-  checkLogin: (data, dispatch, history) => {
+  checkLogin: (data, type, dispatch, history) => {
     Swal.fire({
-      title: "Login...",
+      title: "Đăng nhập",
       didOpen: async () => {
         Swal.showLoading();
-        const res_login = await authApi.login(data);
+        let res_login = {};
+        switch (type) {
+          case "normal":
+            res_login = await authApi.login(data);
+            break;
+          case "facebook":
+            res_login = await authApi.facebookLogin(data);
+            break;
+          case "google":
+            res_login = await authApi.googleLogin(data);
+            break;
+        }
 
         res_login.authenticated
           ? Swal.fire({
               icon: "success",
               text: "Đăng nhập thành công",
-              showConfirmButton: true,
-              confirmButtonText: "Xác nhận",
-              confirmButtonColor: "#00ab15",
-            }).then((result) => {
-              if (result.isConfirmed) {
+              showConfirmButton: false,
+              didOpen: () => {
                 dispatch({
                   type: AUTH_ACTION.UPDATE_AUTH,
                   payload: true,
@@ -33,15 +41,18 @@ export const handleAction = {
                   type: AUTH_ACTION.UPDATE_ACCOUNT,
                   payload: res_login.accountInfo,
                 });
-                history.goBack();
-              }
+                setTimeout(() => {
+                  Swal.close();
+                  history.goBack();
+                }, 1200);
+              },
             })
           : Swal.fire({
               icon: "error",
               title: "Opp....",
               text: res_login.err_message,
               showConfirmButton: true,
-              confirmButtonText: "đăng nhập lại",
+              confirmButtonText: "Đăng nhập lại",
               confirmButtonColor: "#dc3545",
             });
       },

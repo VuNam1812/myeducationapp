@@ -28,12 +28,11 @@ export const CourseLession = (props) => {
   const history = useHistory();
   useEffect(() => {
     (async () => {
-      console.log(Object.keys(store_auth.account));
-        await handleCourseLession.checkAccountPayment(
-          params,
-          store_auth.auth,
-          history
-        );
+      await handleCourseLession.checkAccountPayment(
+        params,
+        store_auth.auth,
+        history
+      );
     })();
   }, [params, store_auth.auth]);
 
@@ -70,6 +69,7 @@ export const CourseLession = (props) => {
           <VideoPlayer
             className="right-content__video"
             video={store_lecture.video}
+            dispatch={dispatch}
           ></VideoPlayer>
           <InfoCourse course={store_lecture.course}></InfoCourse>
         </div>

@@ -49,13 +49,9 @@ export const reducer = (state, action) => {
         ...state,
         error: {
           ...state.error,
-          firstName: {
-            ...state.error.firstName,
-            ...payload.firstName,
-          },
-          lastName: {
-            ...state.error.lastName,
-            ...payload.lastName,
+          name: {
+            ...state.error.name,
+            ...payload.name,
           },
           email: {
             ...state.error.email,
@@ -134,7 +130,9 @@ export const reducer = (state, action) => {
     case STUDENT_PROFILE_ACTION.REMOVE_SINGLE_COURSE:
       return {
         ...state,
-        courseFavorites: state.courseFavorites.filter(course => +course.id !== +payload),
+        courseFavorites: state.courseFavorites.filter(
+          (course) => +course.id !== +payload
+        ),
       };
     default:
       return state;

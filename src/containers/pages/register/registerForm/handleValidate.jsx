@@ -3,17 +3,12 @@ import authApi from "../../../../api/authAPI";
 import Swal from "sweetalert2";
 export const handleValidate = {
   validateAll: (data, dispatch) => {
-    const firstName = {
-      show: data.firstName.length === 0 ? true : false,
-    };
-
-    const lastName = {
-      show: data.lastName.length === 0 ? true : false,
+    const name = {
+      show: data.name.length === 0 ? true : false,
     };
     const email = {
       show: data.email.length === 0 ? true : false,
     };
-    const dob = { show: data.dob.length === 0 ? true : false };
     const password = {
       show: data.password.length === 0 ? true : false,
     };
@@ -21,10 +16,8 @@ export const handleValidate = {
       show: data.confirmPassword.length === 0 ? true : false,
     };
     const flag =
-      +firstName.show +
-      +lastName.show +
+      +name.show +
       +email.show +
-      +dob.show +
       +password.show +
       +confirmPassword.show;
 
@@ -32,10 +25,8 @@ export const handleValidate = {
       ? dispatch({
           type: ACTION.UPDATE_ALL,
           payload: [
-            firstName.show,
-            lastName.show,
+            name.show,
             email.show,
-            dob.show,
             password.show,
             confirmPassword.show,
           ],
@@ -69,7 +60,6 @@ export const handleValidate = {
     return true;
   },
   validateEmail: async (email, dispatch) => {
-    console.log(email);
     const res = await authApi.checkAvailable({ email });
     if (!res.status) {
       dispatch({

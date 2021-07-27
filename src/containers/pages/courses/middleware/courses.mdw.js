@@ -2,7 +2,14 @@ import { COURSES_ACTION } from "../reducer/reducer";
 import categoryApi from "../../../../api/categoryAPI";
 import courseApi from "../../../../api/courseAPI";
 export const handleCoursePage = {
-  loadInitPage: async (userData, url, params, query, dispatch) => {
+  loadInitPage: async (
+    userData,
+    store_courses,
+    url,
+    params,
+    query,
+    dispatch
+  ) => {
     let result = "";
     let title = "";
     let courses = [];
@@ -12,43 +19,79 @@ export const handleCoursePage = {
         : "category";
     result = url.startsWith("search", 1) ? "search" : result;
 
+    dispatch({
+      type: COURSES_ACTION.UPDATE_TYPE_PAGE,
+      payload: result,
+    });
+
     switch (result) {
       case "category":
         const res = await categoryApi.getSingle(+params.catId);
-        courses = (
+        const res_courses = (
           await categoryApi.getAllCourseByCatId(+params.catId, {
+            limit: store_courses.limit,
+            page: 1,
             getInfo: ["firstLecture"],
           })
         ).data;
+        courses = res_courses.courses;
+
+        //setup pagination
+        handleCoursePage.setupPagination(
+          res_courses.length,
+          store_courses.pageActive,
+          store_courses.limit,
+          dispatch
+        );
         title = res.data.fullName;
+        dispatch({
+          type: COURSES_ACTION.UPDATE_LENGTH,
+          payload: +res_courses.length,
+        });
         break;
       case "search":
         const searchCourse = await courseApi.getAll({
           search: query.get("searchText"),
-          order: "id",
-          sort: "asc",
+          limit: store_courses.limit,
+          page: 1,
+          getInfo: ["firstLecture", "lectureCount", "catName", "teacherName"],
         });
+        handleCoursePage.setupPagination(
+          searchCourse.data.length,
+          store_courses.pageActive,
+          store_courses.limit,
+          dispatch
+        );
+        //setup pagination
         courses = searchCourse.data.courses;
         title = query.get("searchText");
+        dispatch({
+          type: COURSES_ACTION.UPDATE_LENGTH,
+          payload: +searchCourse.data.length,
+        });
         break;
       default:
-        courses = (await courseApi.getAll()).data.all;
-
+        const allCourse = (
+          await courseApi.getAll({
+            limit: store_courses.limit,
+            page: 1,
+            getInfo: ["firstLecture", "lectureCount", "catName", "teacherName"],
+          })
+        ).data;
+        handleCoursePage.setupPagination(
+          allCourse.length,
+          store_courses.pageActive,
+          store_courses.limit,
+          dispatch
+        );
+        courses = allCourse.courses;
+        dispatch({
+          type: COURSES_ACTION.UPDATE_LENGTH,
+          payload: +allCourse.length,
+        });
         break;
     }
 
-    if (userData.auth) {
-      for (const cour of courses) {
-        cour.paid = (await courseApi.checkPaid({ courId: cour.id })).data.paid;
-        cour.owner = cour.id_owner === userData.account.id;
-      }
-    }
-    dispatch({
-      type: COURSES_ACTION.UPDATE_COURSES,
-      payload: {
-        courses: [...courses],
-      },
-    });
     dispatch({
       type: COURSES_ACTION.UPDATE_FILTER,
       payload: 0,
@@ -60,8 +103,8 @@ export const handleCoursePage = {
         search: result === "search",
       },
     });
-    
-    return result;
+
+    handleCoursePage.updateFieldsPaid(userData, courses, dispatch);
   },
   setupPagination: (length, active, limit, dispatch) => {
     const subPage = length % limit > 0 ? 1 : 0;
@@ -73,35 +116,98 @@ export const handleCoursePage = {
         active: +index === active ? "pagination__item--active" : "",
       });
     }
-
     dispatch({
       type: COURSES_ACTION.UPDATE_PAGINATION,
       payload: [...object],
     });
-
   },
 
-  filterCourses: (courses, filter, dispatch) => {
-    let newCourses = [];
-
-    switch (filter) {
-      case 1:
-        newCourses = [...courses.sort((a, b) => a.price - b.price)];
+  updateListRender: async (
+    userData,
+    typePage,
+    params,
+    query,
+    condition,
+    dispatch
+  ) => {
+    let courses = [];
+    switch (typePage) {
+      case "category":
+        const res_courses = (
+          await categoryApi.getAllCourseByCatId(+params.catId, {
+            ...condition,
+            getInfo: ["firstLecture"],
+          })
+        ).data;
+        courses = res_courses.courses;
         break;
-      case 2:
-        newCourses = [...courses.sort((a, b) => -(a.rate - b.rate))];
+      case "search":
+        const searchCourse = await courseApi.getAll({
+          search: query.get("searchText"),
+          ...condition,
+          getInfo: ["firstLecture", "lectureCount", "catName", "teacherName"],
+        });
+        courses = searchCourse.data.courses;
         break;
       default:
-        newCourses = [...courses.sort((a, b) => a.id - b.id)];
+        const allCourse = (
+          await courseApi.getAll({
+            ...condition,
+            getInfo: ["firstLecture", "lectureCount", "catName", "teacherName"],
+          })
+        ).data;
+        courses = allCourse.courses;
         break;
     }
-    dispatch({
-      type: COURSES_ACTION.UPDATE_COURSES,
-      payload: {
-        courses: [...newCourses],
-      },
+
+    handleCoursePage.updateFieldsPaid(userData, courses, dispatch);
+  },
+
+  updateFieldsPaid: (userData, courses, dispatch) => {
+    const promises = [];
+    if (userData.auth) {
+      for (const cour of courses) {
+        promises.push(
+          courseApi.checkPaid({ courId: cour.id }).then((res) => {
+            cour.paid = res.data.paid;
+          })
+        );
+        cour.owner = cour.id_owner === userData.account.id;
+      }
+    }
+
+    Promise.all(promises).then(() => {
+      dispatch({
+        type: COURSES_ACTION.UPDATE_RENDER_LIST,
+        payload: courses,
+      });
+      setTimeout(() => {
+        dispatch({
+          type: COURSES_ACTION.UPDATE_LOADING,
+          payload: false,
+        });
+      }, 2000);
     });
   },
 
-  loadCourseBySearchText: (searchText = "") => {},
+  getInfoFilter: (filter) => {
+    switch (+filter) {
+      case 1:
+        return {
+          order: "price",
+          sort: "asc",
+        };
+      case 2:
+        return {
+          order: "rate",
+          sort: "desc",
+        };
+
+      default:
+        return {
+          order: "id",
+          sort: "asc",
+        };
+    }
+  },
 };

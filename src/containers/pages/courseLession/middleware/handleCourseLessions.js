@@ -1,6 +1,7 @@
 import { LESSION_ACTION } from "../reducer/reducer";
 
 import courseApi from "../../../../api/courseAPI";
+import userLessionApi from "../../../../api/userLessionAPI";
 
 export const handleCourseLession = {
   loadCourse: async (data, dispatch) => {
@@ -17,8 +18,8 @@ export const handleCourseLession = {
   },
 
   loadLessions: async (data, dispatch) => {
-    const lessions = (await courseApi.getLessions(data.courId)).data;
-
+    const lessions = (await courseApi.getUserLessions(data.courId)).data;
+    console.log(lessions);
     dispatch({
       type: LESSION_ACTION.UPDATE_LESSION,
       payload: lessions,

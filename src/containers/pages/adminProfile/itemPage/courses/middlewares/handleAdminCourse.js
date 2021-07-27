@@ -1,12 +1,13 @@
 import { ADMIN_PROFILE_ACTION } from "../../../reducer/reducer";
+import { COURSES_ADMIN_ACTION } from "../reducer/reducer";
 import { AUTH_ACTION } from "../../../../../../contexts/auth/reducer";
 import accountApi from "../../../../../../api/accountAPI";
 import courseApi from "../../../../../../api/courseAPI";
 import moment from "moment";
 import Swal from "sweetalert2";
 export const handleAdminCourse = {
-  disableCourse: async (course, dispatch) => {
-    console.log(course);
+  disableCourse: async (course, dispatch, courseDispatch) => {
+
     const confirm = await Swal.fire({
       icon: "question",
       text: `Xác nhận ${course.isDelete? "mở lại" : "tạm đóng"} khóa học?`,
@@ -27,6 +28,14 @@ export const handleAdminCourse = {
       if (res.data.updated) {
         dispatch({
           type: ADMIN_PROFILE_ACTION.UPDATE_SINGLE_COURSE,
+          payload: {
+            ...course,
+            isDelete: !course.isDelete,
+          },
+        });
+
+        courseDispatch({
+          type: COURSES_ADMIN_ACTION.UPDATE_SINGLE_COURSE,
           payload: {
             ...course,
             isDelete: !course.isDelete,

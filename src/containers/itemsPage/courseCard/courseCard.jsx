@@ -48,10 +48,9 @@ export const CourseCard = ({ course, className }) => {
       payload:
         favorite.data.filter((cour) => +cour.id === course.id).length !== 0,
     });
-
     dispatch({
       type: CARD_ACTION.UPDATE_OWNER,
-      payload: course.id_owner === store_auth.account.id,
+      payload: +course.id_owner === +store_auth.account.id,
     });
   };
 

@@ -17,11 +17,16 @@ export const handleAdminProfile = {
   },
 
   loadCourses: async (dispatch) => {
-    const res = await courseApi.getAll();
+    const res = await courseApi.getAll({
+      limit: 1000000000,
+      page: 1,
+      isDelete: -1,
+      getInfo: ["teacherName", "lectureCount", "catName"],
+    });
 
     dispatch({
       type: ADMIN_PROFILE_ACTION.UPDATE_COURSES,
-      payload: res.data.all,
+      payload: res.data.courses,
     });
   },
 
@@ -43,7 +48,7 @@ export const handleAdminProfile = {
 
     dispatch({
       type: ADMIN_PROFILE_ACTION.UPDATE_USERS,
-      payload: res.data
-    })
+      payload: res.data,
+    });
   },
 };

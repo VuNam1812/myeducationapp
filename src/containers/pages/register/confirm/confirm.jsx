@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import "./style.scss";
 import { useForm } from "react-hook-form";
-import verifyEmail from "../../../../public/image/verifyEmail.PNG";
+import verifyEmail from "../../../../public/image/verifyEmail.png";
 import { Button, Input } from "../../../../components";
 export const Confirm = (props) => {
   const [showError, isShowError] = useState(false);

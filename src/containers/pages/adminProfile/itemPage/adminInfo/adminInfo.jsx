@@ -17,11 +17,7 @@ const inidData = {
   active: "mini-show",
   modalState: enumState.HIDDEN,
   error: {
-    firstName: {
-      isShow: false,
-      message: "*Hiện đang trống thông tin",
-    },
-    lastName: {
+    name: {
       isShow: false,
       message: "*Hiện đang trống thông tin",
     },
@@ -53,14 +49,12 @@ export const AdminInfo = ({ account, adminProfileDispatch }) => {
 
   useEffect(() => {
     if (Object.keys(account).length) {
-      ["firstName", "lastName", "phone", "dob", "email", "gender"].map(
-        (item) => {
-          setValue(
-            item,
-            typeof account[item] === "number" ? +account[item] : account[item]
-          );
-        }
-      );
+      ["name", "phone", "email", "gender"].map((item) => {
+        setValue(
+          item,
+          typeof account[item] === "number" ? +account[item] : account[item]
+        );
+      });
     }
   }, [account]);
 
@@ -71,7 +65,6 @@ export const AdminInfo = ({ account, adminProfileDispatch }) => {
   };
 
   const handleCancelUpdate = async () => {
-    console.log(getValues());
     const result = await handleAdminInfo.checkCancelUpdate(dispatch);
 
     if (!result) {
@@ -105,7 +98,7 @@ export const AdminInfo = ({ account, adminProfileDispatch }) => {
             </div>
           </div>
           <div className="content-view__info">
-            <p className="info__name">{`${account.firstName} ${account.lastName}`}</p>
+            <p className="info__name">{account.name}</p>
             <p className="info__email">{account.email}</p>
             <p className="info__role">
               <i className="icon fa fa-user-circle-o" aria-hidden="true"></i>
@@ -129,40 +122,22 @@ export const AdminInfo = ({ account, adminProfileDispatch }) => {
             <p>Thông tin tài khoản</p>
           </div>
           <form ref={form} className="content-edit__body">
-            <div className="block-flex">
-              <FieldText
-                placeHolder="Họ"
-                label="Họ"
-                name="firstName"
-                defaultValue={account.firstName}
-                register={register}
-                error={store.error.firstName}
-              ></FieldText>
-              <FieldText
-                placeHolder="Tên"
-                label="Tên"
-                name="lastName"
-                defaultValue={account.lastName}
-                register={register}
-                error={store.error.lastName}
-              ></FieldText>
-            </div>
+            <FieldText
+              placeHolder="Họ & tên"
+              label="Họ & tên"
+              name="name"
+              defaultValue={account.name}
+              register={register}
+              error={store.error.name}
+            ></FieldText>
             <FieldText
               placeHolder="Email"
               label="Email"
               name="email"
               defaultValue={account.email}
               register={register}
+              readOnly={true}
               error={store.error.email}
-            ></FieldText>
-            <FieldText
-              placeHolder="Ngày sinh"
-              label="Ngày sinh"
-              name="dob"
-              type="date"
-              register={register}
-              defaultValue={account.dob}
-              error={store.error.dob}
             ></FieldText>
             <FieldText
               placeHolder="Số điện thoại"

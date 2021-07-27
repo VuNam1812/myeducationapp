@@ -28,7 +28,7 @@ export const Login = (props) => {
   const { dispatch_auth } = useContext(authContext);
   useEffect(() => {
     if (store.login.password && store.login.email) {
-      handleAction.checkLogin(store.login, dispatch_auth, history);
+      handleAction.checkLogin(store.login, "normal", dispatch_auth, history);
     }
   }, [store.login]);
 

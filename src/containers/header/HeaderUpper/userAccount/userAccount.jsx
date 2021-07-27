@@ -7,7 +7,7 @@ export const UserAccount = ({ account, handlelogout }) => {
     <div className="user-account">
       <div className="user-account__header">
         <div className="header__info">
-          <p className="account-info__name">{account.username}</p>
+          <p className="account-info__name">{account.name}</p>
           <p className="account-info__role">{account.role}</p>
         </div>
         {account.srcImage && (
@@ -25,6 +25,13 @@ export const UserAccount = ({ account, handlelogout }) => {
                 //admin
                 return (
                   <>
+                    <Link
+                      className="option__item"
+                      to={`/accounts/${account.id}`}
+                    >
+                      <i className="icon fa fa-info" aria-hidden="true"></i>
+                      Quản lý cá nhân
+                    </Link>
                     <Link className="option__item" to={`/admins/${account.id}`}>
                       <i className="icon fa fa-cog" aria-hidden="true"></i>
                       Trang chủ quản trị viên

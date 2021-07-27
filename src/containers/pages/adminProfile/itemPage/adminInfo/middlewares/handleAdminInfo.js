@@ -29,11 +29,8 @@ export const handleAdminInfo = {
   },
 
   validateField: (data, dispatch) => {
-    const error_firstName = {
-      isShow: data.firstName.length === 0,
-    };
-    const error_lastName = {
-      isShow: data.lastName.length === 0,
+    const error_name = {
+      isShow: data.name.length === 0,
     };
     const error_email = {
       isShow: data.email.length === 0,
@@ -42,15 +39,12 @@ export const handleAdminInfo = {
     dispatch({
       type: ADMIN_INFO_ACTION.UPDATE_ERROR,
       payload: {
-        firstName: { ...error_firstName },
-        lastName: { ...error_lastName },
+        name: { ...error_name },
         email: { ...error_email },
       },
     });
 
-    return (
-      +error_email.isShow + +error_firstName.isShow + +error_lastName.isShow
-    );
+    return +error_email.isShow + +error_name.isShow;
   },
 
   updateInfoAccount: (accountId, data, authDispatch) => {
@@ -62,7 +56,6 @@ export const handleAdminInfo = {
         Swal.showLoading();
         const res = await accountApi.updateInfo(accountId, {
           ...data,
-          dob: moment(data.dob).format("YYYY-MM-DD"),
         });
 
         if (res.data.updated) {
@@ -70,7 +63,7 @@ export const handleAdminInfo = {
 
           const newAuthAccount = {
             id: account.id,
-            username: `${account.firstName} ${account.lastName}`,
+            username: account.name,
             role: +account.permission,
             srcImage: account.srcImage,
           };

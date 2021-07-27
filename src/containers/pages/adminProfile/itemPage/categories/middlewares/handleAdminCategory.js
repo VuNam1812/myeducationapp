@@ -278,8 +278,6 @@ export const handleAdminCategory = {
             const res = await categoryApi.delete(cat.id);
             resultRes = res.data.deleted;
 
-            console.log(res);
-
             if (resultRes) {
               dispatch_cat({
                 type: CAT_ACTION.DELETE_SINGLE_CAT,

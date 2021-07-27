@@ -196,7 +196,8 @@ export const Courses = ({ courses, teachers, adminProfileDispatch }) => {
     const courId = +e.currentTarget.getAttribute("data-id");
     await handleAdminCourse.disableCourse(
       courses.filter((course) => course.id === courId)[0],
-      adminProfileDispatch
+      adminProfileDispatch,
+      dispatch
     );
   };
 
@@ -220,7 +221,7 @@ export const Courses = ({ courses, teachers, adminProfileDispatch }) => {
             data={teachers.map((teacher) => {
               return {
                 id: teacher.id,
-                content: `${teacher.firstName} ${teacher.lastName}`,
+                content: teacher.name,
               };
             })}
             defaultSelected="--- Chọn Giảng viên ---"

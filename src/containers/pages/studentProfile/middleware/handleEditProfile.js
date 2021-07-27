@@ -48,7 +48,7 @@ export const handleEditProfile = {
             payload: {
               ...info,
               role: +info.permission,
-              username: `${values.firstName} ${values.lastName}`,
+              name: values.name,
             },
           });
         }
@@ -67,36 +67,30 @@ export const handleEditProfile = {
     });
   },
 
-  checkAllField: (values, dispatch) => {
-    const error_firstName = {
-      isShow: values.firstName.length === 0,
-    };
-    const error_lastName = {
-      isShow: values.lastName.length === 0,
+  checkAllField: (values, emailCheck, dispatch) => {
+    const error_name = {
+      isShow: values.name.length === 0,
     };
     const error_email = {
-      isShow: values.email.length === 0,
+      isShow: emailCheck ? values.email.length === 0 : false,
     };
 
     dispatch({
       type: STUDENT_PROFILE_ACTION.UPDATE_ERROR,
       payload: {
-        firstName: { ...error_firstName },
-        lastName: { ...error_lastName },
+        name: { ...error_name },
         email: { ...error_email },
       },
     });
 
-    return (
-      +error_email.isShow + +error_firstName.isShow + +error_lastName.isShow
-    );
+    return +error_email.isShow + +error_name.isShow;
   },
 
   checkEmailExist: async (values, dispatch) => {
     const { email } = values;
 
     const result = await accountApi.checkEmailAvailable({
-      email: email
+      email: email,
     });
     if (result.data.available) {
       dispatch({

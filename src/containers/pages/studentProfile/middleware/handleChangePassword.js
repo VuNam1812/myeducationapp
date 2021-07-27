@@ -9,7 +9,6 @@ export const handleChangePassword = {
     const res = await accountApi.checkPassword({
       password: oldPassword,
     });
-    console.log(res.data.result);
     dispatch({
       type: STUDENT_PROFILE_ACTION.UPDATE_ERROR_OLD_PASSWORD,
       payload: {

@@ -15,9 +15,10 @@ const initData = {
   pagination: [],
   renderList: [],
   pageActive: 1,
+  length: 0,
   limit: 9,
   direct: 1,
-  courses: [],
+  typePage: "",
   filter: 0,
   loading: true,
 };
@@ -29,57 +30,77 @@ export const Courses = (props) => {
   let { url } = useRouteMatch();
   const location = useLocation();
   useEffect(() => {
+    dispatch_courses({
+      type: COURSES_ACTION.UPDATE_LOADING,
+      payload: true,
+    });
+    $("html,body").animate({ scrollTop: 0 }, 500);
     (async () => {
       await handleCoursePage.loadInitPage(
         store_auth,
+        store_courses,
         url,
         params,
         new URLSearchParams(location.search),
         dispatch_courses
       );
     })();
-    setTimeout(() => {
-      dispatch_courses({
-        type: COURSES_ACTION.UPDATE_LOADING,
-        payload: false,
-      });
-    }, 2000);
   }, [location]);
 
   useEffect(() => {
-    handleCoursePage.filterCourses(
-      store_courses.courses,
-      store_courses.filter,
+    dispatch_courses({
+      type: COURSES_ACTION.UPDATE_LOADING,
+      payload: true,
+    });
+    $("html,body").animate({ scrollTop: 0 }, 500);
+    const info = handleCoursePage.getInfoFilter(store_courses.filter);
+    const condition = {
+      limit: store_courses.limit,
+      page: store_courses.pageActive,
+      sort: info.sort,
+      order: info.order,
+      isDelete: 0,
+    };
+    handleCoursePage.updateListRender(
+      store_auth,
+      store_courses.typePage,
+      params,
+      new URLSearchParams(location.search),
+      condition,
       dispatch_courses
     );
   }, [store_courses.filter]);
 
   useEffect(() => {
-    const { pageActive, limit, courses } = store_courses;
     dispatch_courses({
       type: COURSES_ACTION.UPDATE_LOADING,
       payload: true,
     });
-    dispatch_courses({
-      type: COURSES_ACTION.UPDATE_RENDER_LIST,
-      payload: [...courses.slice((pageActive - 1) * limit, pageActive * limit)],
-    });
+    $("html,body").animate({ scrollTop: 0 }, 500);
     handleCoursePage.setupPagination(
-      courses.length,
-      pageActive,
-      limit,
+      store_courses.length,
+      store_courses.pageActive,
+      store_courses.limit,
       dispatch_courses
     );
-    $("html,body").animate({ scrollTop: 0 }, 500);
-    if (store_courses.courses.length !== 0) {
-      setTimeout(() => {
-        dispatch_courses({
-          type: COURSES_ACTION.UPDATE_LOADING,
-          payload: false,
-        });
-      }, 2000);
-    }
-  }, [store_courses.courses, store_courses.pageActive, store_courses.limit]);
+    //update list render
+    const info = handleCoursePage.getInfoFilter(store_courses.filter);
+    const condition = {
+      limit: store_courses.limit,
+      page: store_courses.pageActive,
+      order: info.order,
+      sort: info.sort,
+      isDelete: 0,
+    };
+    handleCoursePage.updateListRender(
+      store_auth,
+      store_courses.typePage,
+      params,
+      new URLSearchParams(location.search),
+      condition,
+      dispatch_courses
+    );
+  }, [store_courses.pageActive, store_courses.limit]);
 
   return (
     <div className="courses-page">

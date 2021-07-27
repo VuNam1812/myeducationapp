@@ -45,7 +45,7 @@ export const NewCourses = (props) => {
                       <div className="body-item__header">
                         <div className="body-item__date">
                           <p className="high-light-circle">
-                            {new Date(course.createAt).getDay()}
+                            {new Date(course.createAt).getDate()}
                           </p>
                           {new Date(course.createAt).toGMTString().substr(8, 8)}
                         </div>
