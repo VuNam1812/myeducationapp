@@ -24,7 +24,7 @@ export const InComing = (props) => {
               <div className="group-item">
                 <p className="title">UI/UX Master</p>
                 <div className="date">
-                  <span className="high-light-circle">23</span> MAY 2021
+                  <span className="high-light-circle">23</span> AUG 2021
                 </div>
               </div>
               <div className="category-name">Development | Web Development</div>
