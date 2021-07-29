@@ -12,14 +12,6 @@ export const VideoPlayer = ({ className, video, dispatch }) => {
   const videoTarget = useRef();
   useEffect(() => {
     setVideoId(video.id);
-    if (typeof videoTarget.current !== "undefined" && video.id) {
-      try {
-        videoTarget.current.seekTo(
-          video.lastSeconds ? video.lastSeconds : 0,
-          "seconds"
-        );
-      } catch (error) {}
-    }
     if (videoId !== -1 && Math.round(viewed) > 0) {
       userLessionApi.updateInfo({
         id_lecture: videoId,
@@ -48,7 +40,6 @@ export const VideoPlayer = ({ className, video, dispatch }) => {
       video.duration * 0.9 <= progress.playedSeconds &&
       video.isCompleted === 0
     ) {
-      console.log("run");
       dispatch({
         type: LESSION_ACTION.UPDATE_SINGLE_LESSIONS,
         payload: {
@@ -76,6 +67,12 @@ export const VideoPlayer = ({ className, video, dispatch }) => {
           className="video-player__body"
           url={`${video.src}`}
           controls
+          onStart={() => {
+            videoTarget.current.seekTo(
+              video.lastSeconds ? video.lastSeconds : 0,
+              "seconds"
+            );
+          }}
           onProgress={handleCompleteLession}
         ></ReactPlayer>
       )}
