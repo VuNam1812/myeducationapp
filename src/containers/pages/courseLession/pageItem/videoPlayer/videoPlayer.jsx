@@ -12,15 +12,13 @@ export const VideoPlayer = ({ className, video, dispatch }) => {
   const videoTarget = useRef();
   useEffect(() => {
     setVideoId(video.id);
-    if (
-      videoTarget.currect &&
-      typeof(videoTarget.current) !== "undefined" &&
-      video.id
-    ) {
-      videoTarget.current.seekTo(
-        video.lastSeconds ? video.lastSeconds : 0,
-        "seconds"
-      );
+    if (typeof videoTarget.current !== "undefined" && video.id) {
+      try {
+        videoTarget.current.seekTo(
+          video.lastSeconds ? video.lastSeconds : 0,
+          "seconds"
+        );
+      } catch (error) {}
     }
     if (videoId !== -1 && Math.round(viewed) > 0) {
       userLessionApi.updateInfo({
