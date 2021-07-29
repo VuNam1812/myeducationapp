@@ -12,7 +12,11 @@ export const VideoPlayer = ({ className, video, dispatch }) => {
   const videoTarget = useRef();
   useEffect(() => {
     setVideoId(video.id);
-    if (typeof videoTarget.current !== "undefined" && video.id) {
+    if (
+      videoTarget.currect &&
+      typeof(videoTarget.current) !== "undefined" &&
+      video.id
+    ) {
       videoTarget.current.seekTo(
         video.lastSeconds ? video.lastSeconds : 0,
         "seconds"
@@ -61,7 +65,7 @@ export const VideoPlayer = ({ className, video, dispatch }) => {
       });
       userLessionApi.updateInfo({
         id_lecture: videoId,
-        lastSeconds: Math.round(viewed)+1,
+        lastSeconds: Math.round(viewed) + 1,
       });
     }
   };
