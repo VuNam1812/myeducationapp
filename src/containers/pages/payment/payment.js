@@ -33,8 +33,10 @@ export const Payment = (props) => {
   useEffect(() => {
     (async () => {
       if (Object.keys(store_auth.account).length !== 0) {
-        await handlePayment.loadCourse(params, dispatch);
-        await handlePayment.loadUserInfo(store_auth.account, dispatch);
+        await Promise.all([
+          handlePayment.loadCourse(params, dispatch),
+          handlePayment.loadUserInfo(store_auth.account, dispatch),
+        ]);
       }
     })();
   }, [store_auth.account]);

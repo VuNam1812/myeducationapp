@@ -42,12 +42,9 @@ export const reducer = (state, action) => {
       };
 
     case AUTH_ACTION.UPDATE_AVATAR_ACCOUNT:
+      state.account.srcImage = payload;
       return {
         ...state,
-        account: {
-          ...state.account,
-          srcImage: payload,
-        },
       };
 
     case AUTH_ACTION.UPDATE_NAME_ACCOUNT:

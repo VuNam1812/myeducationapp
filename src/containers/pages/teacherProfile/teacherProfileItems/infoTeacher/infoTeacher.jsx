@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 
 import { reducer, INFO_TEACHER_ACTION } from "./reducer";
 import { authContext } from "../../../../../contexts/auth/authContext";
+import { handleStudentProfile } from "../../../studentProfile/middleware/handleStudentProfile";
 import accountApi from "../../../../../api/accountAPI";
 import teacherApi from "../../../../../api/teacherAPI";
 import { AUTH_ACTION } from "../../../../../contexts/auth/reducer";
@@ -28,6 +29,7 @@ export const InfoTeacher = ({ teacher, className, dispatch }) => {
   const [info_store, dispatch_info] = useReducer(reducer, initData);
   const { register, setValue, handleSubmit } = useForm();
   const submit = useRef();
+  const file = useRef();
   useEffect(() => {
     ["name", "major", "phone", "email"].map((item) => {
       setValue(item, teacher[item]);
@@ -161,6 +163,18 @@ export const InfoTeacher = ({ teacher, className, dispatch }) => {
     }
   };
 
+  const handleChangeAvatar = async (e) => {
+    const { files } = e.target;
+    if (e.target.files.length === 0) return;
+
+    await handleStudentProfile.changeAvatar(
+      files[0],
+      teacher,
+      dispatch,
+      dispatch_auth
+    );
+  };
+
   return (
     <div className={`info-teacher ${className}`}>
       {info_store.loading ? (
@@ -170,16 +184,28 @@ export const InfoTeacher = ({ teacher, className, dispatch }) => {
       ) : (
         <>
           <div className="left-block">
-            {teacher.srcImage && (
+            <div
+              className="left-block__avatar"
+              style={{
+                backgroundImage: `url("${teacher.srcImage}")`,
+              }}
+            >
               <div
-                className="left-block__avatar"
-                style={{
-                  backgroundImage: `url("${teacher.srcImage}")`,
+                className="avatar__change"
+                onClick={() => {
+                  file.current.click();
                 }}
               >
-                {" "}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleChangeAvatar}
+                  ref={file}
+                  hidden
+                ></input>
+                <i className="icon fa fa-camera fa-lg" aria-hidden="true"></i>
               </div>
-            )}
+            </div>
 
             <div className="cover-block-left">
               <form

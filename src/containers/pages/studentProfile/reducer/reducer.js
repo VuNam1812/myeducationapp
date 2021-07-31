@@ -27,12 +27,9 @@ export const reducer = (state, action) => {
       };
 
     case STUDENT_PROFILE_ACTION.UPDATE_AVATAR_ACCOUNT:
+      state.account.srcImage = payload;
       return {
         ...state,
-        account: {
-          ...state.account,
-          srcImage: payload,
-        },
       };
 
     case STUDENT_PROFILE_ACTION.UPDATE_GENDER:

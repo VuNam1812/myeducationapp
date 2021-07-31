@@ -37,38 +37,36 @@ export const CourseDetail = (props) => {
   const location = useLocation();
   useEffect(() => {
     (async () => {
-      await handleCourseDetail.loadCourse(params, dispatch, history);
       dispatch({
         type: COURSE_DETAIL_ACTION.UPDATE_LOADING,
         payload: true,
       });
-      const promises = [];
-      promises.push(handleCourseDetail.checkPaid(params, dispatch));
-      promises.push(
+      await Promise.all([
+        handleCourseDetail.loadCourse(params, dispatch, history),
+        handleCourseDetail.checkPaid(params, dispatch),
         handleCourseDetail.checkFavoriteList(
           params,
           store_auth.account,
           dispatch
-        )
-      );
-      Promise.all(promises).then(() => {
-        setTimeout(() => {
-          dispatch({
-            type: COURSE_DETAIL_ACTION.UPDATE_LOADING,
-            payload: false,
-          });
-        }, 1000);
-      });
+        ),
+      ]);
+      setTimeout(() => {
+        dispatch({
+          type: COURSE_DETAIL_ACTION.UPDATE_LOADING,
+          payload: false,
+        });
+      }, 1000);
     })();
     $("html,body").animate({ scrollTop: 0 }, 500);
   }, [location]);
 
   useEffect(() => {
-    (async () => {
-      if (store.course?.id) {
-        await handleCourseDetail.loadCourseCat(store.course, dispatch);
-      }
-    })();
+    if (store.course?.id) {
+      Promise.all([
+        handleCourseDetail.loadCourseCat(store.course, dispatch),
+        handleCourseDetail.updateViewCount(store.course),
+      ]);
+    }
   }, [store.course]);
 
   const handleTabActive = async (index) => {
@@ -114,7 +112,7 @@ export const CourseDetail = (props) => {
               blocks={[
                 store.loading ? (
                   <div className="content__loading">
-                    <i className="icon fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+                    <i className="icon fa fa-spinner fa-pulse fa-3x fa-fw"></i>
                   </div>
                 ) : (
                   <Introduce course={store.course}></Introduce>

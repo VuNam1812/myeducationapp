@@ -1,76 +1,75 @@
-@import '../../styleRoot/color.scss';
+@import "../../styleRoot/color.scss";
 
-.expander{
-    border-bottom: 1px solid rgba($color: $--gray, $alpha: 0.1);
-    padding: 1rem 1.5rem;
-    text-align: left;
-    &__title{
-        display: flex;
-        justify-content: space-between;
-        &:hover{
-            cursor: pointer;
-        }
-        &.active{
-            
-            .show-more-button{
-                .animated-button{
-                    .bar{
-                        transform: rotate(-720deg);
-                        &.bar1{
-                            transform: rotate(-720deg);
-                        }
-                    }
-                }
+.expander {
+  border-bottom: 1px solid rgba($color: $--gray, $alpha: 0.1);
+  padding: 1rem 1.5rem;
+  text-align: left;
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    &:hover {
+      cursor: pointer;
+    }
+    &.active {
+      .show-more-button {
+        .animated-button {
+          .bar {
+            transform: rotate(-720deg);
+            &.bar1 {
+              transform: rotate(-720deg);
             }
+          }
         }
-
-        .title__name{
-            width: 100%;
-            color: $--text-color-bold;
-            margin: 0rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        .show-more-button{
-            position: relative;
-            margin-left: auto;
-
-            .animated-button{
-                position: absolute;
-                top: 15px;
-                right: 0px;
-                height: 20px;
-                width: 20px;
-                .bar{
-                    transition: all 0.7s ease;
-                    position: absolute;
-                    height: 4px;
-                    width: 20px;
-                    background-color: $--text-color-bold;
-                    &.bar1{
-                        transform: rotate(90deg);
-                    }
-                }
-            }
-        }
+      }
     }
 
-    &__content{
-        &.active{
-            margin-top: 1rem;
-            padding: 0.5rem 2rem;
-            border: 1px solid rgba($color: $--gray, $alpha: 0.2);
-            .expander__content-children{
-                display: block;
-            }
-        }
-        padding:0rem 2rem;
-        background-color: $--light;
-        border-radius: 0.25rem;
-        transition: all 0.2s;
-        &-children{
-            display: none;
-            margin: 0;
-        }
+    .title__name {
+      width: calc(100% - 30px);
+      color: $--text-color-bold;
+      margin: 0rem;
+      font-size: 1.2rem;
+      font-weight: bold;
     }
+    .show-more-button {
+      position: relative;
+      margin-left: auto;
+
+      .animated-button {
+        position: absolute;
+        top: 15px;
+        right: 0px;
+        height: 20px;
+        width: 20px;
+        .bar {
+          transition: all 0.7s ease;
+          position: absolute;
+          height: 4px;
+          width: 20px;
+          background-color: $--text-color-bold;
+          &.bar1 {
+            transform: rotate(90deg);
+          }
+        }
+      }
+    }
+  }
+
+  &__content {
+    &.active {
+      margin-top: 1rem;
+      padding: 0.5rem 2rem;
+      border: 1px solid rgba($color: $--gray, $alpha: 0.2);
+      .expander__content-children {
+        display: block;
+      }
+    }
+    padding: 0rem 2rem;
+    background-color: $--light;
+    border-radius: 0.25rem;
+    transition: all 0.2s;
+    &-children {
+      display: none;
+      margin: 0;
+    }
+  }
 }

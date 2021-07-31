@@ -62,6 +62,11 @@ const courseApi = {
     return axiosClient.patch(url, { ...data });
   },
 
+  updateView: (id, data) => {
+    const url = `courses/${id}/views`;
+    return axiosClient.patch(url, { ...data });
+  },
+
   updateActive: (id, data) => {
     const url = `courses/${id}/active`;
     return axiosClient.patch(url, { ...data });

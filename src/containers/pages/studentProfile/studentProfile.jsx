@@ -49,11 +49,10 @@ export const StudentProfile = (props) => {
   const { dispatch_auth } = useContext(authContext);
   const params = useParams();
   useEffect(() => {
-    (async () => {
-      handleStudentProfile.loadProfile(params, dispatch);
-      handleStudentProfile.loadCourseJoin(params, dispatch);
-      handleStudentProfile.loadCourseFavorite(params, dispatch);
-    })();
+    handleStudentProfile.loadProfile(params, dispatch);
+    handleStudentProfile.loadCourseJoin(params, dispatch);
+    handleStudentProfile.loadCourseFavorite(params, dispatch);
+
     $("html,body").animate({ scrollTop: 0 }, 500);
   }, []);
 

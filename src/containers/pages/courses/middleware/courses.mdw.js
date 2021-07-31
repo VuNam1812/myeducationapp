@@ -19,7 +19,7 @@ export const handleCoursePage = {
         : "category";
     result = url.startsWith("search", 1) ? "search" : result;
 
-    dispatch({
+    await dispatch({
       type: COURSES_ACTION.UPDATE_TYPE_PAGE,
       payload: result,
     });
@@ -70,7 +70,7 @@ export const handleCoursePage = {
           payload: +searchCourse.data.length,
         });
         break;
-      default:
+      case "courses":
         const allCourse = (
           await courseApi.getAll({
             limit: store_courses.limit,
@@ -90,18 +90,19 @@ export const handleCoursePage = {
           payload: +allCourse.length,
         });
         break;
+      default:
+        return;
     }
-
-    dispatch({
-      type: COURSES_ACTION.UPDATE_FILTER,
-      payload: 0,
-    });
     dispatch({
       type: COURSES_ACTION.UPDATE_INIT,
       payload: {
         title: title,
         search: result === "search",
       },
+    });
+    dispatch({
+      type: COURSES_ACTION.UPDATE_FILTER,
+      payload: 0,
     });
 
     handleCoursePage.updateFieldsPaid(userData, courses, dispatch);
@@ -149,7 +150,7 @@ export const handleCoursePage = {
         });
         courses = searchCourse.data.courses;
         break;
-      default:
+      case "courses":
         const allCourse = (
           await courseApi.getAll({
             ...condition,
@@ -158,36 +159,41 @@ export const handleCoursePage = {
         ).data;
         courses = allCourse.courses;
         break;
+      default:
+        return;
     }
 
     handleCoursePage.updateFieldsPaid(userData, courses, dispatch);
   },
 
-  updateFieldsPaid: (userData, courses, dispatch) => {
-    const promises = [];
+  updateFieldsPaid: async (userData, courses, dispatch) => {
+    let promises = [];
     if (userData.auth) {
-      for (const cour of courses) {
-        promises.push(
-          courseApi.checkPaid({ courId: cour.id }).then((res) => {
-            cour.paid = res.data.paid;
-          })
-        );
+      promises = courses.map((cour) => {
+        return courseApi.checkPaid({ courId: cour.id });
+      });
+      const paidList = await Promise.all(promises);
+      courses.forEach((cour, index) => {
+        cour.paid = paidList[index].data.paid;
         cour.owner = cour.id_owner === userData.account.id;
-      }
+      });
+    } else {
+      courses.forEach((cour) => {
+        cour.paid = false;
+        cour.owner = false;
+      });
     }
 
-    Promise.all(promises).then(() => {
-      dispatch({
-        type: COURSES_ACTION.UPDATE_RENDER_LIST,
-        payload: courses,
-      });
-      setTimeout(() => {
-        dispatch({
-          type: COURSES_ACTION.UPDATE_LOADING,
-          payload: false,
-        });
-      }, 2000);
+    dispatch({
+      type: COURSES_ACTION.UPDATE_RENDER_LIST,
+      payload: courses,
     });
+    setTimeout(() => {
+      dispatch({
+        type: COURSES_ACTION.UPDATE_LOADING,
+        payload: false,
+      });
+    }, 2000);
   },
 
   getInfoFilter: (filter) => {

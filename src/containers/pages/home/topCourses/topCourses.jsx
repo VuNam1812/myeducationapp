@@ -5,7 +5,6 @@ import "./style.scss";
 import { Button } from "../../../../components";
 import { CourseCard } from "../../../itemsPage";
 export const TopCourses = (props) => {
-  const [loading, setLoading] = useState(false);
   return (
     <div className="top-courses">
       <div className="wrap">
