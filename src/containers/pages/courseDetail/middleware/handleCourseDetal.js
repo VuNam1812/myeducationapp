@@ -152,4 +152,10 @@ export const handleCourseDetail = {
       timerProgressBar: false,
     });
   },
+
+  updateViewCount: (course) => {
+    return courseApi.updateView(course.id, {
+      viewCount: course.viewCount + 1,
+    });
+  },
 };

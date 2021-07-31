@@ -233,15 +233,17 @@ export const handleCourseOwner = {
 
         const { urlGetObject, urlSaveObject } = linkUpload.data.uri;
 
-        await courseApi.uploadImage(urlSaveObject, file, {
-          "Content-type": file.type,
-        });
-
-        const ret = await courseApi.uploadInfo(course.id, {
-          srcImage: urlGetObject,
-        });
-
-        result = ret.data.updated;
+        try {
+          const res = await Promise.all([
+            courseApi.uploadImage(urlSaveObject, file, {
+              "Content-type": file.type,
+            }),
+            courseApi.uploadInfo(course.id, {
+              srcImage: urlGetObject,
+            }),
+          ]);
+          result = res[1].data.updated;
+        } catch (error) {}
 
         Swal.close();
       },

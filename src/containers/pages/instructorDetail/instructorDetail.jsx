@@ -27,17 +27,21 @@ export const InstructorDetail = (props) => {
   const params = useParams();
 
   useEffect(() => {
-    (async () => {
-      $("html,body").animate({ scrollTop: 0 }, 500);
-      await handleInstructorPage.loadTeacher(params, dispatch);
-      await handleInstructorPage.loadCourses(params, dispatch);
-    })();
+    $("html,body").animate({ scrollTop: 0 }, 500);
+    Promise.all([
+      handleInstructorPage.loadTeacher(params, dispatch),
+      handleInstructorPage.loadCourses(params, dispatch),
+    ]);
   }, []);
 
   return (
     <div className="instructor-detail">
       <Header className="header--zoom-80"></Header>
-      {Object.keys(store_page.teacherInfo).length && (
+      {Object.keys(store_page.teacherInfo).length === 0 ? (
+        <div className="instructor-detail__loading">
+          <i className="icon fa fa-cog fa-spin fa-3x fa-fw"></i>
+        </div>
+      ) : (
         <div className="body-page">
           <div className="body-page__header">
             <div className="wrap">

@@ -51,6 +51,32 @@
       width: 30vh;
       border-radius: 50%;
       margin: 1rem 0rem 0rem 1rem;
+      .avatar__change {
+        position: absolute;
+
+        zoom: 0.9;
+
+        width: 2.5rem;
+        height: 2.5rem;
+
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $--gray;
+        bottom: 1rem;
+        right: 1rem;
+
+        cursor: pointer;
+        transition: all 0.3s;
+        .icon {
+          color: $--skeleton;
+        }
+        &:hover {
+          opacity: 0.8;
+        }
+      }
     }
 
     .cover-block-left {

@@ -21,10 +21,10 @@ export const TeacherProfile = (props) => {
   const params = useParams();
   const history = useHistory();
   useEffect(() => {
-    (async () => {
-      await handleTeacheDashboard.loadAccount(params, dispatch);
-      await handleTeacheDashboard.loadCourseOwner(params, dispatch);
-    })();
+    Promise.all([
+      handleTeacheDashboard.loadAccount(params, dispatch),
+      handleTeacheDashboard.loadCourseOwner(params, dispatch),
+    ]);
   }, []);
 
   const updateActive = (e) => {
@@ -69,7 +69,8 @@ export const TeacherProfile = (props) => {
             onClick={updateActive}
             data-id="1"
           >
-            <i className="icon fa fa-user-circle-o" aria-hidden="true"></i>Thông tin
+            <i className="icon fa fa-user-circle-o" aria-hidden="true"></i>Thông
+            tin
           </div>
           <div
             className={`left-content__menu-item ${
@@ -78,7 +79,8 @@ export const TeacherProfile = (props) => {
             onClick={updateActive}
             data-id="2"
           >
-            <i className="icon fa fa-graduation-cap" aria-hidden="true"></i>Khóa học
+            <i className="icon fa fa-graduation-cap" aria-hidden="true"></i>Khóa
+            học
           </div>
         </div>
       </div>
