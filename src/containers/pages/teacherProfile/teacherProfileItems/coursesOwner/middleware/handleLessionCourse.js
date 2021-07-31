@@ -209,14 +209,17 @@ export const handleLessionCourse = {
     newLecture.name = data.lectureName;
 
     let result = false;
-
+    let canUpload = newLecture.src && typeof newLecture.src === "object";
     await Swal.fire({
-      text: "Tạo bài giảng",
+      title: "Tạo bài giảng",
+      html: canUpload
+        ? 'Tải lên bài giảng: <b style="color: #00ab15">%</b>'
+        : "",
       showConfirmButton: false,
       allowOutsideClick: false,
       didOpen: async () => {
         Swal.showLoading();
-        if (newLecture.src && typeof newLecture.src === "object") {
+        if (canUpload) {
           const linkUpload = await lectureApi.getLinkUpload({
             fileName: newLecture.src.name,
             fileType: newLecture.src.type,
@@ -225,9 +228,26 @@ export const handleLessionCourse = {
 
           const { urlGetObject, urlSaveObject } = linkUpload.data.uri;
 
-          await lectureApi.uploadVideo(urlSaveObject, newLecture.src, {
-            "Content-type": newLecture.src.type,
-          });
+          await lectureApi.uploadVideo(
+            urlSaveObject,
+            newLecture.src,
+            {
+              "Content-type": newLecture.src.type,
+            },
+            (e) => {
+              setTimeout(() => {
+                const content = Swal.getHtmlContainer();
+                if (content) {
+                  const b = content.querySelector("b");
+                  if (b) {
+                    b.textContent =
+                      Math.round((+e.loaded * 100) / +newLecture.src.size) +
+                      "%";
+                  }
+                }
+              }, 100);
+            }
+          );
 
           newLecture.src = urlGetObject;
         }
@@ -285,17 +305,19 @@ export const handleLessionCourse = {
     editLecture.name = data.lectureName;
 
     editLecture = { ...lecture, ...editLecture };
-
     let result = false;
-
+    let canUpload = editLecture.src && typeof editLecture.src === "object";
     await Swal.fire({
-      text: "Cập nhật bài giảng",
+      title: "Cập nhật bài giảng",
+      html: canUpload
+        ? 'Tải lên bài giảng: <b style="color: #00ab15">0%</b>'
+        : "",
       showConfirmButton: false,
       allowOutsideClick: false,
       didOpen: async () => {
         Swal.showLoading();
 
-        if (editLecture.src && typeof editLecture.src === "object") {
+        if (canUpload) {
           const linkUpload = await lectureApi.getLinkUpload({
             fileName: editLecture.src.name,
             fileType: editLecture.src.type,
@@ -304,9 +326,26 @@ export const handleLessionCourse = {
 
           const { urlGetObject, urlSaveObject } = linkUpload.data.uri;
 
-          await lectureApi.uploadVideo(urlSaveObject, editLecture.src, {
-            "Content-Type": editLecture.src.type,
-          });
+          await lectureApi.uploadVideo(
+            urlSaveObject,
+            editLecture.src,
+            {
+              "Content-Type": editLecture.src.type,
+            },
+            (e) => {
+              setTimeout(() => {
+                const content = Swal.getHtmlContainer();
+                if (content) {
+                  const b = content.querySelector("b");
+                  if (b) {
+                    b.textContent =
+                      Math.round((+e.loaded * 100) / +editLecture.src.size) +
+                      "%";
+                  }
+                }
+              }, 100);
+            }
+          );
 
           editLecture.src = urlGetObject;
         }
@@ -332,11 +371,7 @@ export const handleLessionCourse = {
         icon: "success",
         text: "Cập nhật bài giảng thành công.",
         showConfirmButton: false,
-        didOpen: async () => {
-          setTimeout(() => {
-            Swal.close();
-          }, 1200);
-        },
+        timer: 1200,
       });
 
       return true;
@@ -346,11 +381,7 @@ export const handleLessionCourse = {
         title: "Lỗi",
         text: "Vui lòng kiểm tra lại thông tin!!",
         showConfirmButton: false,
-        didOpen: async () => {
-          setTimeout(() => {
-            Swal.close();
-          }, 1200);
-        },
+        timer: 1200,
       });
       return false;
     }

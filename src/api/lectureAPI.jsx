@@ -21,8 +21,11 @@ const lectureApi = {
     return axiosClient.post(url, data);
   },
 
-  uploadVideo: (url, data, config = {}) => {
-    return axios.put(url, data, { headers: { ...config } });
+  uploadVideo: (url, data, config = {}, onUploadProgress) => {
+    return axios.put(url, data, {
+      headers: { ...config },
+      onUploadProgress: onUploadProgress,
+    });
   },
 
   updateInfo: (id, data) => {
