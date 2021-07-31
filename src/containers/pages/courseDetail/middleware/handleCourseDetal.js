@@ -89,7 +89,7 @@ export const handleCourseDetail = {
     const courses = await categoryApi.getAllCourseByCatId(course.id_cat, {
       page: 1,
       limit: 6,
-      getInfo: ["duration"],
+      getInfo: ["duration", "firstLecture"],
     });
 
     dispatch({
