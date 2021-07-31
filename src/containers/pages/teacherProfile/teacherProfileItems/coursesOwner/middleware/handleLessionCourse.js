@@ -213,7 +213,7 @@ export const handleLessionCourse = {
     await Swal.fire({
       title: "Tạo bài giảng",
       html: canUpload
-        ? 'Tải lên bài giảng: <b style="color: #00ab15">%</b>'
+        ? 'Tải lên bài giảng: <b style="color: #00ab15">0%</b>'
         : "",
       showConfirmButton: false,
       allowOutsideClick: false,
