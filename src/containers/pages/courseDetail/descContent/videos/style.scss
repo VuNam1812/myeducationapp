@@ -36,16 +36,26 @@
       font-weight: 500;
     }
   }
+
+  &__empty {
+    height: 30rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-style: italic;
+    opacity: 0.7;
+  }
 }
 
 .preview-lession {
-  padding: .5rem;
+  padding: 0.5rem;
   border-radius: 0.5rem;
   background-color: $--white;
   width: 50rem;
   height: 30rem;
   &__clip {
-      width: 100% !important;
-      height: 100% !important;
+    width: 100% !important;
+    height: 100% !important;
   }
 }

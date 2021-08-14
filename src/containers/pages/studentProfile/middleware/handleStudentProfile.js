@@ -5,9 +5,7 @@ import { STUDENT_PROFILE_ACTION } from "../reducer/reducer";
 import { AUTH_ACTION } from "../../../../contexts/auth/reducer";
 export const handleStudentProfile = {
   loadProfile: (data, dispatch) => {
-    const { accountId } = data;
-
-    accountApi.getSingle(accountId).then((account) => {
+    accountApi.getSingle(data.id).then((account) => {
       const info = account.data;
       info.role = "Học viên";
 
@@ -21,11 +19,10 @@ export const handleStudentProfile = {
   },
 
   loadCourseJoin: (data, dispatch) => {
-    const { accountId } = data;
-
     accountApi
-      .getCourseJoin(accountId, {
+      .getCourseJoin(data.id, {
         getInfo: ["lectureCount", "teacherName", "firstLecture"],
+        bySlug: true,
       })
       .then((courses) => {
         dispatch({
@@ -36,10 +33,8 @@ export const handleStudentProfile = {
   },
 
   loadCourseFavorite: (data, dispatch) => {
-    const { accountId } = data;
-
     accountApi
-      .getCourseFavorite(accountId, {
+      .getCourseFavorite(data.id, {
         getInfo: ["lectureCount", "teacherName", "firstLecture"],
       })
       .then(async (courses) => {

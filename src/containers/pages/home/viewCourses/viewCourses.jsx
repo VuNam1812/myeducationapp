@@ -2,6 +2,14 @@
 import React, { useState, useEffect } from "react";
 import "./style.scss";
 import { Link } from "react-router-dom";
+import slugify from "slugify";
+
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
 let exists = [];
 export const ViewCourses = (props) => {
   const [rotate, setRotate] = useState(true);
@@ -131,7 +139,7 @@ export const ViewCourses = (props) => {
 
         <div className="course-preview">
           <Link
-            to={`/courses/${props.courses[active]?.id}`}
+            to={`/courses/${props.courses[active]?.slug}`}
             className="course-preview__name"
           >
             {props.courses[active] && props.courses[active].courName}

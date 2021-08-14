@@ -12,9 +12,9 @@ const categoryApi = {
     return axiosClient.get(url, { params: { ...data } });
   },
 
-  getSingle: (id) => {
+  getSingle: (id, data = {}) => {
     const url = `categories/${id}`;
-    return axiosClient.get(url);
+    return axiosClient.get(url, { params: { ...data } });
   },
 
   getLinkUpload: (data = {}) => {

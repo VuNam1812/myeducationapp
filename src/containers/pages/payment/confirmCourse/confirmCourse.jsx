@@ -6,6 +6,15 @@ import { Button } from "../../../../components";
 import { Link } from "react-router-dom";
 import { handlePayment } from "../middleware/handlePayment";
 import Swal from "sweetalert2";
+import slugify from "slugify";
+
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
+
 export const ConfirmCourse = ({ course, account, dispatch }) => {
   const loading = false;
   const handlePaymentCourse = () => {
@@ -38,13 +47,13 @@ export const ConfirmCourse = ({ course, account, dispatch }) => {
             )}
             <div className="course-pay__body-content">
               <Link
-                to={`/courses/${course.id}`}
+                to={`/courses/${course.slug}`}
                 className="body-content__title-course"
               >
                 {course.courName}
               </Link>
               <Link
-                to={`/teachers/${course.id}`}
+                to={`/teachers/${configSlug(course.teacherName || "")}`}
                 className="body-content__teacher-name"
               >
                 Giảng viên: <span>{course.teacherName}</span>

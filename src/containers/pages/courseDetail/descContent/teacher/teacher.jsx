@@ -3,6 +3,16 @@ import React from "react";
 import "./style.scss";
 import { Link } from "react-router-dom";
 import numeral from "numeral";
+
+import slugify from "slugify";
+
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
+
 export const Teacher = ({ teacher }) => {
   return (
     <div className="teacher">
@@ -37,7 +47,7 @@ export const Teacher = ({ teacher }) => {
 
               <div className="teacher-info__intro">
                 <Link
-                  to={`/teachers/${teacher.id}`}
+                  to={`/teachers/${teacher.slug}`}
                   className="teacher-info__intro-name"
                 >
                   {teacher.name}

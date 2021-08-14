@@ -15,7 +15,7 @@ export const reducer = (state, action) => {
     case CAT_ACTION.REFRESH_CAT:
       return {
         ...state,
-        data: handleUpdateCat(payload, state.data),
+        data: handleUpdateCat(payload),
       };
 
     case CAT_ACTION.DELETE_SINGLE_CAT:
@@ -29,35 +29,33 @@ export const reducer = (state, action) => {
 };
 
 const handleAddCat = (catNew, cats) => {
+  catNew.isSubCategory = false;
   if (catNew.id_parentCat === 0) {
-    cats.push(catNew);
-    return cats;
+    return [...cats, catNew];
   } else {
     const index = +cats.findIndex((cat) => cat.id === catNew.id_parentCat);
-    const catParent = cats.filter((cat) => cat.id === catNew.id_parentCat)[0];
+    const catParent = cats[index];
     catParent.isSubCategory = true;
-    catParent.subCategory = catParent.subCategory
+    catParent.subCategory = catParent.subCategory?.length
       ? [...catParent.subCategory, catNew]
       : [catNew];
-    return cats.fill(catParent, index, index + 1);
+    return [...cats.fill(catParent, index, index + 1)];
   }
 };
 
-const handleUpdateCat = (data, cats) => {
+const handleUpdateCat = (data) => {
   const cats_new = [];
   data.forEach((cat) => {
     cat.isSubCategory = cat.id_parentCat === 0 ? true : false;
     if (cat.id_parentCat === 0) {
-      cat.subCategory = data.filter((value) => value.id_parentCat === cat.id);
+      cat.subCategory = [
+        ...data.filter((value) => value.id_parentCat === cat.id),
+      ];
       cat.isSubCategory = cat.subCategory.length === 0 ? false : true;
       cats_new.push(cat);
     }
   });
-
-  cats.forEach((ele, index) => {
-    cats.fill(cats_new[index], index, index + 1);
-  });
-  return cats;
+  return [...cats_new];
 };
 
 const handleDeleteCat = (catDelete, cats) => {
@@ -67,11 +65,11 @@ const handleDeleteCat = (catDelete, cats) => {
     const index = +cats.findIndex((cat) => cat.id === catDelete.id_parentCat);
     const catParent = cats[index];
 
-    catParent.subCategory = catParent.subCategory
+    catParent.subCategory = catParent.subCategory?.length
       ? catParent.subCategory.filter((cat) => cat.id !== catDelete.id)
       : [];
-    catParent.isSubCategory = catParent.subCategory.length === 0;
-    return cats.fill(catParent, index, index + 1);
+    catParent.isSubCategory = catParent.subCategory.length !== 0;
+    return [...cats.fill(catParent, index, index + 1)];
   }
 };
 

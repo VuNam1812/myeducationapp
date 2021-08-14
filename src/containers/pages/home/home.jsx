@@ -35,7 +35,7 @@ export const Home = (props) => {
         sort: "desc",
         limit: 5,
         page: 1,
-        getInfo: ["teacherName", "duration", "lectureCount"],
+        getInfo: ["teacherName", "duration", "lectureCount", "firstLecture"],
       })
       .then((courses) => {
         dispatch({
@@ -63,7 +63,7 @@ export const Home = (props) => {
         sort: "desc",
         limit: 10,
         page: 1,
-        getInfo: ["teacherName", 'catName'],
+        getInfo: ["teacherName", "catName"],
       })
       .then((courses) => {
         dispatch({

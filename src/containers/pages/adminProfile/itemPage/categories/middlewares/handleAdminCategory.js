@@ -3,17 +3,24 @@ import { CAT_ACTION } from "../../../../../../contexts/categories/reducer";
 import Swal from "sweetalert2";
 import categoryApi from "../../../../../../api/categoryAPI";
 export const handleAdminCategory = {
-  updateFirstCatSelected: (cat, dispatch) => {
+  updateFirstCatSelected: (index, cat, dispatch) => {
+
     dispatch({
       type: CATEGORIES_ADMIN_ACTION.UPDATE_CAT_SELECT,
-      payload: cat,
+      payload: {
+        cat,
+        index,
+      },
     });
   },
 
   updateCatSelected: (cats, index, dispatch) => {
     dispatch({
       type: CATEGORIES_ADMIN_ACTION.UPDATE_CAT_SELECT,
-      payload: cats.filter((cat) => +cat.id === +index)[0],
+      payload: {
+        cat: cats.filter((cat) => +cat.id === +index)[0],
+        index: cats.findIndex((cat) => +cat.id === +index),
+      },
     });
   },
 
@@ -84,6 +91,8 @@ export const handleAdminCategory = {
           });
 
           data.srcImage = urlGetObject;
+        } else {
+          delete data.srcImage;
         }
 
         const res = await categoryApi.create(data);
@@ -240,7 +249,8 @@ export const handleAdminCategory = {
     dispatch({
       type: CATEGORIES_ADMIN_ACTION.UPDATE_CAT_SELECT,
       payload: {
-        ...selected,
+        cat: { ...selected },
+        index: arrCat.findIndex((val) => val.id === selected.id),
       },
     });
   },

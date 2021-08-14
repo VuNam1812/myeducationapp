@@ -10,12 +10,20 @@ import courseApi from "../../../../../api/courseAPI";
 import boxEmpty from "../../../../../public/image/icon/box.png";
 import Rating from "@material-ui/lab/Rating";
 import { withStyles } from "@material-ui/core/styles";
+import slugify from "slugify";
 
 const StyleRating = withStyles({
   iconFilled: {
     color: "#00ab15",
   },
 })(Rating);
+
+const configSlug = (name) => {
+  return slugify(name, {
+    locale: "vi",
+    lower: true,
+  });
+};
 
 const ACTION = {
   UPDATE_PAGINATION: 1,
@@ -288,7 +296,7 @@ export const CourseList = ({ studentProfileDispatch, courses, type }) => {
             return (
               <div className="course-item">
                 {course.srcImage && (
-                  <div className='course-item__cover-image'>
+                  <div className="course-item__cover-image">
                     <div
                       className="course-item__image"
                       style={{
@@ -301,7 +309,7 @@ export const CourseList = ({ studentProfileDispatch, courses, type }) => {
                 <div className="block-bottom">
                   <div className="block-bottom__text-left">
                     <Link
-                      to={`/courses/${course.id}`}
+                      to={`/courses/${course.slug}`}
                       className="block-bottom__name"
                     >
                       {course.courName}
@@ -317,7 +325,9 @@ export const CourseList = ({ studentProfileDispatch, courses, type }) => {
                       <p className="block-bottom__teacherName">
                         Giảng viên:{" "}
                         <Link
-                          to={`/teachers/${course.id_owner}`}
+                          to={`/teachers/${configSlug(
+                            course.teacherName || ""
+                          )}`}
                           className="text--main-color"
                         >
                           {course.teacherName}
@@ -373,7 +383,9 @@ export const CourseList = ({ studentProfileDispatch, courses, type }) => {
                       content="Tiếp tục học"
                       onClick={() => {
                         history.push(
-                          `/lessions/${course.id}/${course.firstLecture}`
+                          `/lessions/${course.slug}/${configSlug(
+                            course.firstLectureName || ""
+                          )}`
                         );
                       }}
                     ></Button>
@@ -385,8 +397,10 @@ export const CourseList = ({ studentProfileDispatch, courses, type }) => {
                         onClick={() => {
                           history.push(
                             course.paid
-                              ? `/lessions/${course.id}/${course.firstLecture}`
-                              : `/payment/${course.id}`
+                              ? `/lessions/${course.slug}/${configSlug(
+                                  course.firstLectureName || ""
+                                )}`
+                              : `/payment/${course.slug}`
                           );
                         }}
                       ></Button>

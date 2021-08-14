@@ -9,6 +9,15 @@ import { authContext } from "../../../contexts/auth/authContext";
 import courseApi from "../../../api/courseAPI";
 import accountApi from "../../../api/accountAPI";
 import Swal from "sweetalert2";
+import slugify from "slugify";
+
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
+
 const initData = {
   paid: false,
   inFavoriteList: false,
@@ -148,7 +157,7 @@ export const CourseCard = ({ course, className }) => {
                 className="btn--color-white"
                 content="Chi tiết"
                 onClick={() => {
-                  history.push(`/courses/${course.id}`);
+                  history.push(`/courses/${course.slus}`);
                 }}
               ></Button>
             </div>
@@ -169,18 +178,20 @@ export const CourseCard = ({ course, className }) => {
           <div className="item__title">
             <div className="title-main">
               <Link
-                to={`/courses/${course.id}`}
+                to={`/courses/${course.slug}`}
                 className="title-main__course-name"
               >
                 {course.courName}
               </Link>
               <h3 className="title-main__title-cate">{course.catName}</h3>
-              <Link
-                to={`/teachers/${course.id_owner}`}
-                className="title-main__title-teacher"
-              >
-                {course.teacherName}
-              </Link>
+              {course.teacherName && (
+                <Link
+                  to={`/teachers/${configSlug(course.teacherName || "")}`}
+                  className="title-main__title-teacher"
+                >
+                  {course.teacherName}
+                </Link>
+              )}
             </div>
             <h3 className="item__title-course-price">
               {numeral(course.price).format("0,0")} VND
@@ -195,7 +206,9 @@ export const CourseCard = ({ course, className }) => {
                   content="Tiếp tục học"
                   onClick={() => {
                     history.push(
-                      `/lessions/${course.id}/${course.firstLecture}`
+                      `/lessions/${course.slug}/${configSlug(
+                        course.firstLectureName || ""
+                      )}`
                     );
                   }}
                 ></Button>
@@ -204,7 +217,7 @@ export const CourseCard = ({ course, className }) => {
                   className="btn-smaller btn--hover-change-color"
                   content="Ghi danh"
                   onClick={() => {
-                    history.push(`/payment/${course.id}`);
+                    history.push(`/payment/${course.slug}`);
                   }}
                 ></Button>
               ))}

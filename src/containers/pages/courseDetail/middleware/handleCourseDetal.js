@@ -5,10 +5,11 @@ import { COURSE_DETAIL_ACTION } from "../reducer/reducer";
 import Swal from "sweetalert2";
 export const handleCourseDetail = {
   loadCourse: async (params, dispatch, history) => {
-    const { courId } = params;
+    const { slugCourse } = params;
 
     courseApi
-      .getSingle(courId, {
+      .getSingle(slugCourse, {
+        bySlug: true,
         getInfo: ["teacherImage", "teacherName", "firstLecture"],
       })
       .then(async (course) => {
@@ -56,9 +57,7 @@ export const handleCourseDetail = {
     });
   },
 
-  loadLectures: async (params, dispatch) => {
-    const { courId } = params;
-
+  loadLectures: async (courId, dispatch) => {
     const chapters = await courseApi.getLessions(courId);
 
     dispatch({
@@ -69,9 +68,7 @@ export const handleCourseDetail = {
     });
   },
 
-  loadFeedbacks: async (params, dispatch) => {
-    const { courId } = params;
-
+  loadFeedbacks: async (courId, dispatch) => {
     const feedbacks = await courseApi.getFeedbacks(courId, {
       limit: 3,
       page: 1,
@@ -105,7 +102,8 @@ export const handleCourseDetail = {
   checkPaid: async (params, dispatch) => {
     return courseApi
       .checkPaid({
-        courId: params.courId,
+        slug: params.slugCourse,
+        bySlug: true,
       })
       .then((res) => {
         dispatch({
@@ -121,8 +119,9 @@ export const handleCourseDetail = {
         dispatch({
           type: COURSE_DETAIL_ACTION.UPDATE_IN_FAVOTIRE,
           payload:
-            ret.data.findIndex((course) => +course.id === +params.courId) !==
-            -1,
+            ret.data.findIndex(
+              (course) => +course.slug === +params.slugCourse
+            ) !== -1,
         });
       }
     });

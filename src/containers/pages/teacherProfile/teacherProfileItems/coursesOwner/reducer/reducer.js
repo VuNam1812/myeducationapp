@@ -41,6 +41,11 @@ export const reducer = (state, action) => {
         ...state,
         courseSelect: { ...payload },
       };
+    case COURSES_OWNER_ACTION.UPDATE_SEARCH:
+      return {
+        ...state,
+        searchText: payload,
+      };
     default:
       return state;
   }
@@ -54,6 +59,7 @@ export const COURSES_OWNER_ACTION = {
   MODAL_OPEN: 4,
   UPDATE_CATEGORIES: 5,
   UPDATE_COURSE_SELECT: 6,
+  UPDATE_SEARCH: 7,
 };
 
 export const enumState = {

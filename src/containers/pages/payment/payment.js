@@ -20,21 +20,21 @@ const initData = {
 export const Payment = (props) => {
   const [store, dispatch] = useReducer(reducer, initData);
   const { store_auth } = useContext(authContext);
-  const params = useParams();
   const history = useHistory();
+  const params = useParams();
   useEffect(() => {
     (async () => {
       if (Object.keys(store_auth.account) !== 0) {
         await handlePayment.checkAccountPayment(params, history);
       }
     })();
-  }, [params]);
+  }, [history.location]);
 
   useEffect(() => {
     (async () => {
       if (Object.keys(store_auth.account).length !== 0) {
         await Promise.all([
-          handlePayment.loadCourse(params, dispatch),
+          handlePayment.loadCourse(params, dispatch, history),
           handlePayment.loadUserInfo(store_auth.account, dispatch),
         ]);
       }

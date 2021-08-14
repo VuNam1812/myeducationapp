@@ -17,13 +17,12 @@ const initData = {
 
 export const TeacherProfile = (props) => {
   const [store, dispatch] = useReducer(reducer, initData);
-  const { logoutUser } = useContext(authContext);
-  const params = useParams();
+  const { logoutUser, store_auth } = useContext(authContext);
   const history = useHistory();
   useEffect(() => {
     Promise.all([
-      handleTeacheDashboard.loadAccount(params, dispatch),
-      handleTeacheDashboard.loadCourseOwner(params, dispatch),
+      handleTeacheDashboard.loadAccount(store_auth.account, dispatch),
+      handleTeacheDashboard.loadCourseOwner(store_auth.account, dispatch),
     ]);
   }, []);
 

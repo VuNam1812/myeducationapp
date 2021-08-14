@@ -5,7 +5,8 @@ export const reducer = (state, action) => {
     case CATEGORIES_ADMIN_ACTION.UPDATE_CAT_SELECT:
       return {
         ...state,
-        catSelected: payload,
+        catSelected: { ...payload.cat },
+        active: +payload.index,
       };
     case CATEGORIES_ADMIN_ACTION.MODAL_CLOSE:
       return {

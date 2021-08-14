@@ -14,9 +14,9 @@ const courseApi = {
     return axiosClient.get(url);
   },
 
-  getUserLessions: (id) => {
+  getUserLessions: (id, data) => {
     const url = `courses/${id}/userlessions`;
-    return axiosClient.get(url);
+    return axiosClient.get(url, { params: { ...data } });
   },
   getFeedbacks: (id, data) => {
     const url = `courses/${id}/feedbacks`;

@@ -19,14 +19,14 @@ export const HeaderTop = (props) => {
         <div className="btn-log">
           <Button
             className="btn--none"
-            content="Log in"
+            content="Đăng nhập"
             onClick={() => {
               history.push("/login");
             }}
           ></Button>
           <Button
             className="btn--main btn--hover-change-color"
-            content="Register"
+            content="Đăng ký"
             onClick={() => {
               history.push("/register");
             }}

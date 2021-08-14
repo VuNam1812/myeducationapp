@@ -6,8 +6,7 @@ import courseApi from "../../../../../../api/courseAPI.jsx";
 import Swal from "sweetalert2";
 
 export const handleCourseOwner = {
-  handleFilterCharacterCourse: (e, courses, dispatch) => {
-    const index = +e.target.getAttribute("data-id");
+  handleFilterCharacterCourse: (index, courses, dispatch) => {
     const newCourses =
       index === 0
         ? courses
@@ -23,33 +22,39 @@ export const handleCourseOwner = {
     });
 
     dispatch({
+      type: COURSES_OWNER_ACTION.UPDATE_SEARCH,
+      payload: "",
+    });
+
+    dispatch({
       type: COURSES_OWNER_ACTION.UPDATE_FILTER_CHARACTER,
       payload: index,
     });
   },
 
-  handleSearchCourse: (e, courses, dispatch) => {
-    if (e.key === "Enter" && e.target.value !== "") {
-      const newCourse = courses.filter((course) => {
-        if (
-          course.courName
-            .toLocaleLowerCase()
-            .search(e.target.value.toLocaleLowerCase()) !== -1
-        ) {
-          return course;
-        }
-      });
+  handleSearchCourse: (text, courses, dispatch) => {
+    const newCourse = courses.filter((course) => {
+      if (
+        course.courName.toLocaleLowerCase().search(text.toLocaleLowerCase()) !==
+        -1
+      ) {
+        return course;
+      }
+    });
 
-      dispatch({
-        type: COURSES_OWNER_ACTION.UPDATE_FILTER_CHARACTER,
-        payload: 0,
-      });
+    dispatch({
+      type: COURSES_OWNER_ACTION.UPDATE_SEARCH,
+      payload: text,
+    });
+    dispatch({
+      type: COURSES_OWNER_ACTION.UPDATE_FILTER_CHARACTER,
+      payload: 0,
+    });
 
-      dispatch({
-        type: COURSES_OWNER_ACTION.UPDATE_COURSE,
-        payload: newCourse,
-      });
-    }
+    dispatch({
+      type: COURSES_OWNER_ACTION.UPDATE_COURSE,
+      payload: newCourse,
+    });
   },
 
   updateCourseInfo: async (id, data, ownerDispatch, dispatch) => {

@@ -3,6 +3,15 @@ import numeral from "numeral";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import "./style.scss";
+import slugify from "slugify";
+
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
+
 export const InfoCourse = ({ course }) => {
   const history = useHistory();
   return (
@@ -26,16 +35,15 @@ export const InfoCourse = ({ course }) => {
                 Tổng số bài học:{" "}
                 <span className="text--normal">{course.lectureCount}</span>
               </p>
-                <p>
-                  Tổng số giờ học:{" "}
-                  <span className="text--normal">
-              {course.duration && (
+              <p>
+                Tổng số giờ học:{" "}
+                <span className="text--normal">
+                  {course.duration &&
                     new Date(1000 * (course.duration ? course.duration : 0))
                       .toISOString()
-                      .substr(11, 5)
-                      )}
-                  </span>
-                </p>
+                      .substr(11, 5)}
+                </span>
+              </p>
             </div>
             <div className="course-info__item text--left">
               <p>Mô tả khóa học</p>
@@ -46,7 +54,9 @@ export const InfoCourse = ({ course }) => {
               <p
                 className="course-info__teacher"
                 onClick={() => {
-                  history.push(`/teachers/${course.id_owner}`);
+                  history.push(
+                    `/teachers/${configSlug(course.teacherName || "")}`
+                  );
                 }}
               >
                 {course.teacherName}

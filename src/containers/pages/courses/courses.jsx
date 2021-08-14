@@ -3,7 +3,7 @@ import React, { useEffect, useReducer, useContext } from "react";
 import { Header } from "../../header/header";
 import { CourseList } from "./courseList/courseList";
 import { Footer } from "../../footer/footer";
-import { useLocation, useParams, useRouteMatch } from "react-router-dom";
+import { useParams, useLocation, useRouteMatch } from "react-router-dom";
 import { handleCoursePage } from "./middleware/courses.mdw";
 import { reducer, COURSES_ACTION } from "./reducer/reducer";
 import { authContext } from "../../../contexts/auth/authContext";
@@ -11,6 +11,7 @@ import "./style.scss";
 import $ from "jquery";
 const initData = {
   search: false,
+  catId: -1,
   title: "",
   pagination: [],
   renderList: [],
@@ -26,8 +27,8 @@ const initData = {
 export const Courses = (props) => {
   const [store_courses, dispatch_courses] = useReducer(reducer, initData);
   const { store_auth } = useContext(authContext);
-  let params = useParams();
   let { url } = useRouteMatch();
+  const params = useParams();
   const location = useLocation();
   useEffect(() => {
     dispatch_courses({
@@ -64,7 +65,7 @@ export const Courses = (props) => {
     handleCoursePage.updateListRender(
       store_auth,
       store_courses.typePage,
-      params,
+      store_courses.catId,
       new URLSearchParams(location.search),
       condition,
       dispatch_courses
@@ -95,7 +96,7 @@ export const Courses = (props) => {
     handleCoursePage.updateListRender(
       store_auth,
       store_courses.typePage,
-      params,
+      store_courses.catId,
       new URLSearchParams(location.search),
       condition,
       dispatch_courses

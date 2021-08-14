@@ -59,6 +59,11 @@ export const reducer = (state, action) => {
         ...state,
         length: payload,
       };
+    case COURSES_ACTION.UPDATE_CATID:
+      return {
+        ...state,
+        catId: payload,
+      };
     default:
       return state;
   }
@@ -75,4 +80,5 @@ export const COURSES_ACTION = {
   UPDATE_LOADING: 7,
   UPDATE_TYPE_PAGE: 8,
   UPDATE_LENGTH: 9,
+  UPDATE_CATID: 10,
 };

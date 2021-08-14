@@ -2,6 +2,14 @@
 import React from "react";
 import "./style.scss";
 import { Link } from "react-router-dom";
+import slugify from "slugify";
+
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
 export const UserAccount = ({ account, handlelogout }) => {
   return (
     <div className="user-account">
@@ -27,12 +35,15 @@ export const UserAccount = ({ account, handlelogout }) => {
                   <>
                     <Link
                       className="option__item"
-                      to={`/accounts/${account.id}`}
+                      to={`/accounts/${configSlug(account.name || "")}`}
                     >
                       <i className="icon fa fa-info" aria-hidden="true"></i>
                       Quản lý cá nhân
                     </Link>
-                    <Link className="option__item" to={`/admins/${account.id}`}>
+                    <Link
+                      className="option__item"
+                      to={`/admins/${configSlug(account.name || "")}`}
+                    >
                       <i className="icon fa fa-cog" aria-hidden="true"></i>
                       Trang chủ quản trị viên
                     </Link>
@@ -44,14 +55,16 @@ export const UserAccount = ({ account, handlelogout }) => {
                   <>
                     <Link
                       className="option__item"
-                      to={`/accounts/${account.id}`}
+                      to={`/accounts/${configSlug(account.name || "")}`}
                     >
                       <i className="icon fa fa-info" aria-hidden="true"></i>
                       Quản lý cá nhân
                     </Link>
                     <Link
                       className="option__item"
-                      to={`/teachers/dashboard/${account.id}`}
+                      to={`/teachers/dashboard/${configSlug(
+                        account.name || ""
+                      )}`}
                     >
                       <i className="icon fa fa-home" aria-hidden="true"></i>
                       Trang chủ giảng viên
@@ -64,7 +77,7 @@ export const UserAccount = ({ account, handlelogout }) => {
                   <>
                     <Link
                       className="option__item"
-                      to={`/accounts/${account.id}`}
+                      to={`/accounts/${configSlug(account.name || "")}`}
                     >
                       <i className="icon fa fa-info" aria-hidden="true"></i>
                       Quản lý cá nhân

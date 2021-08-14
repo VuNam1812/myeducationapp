@@ -6,6 +6,15 @@ import { Link } from "react-router-dom";
 
 import Rating from "@material-ui/lab/Rating";
 import { withStyles } from "@material-ui/core/styles";
+import slugify from "slugify";
+
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
+
 const StyleRating = withStyles({
   iconFilled: {
     color: "#00ab15",
@@ -70,14 +79,12 @@ export const Introduce = ({ course, teacher }) => {
           <div className="mini-teacher-card">
             {course.teacherImage && (
               <div className="mini-teacher-card__image">
-                <img
-                  src={`${course.teacherImage}`}
-                ></img>
+                <img src={`${course.teacherImage}`}></img>
               </div>
             )}
             <div className="mini-teacher-card__info">
               <Link
-                to={`/teachers/${course.id_owner}`}
+                to={`/teachers/${configSlug(course.teacherName || "")}`}
                 className="mini-teacher-card__info-name"
               >
                 {course.teacherName}
@@ -99,7 +106,7 @@ export const Introduce = ({ course, teacher }) => {
               <i className="icon fa fa-2x fa-github" aria-hidden="true"></i>
             </div>
             <Link
-              to={`/teachers/${course.teacherId}`}
+              to={`/teachers/${configSlug(course.teacherName || "")}`}
               className="mini-teacher-card__link"
             >
               Chi tiết <i class="fa fa-angle-right" aria-hidden="true"></i>

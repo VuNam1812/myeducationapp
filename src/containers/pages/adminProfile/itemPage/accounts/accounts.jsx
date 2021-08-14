@@ -5,6 +5,15 @@ import "./style.scss";
 import { reducer, enumState, ACCOUNT_ADMIN_ACTION } from "./reducer/reducer";
 import { handleAdminAccount } from "./middlewares/handleAdminCategory";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import slugify from "slugify";
+
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
 
 const initData = {
   modalState: enumState.HIDDEN,
@@ -171,8 +180,13 @@ export const Accounts = ({ teachers, users, adminProfileDispatch }) => {
                           }}
                         ></div>
                       )}
-                      <div className="item__info">
-                        <p className="item__info-name">{teacher.name}</p>
+                      <div className="item__info ">
+                        <Link
+                          to={ `/teachers/${(teacher.slug)}`}
+                          className="item__info-name item--link"
+                        >
+                          {teacher.name}
+                        </Link>
                         <p className="item__info-courses">
                           <span>{teacher.courseCount}</span> khóa học
                         </p>

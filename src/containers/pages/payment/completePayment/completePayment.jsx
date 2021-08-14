@@ -1,9 +1,17 @@
 // @flow
 import React from "react";
 import "./style.scss";
-
+import slugify from "slugify";
 import { Button } from "../../../../components";
 import { useHistory } from "react-router-dom";
+
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
+
 export const CompletePayment = ({ course }) => {
   const history = useHistory();
   return (
@@ -36,7 +44,11 @@ export const CompletePayment = ({ course }) => {
           className="btn-smaller btn--hover-horizontal-change-color"
           content="Bắt đầu học ngay"
           onClick={() => {
-            history.push(`/lessions/${course.id}/${course.firstLecture}`);
+            history.push(
+              `/lessions/${course.slug}/${configSlug(
+                course.firstLectureName || ""
+              )}`
+            );
           }}
         ></Button>
       </div>

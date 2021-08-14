@@ -32,19 +32,21 @@ export const handleAction = {
               icon: "success",
               text: "Đăng nhập thành công",
               showConfirmButton: false,
+              timer: 1200,
               didOpen: () => {
-                dispatch({
-                  type: AUTH_ACTION.UPDATE_AUTH,
-                  payload: true,
-                });
                 dispatch({
                   type: AUTH_ACTION.UPDATE_ACCOUNT,
                   payload: res_login.accountInfo,
                 });
+              },
+              willClose: () => {
                 setTimeout(() => {
-                  Swal.close();
-                  history.goBack();
-                }, 1200);
+                  dispatch({
+                    type: AUTH_ACTION.UPDATE_AUTH,
+                    payload: true,
+                  });
+                }, 1000);
+                history.goBack();
               },
             })
           : Swal.fire({

@@ -17,7 +17,6 @@ import { InComing } from "../../incoming/inComing";
 
 import { reducer, STUDENT_PROFILE_ACTION, enumState } from "./reducer/reducer";
 import { handleStudentProfile } from "./middleware/handleStudentProfile";
-import { useParams } from "react-router-dom";
 import { authContext } from "../../../contexts/auth/authContext";
 
 const initData = {
@@ -46,12 +45,11 @@ const initData = {
 
 export const StudentProfile = (props) => {
   const [store, dispatch] = useReducer(reducer, initData);
-  const { dispatch_auth } = useContext(authContext);
-  const params = useParams();
+  const { dispatch_auth, store_auth } = useContext(authContext);
   useEffect(() => {
-    handleStudentProfile.loadProfile(params, dispatch);
-    handleStudentProfile.loadCourseJoin(params, dispatch);
-    handleStudentProfile.loadCourseFavorite(params, dispatch);
+    handleStudentProfile.loadProfile(store_auth.account, dispatch);
+    handleStudentProfile.loadCourseJoin(store_auth.account, dispatch);
+    handleStudentProfile.loadCourseFavorite(store_auth.account, dispatch);
 
     $("html,body").animate({ scrollTop: 0 }, 500);
   }, []);

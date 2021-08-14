@@ -26,16 +26,22 @@ export const handleCoursePage = {
 
     switch (result) {
       case "category":
-        const res = await categoryApi.getSingle(+params.catId);
+        const res = await categoryApi.getSingle(params.slugCat, {
+          bySlug: true,
+        });
+        dispatch({
+          type: COURSES_ACTION.UPDATE_CATID,
+          payload: +res.data.id,
+        });
+
         const res_courses = (
-          await categoryApi.getAllCourseByCatId(+params.catId, {
+          await categoryApi.getAllCourseByCatId(+res.data.id, {
             limit: store_courses.limit,
             page: 1,
             getInfo: ["firstLecture"],
           })
         ).data;
         courses = res_courses.courses;
-
         //setup pagination
         handleCoursePage.setupPagination(
           res_courses.length,
@@ -126,7 +132,7 @@ export const handleCoursePage = {
   updateListRender: async (
     userData,
     typePage,
-    params,
+    catId,
     query,
     condition,
     dispatch
@@ -135,7 +141,7 @@ export const handleCoursePage = {
     switch (typePage) {
       case "category":
         const res_courses = (
-          await categoryApi.getAllCourseByCatId(+params.catId, {
+          await categoryApi.getAllCourseByCatId(+catId, {
             ...condition,
             getInfo: ["firstLecture"],
           })

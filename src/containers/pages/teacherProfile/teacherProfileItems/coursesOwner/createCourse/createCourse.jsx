@@ -118,10 +118,8 @@ export const CreateCourse = ({
     }
     try {
       const res = await courseApi.createCourse(data);
-      await handleTeacheDashboard.loadCourseOwner(
-        { accountId: account.id },
-        dispatch
-      );
+
+      await handleTeacheDashboard.loadCourseOwner({ id: account.id }, dispatch);
 
       setValue("courName", "");
       setValue("id_cat", null);

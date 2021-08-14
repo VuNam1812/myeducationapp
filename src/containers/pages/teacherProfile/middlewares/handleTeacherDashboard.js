@@ -5,9 +5,8 @@ import { TEACHER_PROFILE_ACTION } from "../reducer/reducer";
 
 export const handleTeacheDashboard = {
   loadAccount: async (data, dispatch) => {
-    const { accountId } = data;
-
-    const teacher = await accountApi.getSingle(accountId, {
+    const { id } = data;
+    const teacher = await accountApi.getSingle(id, {
       getInfo: ["major", "teacherDesc", "techniques"],
     });
 
@@ -17,13 +16,12 @@ export const handleTeacheDashboard = {
     });
   },
   loadCourseOwner: async (data, dispatch) => {
-    const { accountId } = data;
+    const { id } = data;
 
-    const { data: courses } = await teacherApi.getCourses(accountId, {
-      isDelete : -1,
+    const { data: courses } = await teacherApi.getCourses(id, {
+      isDelete: -1,
       getInfo: ["lectureCount", "duration"],
     });
-
     dispatch({
       type: TEACHER_PROFILE_ACTION.UPDATE_COURSES,
       payload: courses.reverse(),

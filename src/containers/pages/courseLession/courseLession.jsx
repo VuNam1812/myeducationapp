@@ -8,7 +8,7 @@ import "./style.scss";
 import { handleCourseLession } from "./middleware/handleCourseLessions";
 import { authContext } from "../../../contexts/auth/authContext";
 import { reducer, LESSION_ACTION } from "./reducer/reducer";
-import { useParams, useHistory } from "react-router-dom";
+import { useLocation, useParams, useHistory } from "react-router-dom";
 
 import { InfoCourse, LessionVideos, VideoPlayer } from "./pageItem";
 
@@ -24,37 +24,44 @@ const initData = {
 export const CourseLession = (props) => {
   const [store_lecture, dispatch] = useReducer(reducer, initData);
   const { store_auth } = useContext(authContext);
-  const params = useParams();
+  const location = useLocation();
   const history = useHistory();
+  const params = useParams();
   useEffect(() => {
     (async () => {
-      await handleCourseLession.checkAccountPayment(
+      const paid = await handleCourseLession.checkAccountPayment(
         params,
         store_auth.auth,
         history
       );
+      if (paid) await handleCourseLession.loadCourse(params, dispatch, history);
     })();
-  }, [params, store_auth.auth]);
+  }, [location, store_auth.auth]);
 
   useEffect(() => {
     (async () => {
-      dispatch({
-        type: LESSION_ACTION.UPDATE_ACTIVE,
-        payload: +params.lessionId,
-      });
-      Promise.all([
-        handleCourseLession.loadCourse(params, dispatch),
-        handleCourseLession.loadLessions(params, dispatch),
-      ]);
+      if (Object.keys(store_lecture.course).length)
+        Promise.all([
+          handleCourseLession.loadLessions(
+            params,
+            store_lecture.course,
+            dispatch,
+            history
+          ),
+        ]);
     })();
-  }, [params.courId]);
+  }, [store_lecture.course]);
 
   useEffect(() => {
     $("html,body").animate({ scrollTop: 0 }, 500);
   }, [store_lecture.active]);
 
   useEffect(() => {
-    handleCourseLession.loadVideo(params, store_lecture.lessions, dispatch);
+    handleCourseLession.loadVideo(
+      store_lecture.active,
+      store_lecture.lessions,
+      dispatch
+    );
   }, [store_lecture.active, store_lecture.lessions]);
 
   return (

@@ -29,7 +29,7 @@ export const Categories = (props) => {
                 href="#"
                 className="dropdown-item"
                 onMouseEnter={mouseEnterHiddenItem}
-                to={`/categories/${cat.id}`}
+                to={`/categories/${cat.slug}`}
               >
                 <p className="dropdown-item__title">{cat.catName}</p>
               </Link>
@@ -42,7 +42,7 @@ export const Categories = (props) => {
                 href="#"
                 className="dropdown-item"
                 onMouseEnter={MouseEnterDropItem}
-                to={`/categories/${cat.id}`}
+                to={`/categories/${cat.slug}`}
               >
                 <p className="dropdown-item__title">{cat.catName}</p>
                 <i

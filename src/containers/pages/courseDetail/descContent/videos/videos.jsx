@@ -4,19 +4,27 @@ import { Expander, Modal } from "../../../../../components";
 import ReactPlayer from "react-player";
 import "./style.scss";
 import { useHistory } from "react-router-dom";
+
+import slugify from "slugify";
+
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
+
 export const Videos = ({ course, lessions, paid }) => {
   const history = useHistory();
   const [urlSeleted, setUrlSeleted] = useState("");
   const [stateModal, setStateModel] = useState("hidden");
   const handleVideoLecture = (lecture) => {
     if (paid) {
-      history.push(`/lessions/${course.id}/${lecture.id}`);
+      history.push(`/lessions/${course.slug}/${lecture.slug}`);
     } else {
       if (lecture.isCanPreview) {
         setStateModel("visible");
-        setUrlSeleted(
-          `${lecture.src}`
-        );
+        setUrlSeleted(`${lecture.src}`);
       } else {
         setUrlSeleted("");
       }
@@ -39,7 +47,9 @@ export const Videos = ({ course, lessions, paid }) => {
           ></ReactPlayer>
         </div>
       </Modal>
-      {lessions.length &&
+      {lessions.length === 0 ? (
+        <div className="videos__empty">(Hiện chưa có bài giảng)</div>
+      ) : (
         lessions.map((lession) => {
           return (
             <Expander className="" title={lession.name}>
@@ -74,7 +84,8 @@ export const Videos = ({ course, lessions, paid }) => {
               )}
             </Expander>
           );
-        })}
+        })
+      )}
     </div>
   );
 };

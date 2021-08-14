@@ -5,7 +5,8 @@ import { INSTRUCTOR_DETAIL_ACTION } from "../reducer/reducer";
 export const handleInstructorPage = {
   loadTeacher: async (data, dispatch) => {
     const teacher = (
-      await accountApi.getSingle(data.teacherId, {
+      await accountApi.getSingle(data.slugTeacher, {
+        bySlug: true,
         getInfo: [
           "major",
           "studentCount",
@@ -27,12 +28,12 @@ export const handleInstructorPage = {
 
   loadCourses: async (data, dispatch) => {
     const courses = (
-      await teacherApi.getCourses(data.teacherId, {
+      await teacherApi.getCourses(data.slugTeacher, {
+        bySlug: true,
         isDelete: 0,
-        getInfo: ["catName", "duration", "lectureCount"],
+        getInfo: ["catName", "duration", "lectureCount", "firstLecture"],
       })
     ).data;
-
     dispatch({
       type: INSTRUCTOR_DETAIL_ACTION.UPDATE_COURSES,
       payload: {

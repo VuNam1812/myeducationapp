@@ -3,14 +3,19 @@ import React from "react";
 import "./style.scss";
 import numeral from "numeral";
 import { useHistory } from "react-router-dom";
+import slugify from "slugify";
 
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
 export const TopCategory = (props) => {
   const history = useHistory();
 
-  const handleRedirect = (e) => {
-    const index = e.currentTarget.getAttribute("data-id");
-
-    history.push(`/categories/${index}`);
+  const handleRedirect = (cat) => {
+    history.push(`/categories/${cat.slug}`);
   };
 
   return (
@@ -24,7 +29,7 @@ export const TopCategory = (props) => {
                   data-id={cat.id}
                   key={cat.id}
                   className="body-item"
-                  onClick={handleRedirect}
+                  onClick={() => handleRedirect(cat)}
                 >
                   <div
                     className="body-item__image"

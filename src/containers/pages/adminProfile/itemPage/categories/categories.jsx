@@ -8,6 +8,7 @@ import { reducer, enumState, CATEGORIES_ADMIN_ACTION } from "./reducer/reducer";
 import { handleAdminCategory } from "./middlewares/handleAdminCategory";
 import { useForm } from "react-hook-form";
 const initData = {
+  active: 0,
   catSelected: {},
   catSelectedModal: {},
   modalState: enumState.HIDDEN,
@@ -30,7 +31,11 @@ export const Categories = (props) => {
   const file = useRef();
 
   useEffect(() => {
-    handleAdminCategory.updateFirstCatSelected(store_cat.data[0], dispatch);
+    handleAdminCategory.updateFirstCatSelected(
+      +store.active,
+      store_cat.data[+store.active],
+      dispatch
+    );
   }, [store_cat.data]);
 
   const handleChangeCatSelected = (e) => {

@@ -4,13 +4,28 @@ import accountApi from "../../../../api/accountAPI";
 import courseApi from "../../../../api/courseAPI";
 
 export const handlePayment = {
-  loadCourse: async (data, dispatch) => {
-    const { courId } = data;
+  loadCourse: async (data, dispatch, history) => {
+    const { slugCourse } = data;
 
-    const course = await courseApi.getSingle(courId, {
+    const course = await courseApi.getSingle(slugCourse, {
+      bySlug: true,
       getInfo: ["teacherName", "firstLecture"],
     });
 
+    if (course.data?.isDelete === 1) {
+      await Swal.fire({
+        icon: "info",
+        text: "Khóa học hiện tại đã bị khóa bởi quản trị viên!!",
+        confirmButtonText: "Quay lại",
+        confirmButtonColor: "#00ab15",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        willClose: () => {
+          history.goBack();
+        },
+      });
+      return;
+    }
     dispatch({
       type: PAY_ACTION.UPDATE_COURSE,
       payload: course.data,
@@ -51,10 +66,11 @@ export const handlePayment = {
 
   checkAccountPayment: async (data, history) => {
     const ret = await courseApi.checkPaid({
-      courId: data.courId,
+      slug: data.slugCourse,
+      bySlug: true,
     });
     if (ret.data.paid) {
-      history.push(`/courses/${data.courId}`);
+      history.push(`/courses/${data.slugCourse}`);
     }
   },
 };

@@ -8,6 +8,16 @@ import { Link } from "react-router-dom";
 import { handleAdminCourse } from "./middlewares/handleAdminCourse";
 import { CourseAdminSkeleton } from "./courseAdminSkeleton/courseAdminSkeleton";
 import numeral from "numeral";
+
+import slugify from "slugify";
+
+const configSlug = (url) => {
+  return slugify(url || "", {
+    locale: "vi",
+    lower: true,
+  });
+};
+
 const initObject = {
   pagination: [],
   limit: 8,
@@ -280,7 +290,7 @@ export const Courses = ({ courses, teachers, adminProfileDispatch }) => {
                 <div className="item__info-course">
                   <div className="info-course__header">
                     <Link
-                      to={`/courses/${course.id}`}
+                      to={`/courses/${course.slug}`}
                       className="info-course__name"
                     >
                       {course.courName}
@@ -304,7 +314,7 @@ export const Courses = ({ courses, teachers, adminProfileDispatch }) => {
                   <div className="info-course__teacher">
                     Giảng viên:{" "}
                     <Link
-                      to={`/teachers/${course.id_owner}`}
+                      to={`/teachers/${configSlug(course.teacherName || "")}`}
                       className="text-main"
                     >
                       {course.teacherName}

@@ -14,6 +14,15 @@ import { reducer, COURSES_OWNER_ACTION, enumState } from "./reducer/reducer";
 
 import { handleCourseOwner } from "./middleware/handleCourseOwner";
 import { Link } from "react-router-dom";
+import slugify from "slugify";
+
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
+
 const initData = {
   renderList: [],
   modalState: enumState.HIDDEN,
@@ -21,28 +30,45 @@ const initData = {
   filterCharacter: 0,
   courseSelect: {},
   categories: [],
+  searchText: "",
 };
 export const CoursesOwner = ({ account, courses, className, dispatch }) => {
   const [store, coursesOwner_dispatch] = useReducer(reducer, initData);
   SwiperCore.use([Mousewheel, Pagination]);
 
   useEffect(() => {
-    coursesOwner_dispatch({
-      type: COURSES_OWNER_ACTION.UPDATE_COURSE,
-      payload: courses,
-    });
+    if (store.filterCharacter === 0 && store.searchText !== "") {
+      handleCourseOwner.handleSearchCourse(
+        store.searchText,
+        courses,
+        coursesOwner_dispatch
+      );
+    } else {
+      handleCourseOwner.handleFilterCharacterCourse(
+        store.filterCharacter,
+        courses,
+        coursesOwner_dispatch
+      );
+    }
   }, [courses]);
 
   const handleFilterCharacterCourse = (e) => {
+    const index = +e.target.getAttribute("data-id");
     handleCourseOwner.handleFilterCharacterCourse(
-      e,
+      index,
       courses,
       coursesOwner_dispatch
     );
   };
 
   const handleSearch = (e) => {
-    handleCourseOwner.handleSearchCourse(e, courses, coursesOwner_dispatch);
+    if (e.key === "Enter" && e.target.value !== "") {
+      handleCourseOwner.handleSearchCourse(
+        e.target.value,
+        courses,
+        coursesOwner_dispatch
+      );
+    }
   };
 
   const handleCreateCourse = async () => {
@@ -84,6 +110,11 @@ export const CoursesOwner = ({ account, courses, className, dispatch }) => {
       coursesOwner_dispatch({
         type: COURSES_OWNER_ACTION.UPDATE_COURSE,
         payload: courses,
+      });
+
+      coursesOwner_dispatch({
+        type: COURSES_OWNER_ACTION.UPDATE_SEARCH,
+        payload: "",
       });
     }
   };
@@ -195,7 +226,7 @@ export const CoursesOwner = ({ account, courses, className, dispatch }) => {
                               <div className="slide-item__body">
                                 <div className="slide-item__flex">
                                   <Link
-                                    to={`/courses/${course.id}`}
+                                    to={`/courses/${course.slug}`}
                                     className="slide-item__body-title"
                                   >
                                     {course.courName}

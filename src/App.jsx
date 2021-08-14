@@ -52,20 +52,20 @@ function App() {
               <Route exact path="/courses">
                 <Courses></Courses>
               </Route>
-              <Route path="/courses/:courId">
+              <Route path="/courses/:slugCourse">
                 <CourseDetail></CourseDetail>
               </Route>
             </Switch>
           </Route>
-          <Route exact path="/categories/:catId">
+          <Route exact path="/categories/:slugCat">
             <Courses></Courses>
           </Route>
           <Route path="/teachers">
             <Switch>
-              <Route exact path="/teachers/:teacherId">
+              <Route exact path="/teachers/:slugTeacher">
                 <InstructorDetail></InstructorDetail>
               </Route>
-              <Route path="/teachers/dashboard/:accountId">
+              <Route path="/teachers/dashboard/:slugTeacher">
                 {+store_auth.account.permission === 1 ? (
                   <TeacherProfile></TeacherProfile>
                 ) : (
@@ -74,15 +74,19 @@ function App() {
               </Route>
             </Switch>
           </Route>
-          <Route exact path="/payment/:courId">
+          <Route exact path="/payment/:slugCourse">
             {store_auth.auth ? (
               <Payment></Payment>
             ) : (
               <Redirect to="/login"></Redirect>
             )}
           </Route>
-          <Route exact path="/lessions/:courId/:lessionId">
-            <CourseLession></CourseLession>
+          <Route exact path="/lessions/:slugCourse/:slugLession">
+            {store_auth.auth ? (
+              <CourseLession></CourseLession>
+            ) : (
+              <Redirect to="/login"></Redirect>
+            )}
           </Route>
           <Route path="/admins/:adminId">
             {+store_auth.account.permission === 0 && store_auth.auth ? (
@@ -91,7 +95,7 @@ function App() {
               <Redirect to="/"></Redirect>
             )}
           </Route>
-          <Route path="/accounts/:accountId">
+          <Route path="/accounts/:slugAccount">
             {store_auth.auth ? (
               <StudentProfile></StudentProfile>
             ) : (

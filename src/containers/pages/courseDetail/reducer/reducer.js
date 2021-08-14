@@ -88,6 +88,11 @@ export const reducer = (state, action) => {
           feedbacks: [...state.feedbacks.feedbacks, ...payload],
         },
       };
+    case COURSE_DETAIL_ACTION.UPDATE_ACTIVE:
+      return {
+        ...state,
+        activeTab: payload,
+      };
     default:
       return state;
   }
@@ -106,4 +111,5 @@ export const COURSE_DETAIL_ACTION = {
   UPDATE_RATE_TEACHER: 9,
   UPDATE_LOADING: 10,
   LOADMORE_FEEDBACK: 11,
+  UPDATE_ACTIVE: 12,
 };

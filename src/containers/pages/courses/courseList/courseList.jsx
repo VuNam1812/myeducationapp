@@ -6,7 +6,16 @@ import numeral from "numeral";
 import boxEmpty from "../../../../public/image/icon/box.png";
 import { COURSES_ACTION } from "../reducer/reducer";
 import { Link, useHistory } from "react-router-dom";
+import slugify from "slugify";
 import { SkeletonCourses } from "../skeleton/skeletonCourses";
+
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
+
 export const CourseList = (props) => {
   const history = useHistory();
   const handleLoadPage = (e) => {
@@ -107,7 +116,7 @@ export const CourseList = (props) => {
                           <div className="courses-item__title">
                             <div className="title-main">
                               <Link
-                                to={`/courses/${course.id}`}
+                                to={`/courses/${course.slug}`}
                                 className="title-main__course-name"
                               >
                                 {course.courName}
@@ -118,7 +127,11 @@ export const CourseList = (props) => {
                                 </p>
                                 <p className="title-main__teacher-name">
                                   Giảng viên:{" "}
-                                  <Link to={`/teachers/${course.teacherId}`}>
+                                  <Link
+                                    to={`/teachers/${configSlug(
+                                      course.teacherName || ""
+                                    )}`}
+                                  >
                                     {course.teacherName}
                                   </Link>
                                 </p>
@@ -160,11 +173,11 @@ export const CourseList = (props) => {
                                 }`}
                                 onClick={() => {
                                   history.push(
-                                    `${
-                                      course.paid
-                                        ? `/lessions/${course.id}/${course.firstLecture}`
-                                        : `/payment/${course.id}`
-                                    }`
+                                    course.paid
+                                      ? `/lessions/${course.slug}/${configSlug(
+                                          course.firstLectureName || ""
+                                        )}`
+                                      : `/payment/${course.slug}`
                                   );
                                 }}
                               ></Button>

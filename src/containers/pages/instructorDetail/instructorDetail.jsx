@@ -24,8 +24,8 @@ const initData = {
 export const InstructorDetail = (props) => {
   SwiperCore.use([Mousewheel, Pagination]);
   const [store_page, dispatch] = useReducer(reducer, initData);
-  const params = useParams();
 
+  const params = useParams();
   useEffect(() => {
     $("html,body").animate({ scrollTop: 0 }, 500);
     Promise.all([

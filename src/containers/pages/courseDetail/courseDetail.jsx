@@ -15,8 +15,18 @@ import { authContext } from "../../../contexts/auth/authContext";
 import numeral from "numeral";
 import { reducer, COURSE_DETAIL_ACTION } from "./reducer/reducer";
 import { handleCourseDetail } from "./middleware/handleCourseDetal";
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import $ from "jquery";
+
+import slugify from "slugify";
+
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
+
 const initData = {
   course: {},
   teacher: {},
@@ -32,9 +42,9 @@ const initData = {
 export const CourseDetail = (props) => {
   const [store, dispatch] = useReducer(reducer, initData);
   const { store_auth } = useContext(authContext);
-  const params = useParams();
   const history = useHistory();
   const location = useLocation();
+  const params = useParams();
   useEffect(() => {
     (async () => {
       dispatch({
@@ -63,6 +73,7 @@ export const CourseDetail = (props) => {
   useEffect(() => {
     if (store.course?.id) {
       Promise.all([
+        handleTabActive(store.activeTab),
         handleCourseDetail.loadCourseCat(store.course, dispatch),
         handleCourseDetail.updateViewCount(store.course),
       ]);
@@ -80,12 +91,17 @@ export const CourseDetail = (props) => {
         );
         break;
       case 2:
-        await handleCourseDetail.loadLectures(params, dispatch);
+        await handleCourseDetail.loadLectures(store.course.id, dispatch);
         break;
       case 3:
-        await handleCourseDetail.loadFeedbacks(params, dispatch);
+        await handleCourseDetail.loadFeedbacks(store.course.id, dispatch);
         break;
     }
+
+    dispatch({
+      type: COURSE_DETAIL_ACTION.UPDATE_ACTIVE,
+      payload: +index,
+    });
   };
 
   const handleAddFavoriteList = async () => {
@@ -177,7 +193,9 @@ export const CourseDetail = (props) => {
                           content="Tiếp tục học"
                           onClick={() => {
                             history.push(
-                              `/lessions/${store.course.id}/${store.course.firstLecture}`
+                              `/lessions/${store.course.slug}/${configSlug(
+                                store.course.firstLectureName || ""
+                              )}`
                             );
                           }}
                         ></Button>
@@ -186,7 +204,9 @@ export const CourseDetail = (props) => {
                           className="join-course__join-btn btn--color-white btn--hover-vertical-change-color-reverse"
                           content="Ghi danh"
                           onClick={() => {
-                            history.push(`/payment/${store.course.id}`);
+                            history.push(
+                              `/payment/${(store.course.slug)}`
+                            );
                           }}
                         ></Button>
                       )}

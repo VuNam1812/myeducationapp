@@ -1,5 +1,5 @@
 // @flow
-import React, { useState } from "react";
+import React from "react";
 import "./style.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Mousewheel, Pagination } from "swiper/core";
@@ -8,11 +8,18 @@ import numeral from "numeral";
 import newCourseImage from "../../../../public/image/new_course.jpg";
 
 import { Link } from "react-router-dom";
+import slugify from "slugify";
+
+const configSlug = (url) => {
+  return slugify(url, {
+    locale: "vi",
+    lower: true,
+  });
+};
 
 SwiperCore.use([Mousewheel, Pagination]);
 
 export const NewCourses = (props) => {
-  const [loading, setLoading] = useState(false);
   return (
     <div className="new-courses">
       <div
@@ -57,7 +64,7 @@ export const NewCourses = (props) => {
                       <div className="body-item__content">
                         <div className="course-info">
                           <Link
-                            to={`/courses/${course.id}`}
+                            to={`/courses/${course.slug}`}
                             className="course-info__name"
                           >
                             {course.courName}

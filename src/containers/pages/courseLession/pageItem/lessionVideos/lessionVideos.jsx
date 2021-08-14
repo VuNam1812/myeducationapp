@@ -4,7 +4,7 @@ import "./style.scss";
 import { Expander } from "../../../../../components";
 import { LESSION_ACTION } from "../../reducer/reducer";
 import { useParams, useHistory } from "react-router-dom";
-
+import slugify from "slugify";
 export const LessionVideos = ({ lessions, active, dispatch }) => {
   const params = useParams();
   const history = useHistory();
@@ -38,7 +38,7 @@ export const LessionVideos = ({ lessions, active, dispatch }) => {
                               payload: +lecture.id,
                             });
                             history.push(
-                              `/lessions/${params.courId}/${lecture.id}`
+                              `/lessions/${params.slugCourse}/${lecture.slug}`
                             );
                           }}
                         >

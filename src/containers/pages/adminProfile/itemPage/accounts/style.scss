@@ -112,6 +112,14 @@
 
           &__info {
             &-name {
+              &.item--link {
+                text-decoration: none;
+                cursor: pointer;
+                transition: all 0.3s;
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
               color: $--blue-main;
               font-family: "Montserrat";
               margin-bottom: 0.25rem;

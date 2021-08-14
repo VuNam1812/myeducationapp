@@ -35,7 +35,7 @@ export const handleLessionCourse = {
     const { chapterName } = data;
     let result = {};
     await Swal.fire({
-      text: "Tạo khóa học",
+      text: "Tạo chủ đề",
       showConfirmButton: false,
       allowOutsideClick: false,
       didOpen: async () => {
@@ -91,7 +91,7 @@ export const handleLessionCourse = {
     const { chapterName } = data;
     let result = {};
     await Swal.fire({
-      text: "Cập nhật khóa học",
+      text: "Cập nhật chủ đề",
       showConfirmButton: false,
       allowOutsideClick: false,
       didOpen: async () => {
