@@ -5,7 +5,7 @@ import queryString from "query-string";
 let isTokenExpired = false;
 let refreshTokenRequest = null;
 const axiosClient = axios.create({
-  baseURL: "http://localhost:3030/api",
+  baseURL: "https://udemy-1612407.herokuapp.com/api",
   headers: {
     "content-type": "application/json",
   },
@@ -54,7 +54,7 @@ axiosClient.interceptors.response.use(
 );
 
 const refreshAccessToken = async () => {
-  const url = "http://localhost:3030/api/auth/refresh";
+  const url = "https://udemy-1612407.herokuapp.com/api/auth/refresh";
   const newToken = await axios.post(url, {
     accessToken: localStorage.udemyapp_accessToken,
     refreshToken: localStorage.udemyapp_refreshToken,
