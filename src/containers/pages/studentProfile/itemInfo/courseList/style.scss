@@ -314,6 +314,24 @@
             }
           }
         }
+
+        &__process-bar {
+          height: 8px;
+          width: 100%;
+
+          border-radius: 4px;
+          background-color: $--skeleton;
+
+          display: flex;
+          overflow: hidden;
+
+          .process-lecture {
+            height: 100%;
+            background-color: $--green-main;
+            border-radius: 4px;
+          }
+        }
+
         &__btn-join {
           width: 90%;
           transform: none;

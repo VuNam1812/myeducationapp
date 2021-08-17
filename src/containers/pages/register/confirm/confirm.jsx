@@ -40,7 +40,7 @@ export const Confirm = (props) => {
       <div className="btn-group">
         <Button
           className="btn--color-white"
-          content="Back"
+          content="Quay lại"
           onClick={() => {
             props.dispatch({
               type: props.action.UPDATE_STEP,
@@ -50,7 +50,7 @@ export const Confirm = (props) => {
         ></Button>
         <Button
           className="btn--hover-horizontal-change-color"
-          content="Confirm code"
+          content="Xác nhận mã"
           onClick={() => {
             submit.current.click();
           }}

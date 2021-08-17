@@ -33,6 +33,7 @@ export const VideoPlayer = ({ className, video, dispatch }) => {
   };
 
   const handleCompleteLession = (progress) => {
+    console.log(viewed, progress.playedSeconds);
     if (viewed < progress.playedSeconds) {
       setViewed(progress.playedSeconds);
     }

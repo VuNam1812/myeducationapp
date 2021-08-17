@@ -24,7 +24,16 @@ export const handleStudentProfile = {
         getInfo: ["lectureCount", "teacherName", "firstLecture"],
         bySlug: true,
       })
-      .then((courses) => {
+      .then(async (courses) => {
+        await Promise.all(
+          courses.data.map(async (cour) => {
+            const userLession = (await courseApi.getUserLessions(cour.id)).data;
+            cour.lectureCompleted = userLession.reduce(
+              (sum, val) => sum + val.lectureCompleted,
+              0
+            );
+          })
+        );
         dispatch({
           type: STUDENT_PROFILE_ACTION.UPDATE_COURSE_JOIN,
           payload: [...courses.data],

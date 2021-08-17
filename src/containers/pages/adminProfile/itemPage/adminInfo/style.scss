@@ -166,12 +166,12 @@
               margin-bottom: 0.5rem;
             }
             .change-password__link {
-              text-align: right;
+              width: fit-content;
               font-weight: bold;
               color: $--green-main;
               font-size: 0.8rem;
               cursor: pointer;
-              margin: 0rem;
+              margin-left: auto;
               &:hover {
                 text-decoration: underline;
               }

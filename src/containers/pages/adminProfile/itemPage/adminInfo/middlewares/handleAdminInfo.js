@@ -60,10 +60,9 @@ export const handleAdminInfo = {
 
         if (res.data.updated) {
           const { data: account } = await accountApi.getSingle(accountId);
-
           const newAuthAccount = {
             id: account.id,
-            username: account.name,
+            name: account.name,
             role: +account.permission,
             srcImage: account.srcImage,
           };

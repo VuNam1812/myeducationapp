@@ -352,6 +352,7 @@ export const CourseList = ({ studentProfileDispatch, courses, type }) => {
                       <div className="block-bottom__more-info">
                         <p>
                           <span className="text--main-color">
+                            {type === "join" && course.lectureCompleted + "/"}
                             {course.lectureCount}
                           </span>{" "}
                           Bài học
@@ -375,6 +376,21 @@ export const CourseList = ({ studentProfileDispatch, courses, type }) => {
                           ></StyleRating>
                         </div>
                       </div>
+                      {type === "join" && (
+                        <div className="block-bottom__process-bar">
+                          <span
+                            className="process-lecture"
+                            style={{
+                              width: `${
+                                course.lectureCount !== 0
+                                  ? (course.lectureCompleted * 100) /
+                                    course.lectureCount
+                                  : 0
+                              }%`,
+                            }}
+                          ></span>
+                        </div>
+                      )}
                     </div>
                   </div>
                   {type === "join" ? (
