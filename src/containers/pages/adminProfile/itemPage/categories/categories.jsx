@@ -27,7 +27,7 @@ export const Categories = (props) => {
   const { store_cat, dispatch_cat } = useContext(categoryContext);
   const { store_auth } = useContext(authContext);
 
-  const { register, getValues, setValue } = useForm();
+  const { register, getValues, setValue, reset } = useForm();
   const file = useRef();
 
   useEffect(() => {
@@ -60,6 +60,8 @@ export const Categories = (props) => {
       dispatch,
       dispatch_cat
     );
+
+    reset();
   };
 
   const handleEditCategoryModal = (cat) => {
@@ -81,6 +83,8 @@ export const Categories = (props) => {
       dispatch,
       dispatch_cat
     );
+
+    reset();
   };
 
   const handleUploadFile = (e) => {
@@ -143,6 +147,7 @@ export const Categories = (props) => {
                   Tải lên hình ảnh
                 </div>
               </div>
+
               <FieldText
                 label="Tên danh mục"
                 placeHolder="Tên danh mục"
@@ -175,7 +180,7 @@ export const Categories = (props) => {
                 }
                 defaultSelected={
                   Object.keys(store.catSelectedModal).length === 0
-                    ? "Danh mục chính"
+                    ? new String("Danh mục chính")
                     : store.catSelectedModal.id_parentCat
                     ? store_cat.data.filter(
                         (cat) => store.catSelectedModal.id_parentCat === cat.id
@@ -184,6 +189,7 @@ export const Categories = (props) => {
                 }
                 className="select--shadow"
                 onChange={(e) => {
+                  console.log(store.catSelectedModal);
                   setValue(
                     "id_parentCat",
                     +e.target.value === -1 ? 0 : +e.target.value

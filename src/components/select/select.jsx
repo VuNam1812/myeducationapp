@@ -59,7 +59,9 @@ export const Select = ({
           tabIndex={-100}
           id={`dropdown ${name}`}
         >
-          <span>{selected.text}</span>
+          <span>
+            {selected.text}
+          </span>
           <i className="fa fa-caret-down icon" />
         </div>
         <div className={`drop-down__list ${!show ? "Hidden" : ""}`}>

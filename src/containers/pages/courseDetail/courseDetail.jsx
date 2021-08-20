@@ -68,7 +68,7 @@ export const CourseDetail = (props) => {
       }, 1000);
     })();
     $("html,body").animate({ scrollTop: 0 }, 500);
-  }, [location]);
+  }, [location, store_auth.auth]);
 
   useEffect(() => {
     if (store.course?.id) {

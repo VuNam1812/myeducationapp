@@ -127,7 +127,7 @@ export const InstructorDetail = (props) => {
               </div>
               <div className="instructor__courses">
                 <p className="section-title">
-                  Khóa học giảng dạy bởi giáo viên Hoàng Phúc Photo
+                  Khóa học giảng dạy bởi giáo viên {store_page.teacherInfo.name}
                 </p>
 
                 {store_page.courses.length === 0 ? (

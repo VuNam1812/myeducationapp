@@ -205,7 +205,6 @@ export const handleLessionCourse = {
     const newLecture = { ...data };
     delete newLecture.chapterName;
     delete newLecture.lectureName;
-
     newLecture.name = data.lectureName;
 
     let result = false;

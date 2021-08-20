@@ -18,7 +18,7 @@ export const BackgroundLogin = (props) => {
         <div className="background-login__clip-path"></div>
         <div className="background-login__image">
           <img src={loginImg}></img>
-          <p className='image__text-title'>
+          <p className="image__text-title">
             Điều tuyệt với nhất của việc học là không một ai có thể lấy nó từ
             bạn!
           </p>

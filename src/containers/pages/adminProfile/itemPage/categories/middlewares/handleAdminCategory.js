@@ -4,7 +4,6 @@ import Swal from "sweetalert2";
 import categoryApi from "../../../../../../api/categoryAPI";
 export const handleAdminCategory = {
   updateFirstCatSelected: (index, cat, dispatch) => {
-
     dispatch({
       type: CATEGORIES_ADMIN_ACTION.UPDATE_CAT_SELECT,
       payload: {
@@ -92,7 +91,7 @@ export const handleAdminCategory = {
 
           data.srcImage = urlGetObject;
         } else {
-          delete data.srcImage;
+          data.srcImage = "";
         }
 
         const res = await categoryApi.create(data);
