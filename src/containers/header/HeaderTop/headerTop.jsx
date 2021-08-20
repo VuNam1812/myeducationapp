@@ -9,12 +9,12 @@ export const HeaderTop = (props) => {
     <div className={`header-top ${props.className}`}>
       <div className="wrap">
         <div className="header-top__item">
-          <p className="header-top__item-title">Call Us</p>
-          <p className="header-top__item-info">+1 (800) 123-4567</p>
+          <p className="header-top__item-title">Liên lạc</p>
+          <p className="header-top__item-info">+(84)942-603-267</p>
         </div>
         <div className="header-top__item">
-          <p className="header-top__item-title">Email Us</p>
-          <p className="header-top__item-info">info@mycompany.com</p>
+          <p className="header-top__item-title">Hộp thư</p>
+          <p className="header-top__item-info">info@hcmus.myedu.com</p>
         </div>
         <div className="btn-log">
           <Button

@@ -189,7 +189,6 @@ export const Categories = (props) => {
                 }
                 className="select--shadow"
                 onChange={(e) => {
-                  console.log(store.catSelectedModal);
                   setValue(
                     "id_parentCat",
                     +e.target.value === -1 ? 0 : +e.target.value

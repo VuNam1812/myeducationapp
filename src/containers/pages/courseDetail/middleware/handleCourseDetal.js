@@ -120,7 +120,7 @@ export const handleCourseDetail = {
           type: COURSE_DETAIL_ACTION.UPDATE_IN_FAVOTIRE,
           payload:
             ret.data.findIndex(
-              (course) => +course.slug === +params.slugCourse
+              (course) => course.slug === params.slugCourse
             ) !== -1,
         });
       }

@@ -250,7 +250,6 @@ export const handleLessionCourse = {
 
           newLecture.src = urlGetObject;
         }
-
         const res = await lectureApi.create(newLecture);
         result = res.data.created;
 
