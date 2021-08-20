@@ -2,7 +2,7 @@ import axios from "axios";
 import queryString from "query-string";
 // Set up default config for http requests here
 //"https://udemy-1612407.herokuapp.com/api"
-const URL_BASE = "http://localhost:3030/api";
+const URL_BASE = "https://udemy-1612407.herokuapp.com/api";
 let isTokenExpired = false;
 let refreshTokenRequest = null;
 const axiosClient = axios.create({
