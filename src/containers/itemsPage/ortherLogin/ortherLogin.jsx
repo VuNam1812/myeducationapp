@@ -12,7 +12,7 @@ import "./style.scss";
 import { authContext } from "../../../contexts/auth/authContext";
 const googleId =
   "311192668751-q4t4q17qf3imckc9ajnuu5el53mtd47e.apps.googleusercontent.com";
-const facebookId = "1142560372925886";
+const facebookId = "307194974113706";
 
 export const OrtherLogin = (props) => {
   const { dispatch_auth } = useContext(authContext);
